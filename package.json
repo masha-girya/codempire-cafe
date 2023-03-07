@@ -1,0 +1,34 @@
+{
+  "name": "codempire-cafe",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "linter": "eslint . --ignore-path .gitignore",
+    "precommit": "lint-staged",
+    "prettier": "prettier --config ./.prettierrc --write  \"./src/**/*.{ts,tsx}\"",
+    "fix-style": "yarn prettier && yarn linter -- --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "tslint": "^6.1.3"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "npm run prettier",
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
