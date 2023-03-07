@@ -2,7 +2,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
+  ManyToOne
 } from 'typeorm';
 import { SORT } from 'utils/types/sort.type';
 import { UserEntity } from 'modules/user/user.entity';
