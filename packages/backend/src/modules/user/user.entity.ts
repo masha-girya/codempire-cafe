@@ -1,4 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany
+} from 'typeorm';
 import { ROLES } from 'utils/types/role.type';
 import { OrderEntity } from 'modules/order/order.entity';
 import { MenuEntity } from 'modules/menu/menu.entity';

@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from 'modules/user/user.entity';
@@ -9,17 +8,16 @@ import { MenuModule } from 'modules/menu/menu.module';
 import { OrderEntity } from 'modules/order/order.entity';
 import { DishEntity } from 'modules/dish/dish.entity';
 import { MenuEntity } from 'modules/menu/menu.entity';
-
-dotenv.config();
+import { DB_CONSTANTS as DB } from 'utils/constants/constants';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      host: DB.HOST,
+      username: DB.USERNAME,
+      password: DB.PASSWORD,
+      database: DB.NAME,
       entities: [UserEntity, OrderEntity, DishEntity, MenuEntity],
       synchronize: true,
     }),

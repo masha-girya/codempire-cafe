@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { AUTH_CONSTANTS as AUTH } from 'utils/constants/constants';
 
 @Injectable()
 export class HashService {
   async hashPassword(password: string) {
-    const saltOrRounds = 10;
-
-    return await bcrypt.hash(password, saltOrRounds);
+    return await bcrypt.hash(password, AUTH.SALT_OR_ROUND);
   }
 
   async comparePassword(password: string, hash: string) {
-    return await bcrypt.compare(password, hash)
+    return await bcrypt.compare(password, hash);
   }
 }

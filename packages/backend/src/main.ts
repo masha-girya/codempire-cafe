@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'app.module';
+import { DEV_CONSTANTS as DEV } from 'utils/constants/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3333);
+  const PORT = DEV.PORT || '5000';
+  await app.listen(PORT);
 
-  console.log('WORKING ON 3333')
+  // eslint-disable-next-line no-console
+  console.log(`WORKING ON ${PORT}`);
 }
 bootstrap();
