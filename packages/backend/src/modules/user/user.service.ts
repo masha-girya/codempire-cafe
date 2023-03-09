@@ -15,8 +15,8 @@ export class UserService {
 
   async getUserByEmail(email: string) {
     return this.usersRepository.findOneBy({
-        email
-      });
+      email,
+    });
   }
 
   async registerUser(createUserDto: CreateUserDto) {
@@ -26,13 +26,15 @@ export class UserService {
     createdUser.email = email;
     createdUser.password = password;
 
-    const user = await this.getUserByEmail(createdUser.email);
+    const user = await this.getUserByEmail(email);
 
     if (user) {
       throw new BadRequestException();
     }
 
-    createdUser.password = await this.hashService.hashPassword(createdUser.password);
+    createdUser.password = await this.hashService.hashPassword(
+      createdUser.password
+    );
 
     await this.usersRepository.save(createdUser);
 
