@@ -1,0 +1,31 @@
+import {
+  Controller,
+  Request,
+  UseGuards,
+  Post,
+  Get,
+} from '@nestjs/common';
+import {
+  AuthService,
+  LocalAuthGuard,
+  JwtAuthGuard,
+} from '../auth';
+import { AuthenticatedRequest } from 'utils/types';
+import { ROUTE_CONSTANTS } from 'constants/constants';
+
+@Controller(ROUTE_CONSTANTS.AUTH)
+export class AuthController {
+  constructor(private authService: AuthService) {}
+
+  @UseGuards(LocalAuthGuard)
+  @Post(ROUTE_CONSTANTS.AUTH_LOGIN)
+  async login(@Request() req: AuthenticatedRequest) {
+    return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(ROUTE_CONSTANTS.AUTH_PROFILE)
+  getProfile(@Request() req: AuthenticatedRequest) {
+    return req.user;
+  }
+}

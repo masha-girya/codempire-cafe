@@ -16,4 +16,13 @@ export const DB_CONSTANTS = {
 
 export const DEV_CONSTANTS = {
   PORT: process.env.DEV_PORT,
-};
+} as const;
+
+export const ROUTE_CONSTANTS = {
+  USER: 'user',
+  USER_EMAIL: ':email',
+  USER_REGISTER: 'register',
+  AUTH: 'auth',
+  AUTH_LOGIN: 'login',
+  AUTH_PROFILE: 'profile',
+} as const;
