@@ -4,23 +4,26 @@ import {
   Post,
   Body,
   Param,
-  UseGuards
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { UserService } from 'modules/user/user.service';
-import { CreateUserDto } from 'modules/user/create-user.dto';
+import { ROUTE_CONSTANTS } from 'constants/constants';
+import { UserService, CreateUserDto } from 'modules/user';
 
-@Controller('auth')
+
+@Controller(ROUTE_CONSTANTS.USER)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('email')
-  getUserByEmail(@Param() param) {
-    return this.userService.getUserByEmail(param.email);
+  @Get()
+  getAllUsers() {
+    return this.userService.getAllUsers();
   }
 
-  @Post()
+  @Get(ROUTE_CONSTANTS.USER_EMAIL)
+  getUserByEmail(@Param('email') email: string) {
+    return this.userService.getUserByEmail(email);
+  }
+
+  @Post(ROUTE_CONSTANTS.USER_REGISTER)
   registerUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.registerUser(createUserDto);
   }

@@ -4,10 +4,10 @@ import {
   PrimaryGeneratedColumn,
   OneToMany
 } from 'typeorm';
-import { ROLES } from 'utils/types/role.type';
-import { OrderEntity } from 'modules/order/order.entity';
-import { MenuEntity } from 'modules/menu/menu.entity';
-import { DishEntity } from 'modules/dish/dish.entity';
+import { ROLES } from 'utils/types';
+import { OrderEntity } from 'modules/order';
+import { MenuEntity } from 'modules/menu';
+import { DishEntity } from 'modules/dish';
 
 @Entity('user')
 export class UserEntity {

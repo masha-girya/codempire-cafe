@@ -7,10 +7,10 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { STATUS } from 'utils/types/status.type';
-import { UserEntity } from 'modules/user/user.entity';
-import { DishEntity } from 'modules/dish/dish.entity';
-import { MenuEntity } from 'modules/menu/menu.entity';
+import { STATUS } from 'utils/types';
+import { UserEntity } from 'modules/user';
+import { DishEntity } from 'modules/dish';
+import { MenuEntity } from 'modules/menu';
 
 @Entity('order')
 export class OrderEntity {

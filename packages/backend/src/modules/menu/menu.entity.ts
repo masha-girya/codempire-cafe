@@ -6,8 +6,8 @@ import {
   JoinTable,
   ManyToOne,
 } from 'typeorm';
-import { DishEntity } from 'modules/dish/dish.entity';
-import { UserEntity } from 'modules/user/user.entity';
+import { DishEntity } from 'modules/dish';
+import { UserEntity } from 'modules/user';
 
 @Entity('menu')
 export class MenuEntity {

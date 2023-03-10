@@ -1,22 +1,18 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'modules/user/create-user.dto';
-import { HashService } from 'modules/user/hash.service';
-import { UserEntity } from 'modules/user/user.entity';
+import { CreateUserDto, HashService, UserEntity } from 'modules/user';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
-    private hashService: HashService
+    private hashService: HashService,
   ) {}
 
   async getUserByEmail(email: string) {
-    return this.usersRepository.findOneBy({
-      email,
-    });
+    return this.usersRepository.findOneBy({ email });
   }
 
   async registerUser(createUserDto: CreateUserDto) {
@@ -29,7 +25,9 @@ export class UserService {
     const user = await this.getUserByEmail(email);
 
     if (user) {
-      throw new BadRequestException();
+      throw new BadRequestException({
+        message: 'User have already been registered',
+      });
     }
 
     createdUser.password = await this.hashService.hashPassword(
@@ -39,5 +37,10 @@ export class UserService {
     await this.usersRepository.save(createdUser);
 
     return createdUser;
+  }
+
+  async getAllUsers() {
+    const users = await this.usersRepository.find();
+    return users;
   }
 }

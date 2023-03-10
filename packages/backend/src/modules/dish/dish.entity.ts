@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne
 } from 'typeorm';
-import { SORT } from 'utils/types/sort.type';
-import { UserEntity } from 'modules/user/user.entity';
+import { SORT } from 'utils/types';
+import { UserEntity } from 'modules/user';
 
 @Entity('dish')
 export class DishEntity {
