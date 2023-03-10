@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany
 } from 'typeorm';
-import { ROLES } from 'utils/types';
+import { ROLE } from 'utils/types';
 import { OrderEntity } from 'modules/order';
 import { MenuEntity } from 'modules/menu';
 import { DishEntity } from 'modules/dish';
@@ -53,8 +53,8 @@ export class UserEntity {
 
   @Column({
     type: 'enum',
-    enum: ROLES,
-    default: ROLES.user,
+    enum: ROLE,
+    default: ROLE.user,
   })
   role: string;
 

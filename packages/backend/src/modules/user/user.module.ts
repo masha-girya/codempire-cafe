@@ -4,9 +4,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
 import {
   UserEntity,
-  UserController,
-  UserService,
   HashService,
+  UserService,
+  UserController,
 } from '../user';
 import {
   AuthService,
