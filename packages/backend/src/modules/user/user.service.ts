@@ -1,7 +1,12 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto, HashService, UserEntity } from 'modules/user';
+import { CreateUserDto, HashService, UserEntity } from '../user';
+import {  } from '@nestjs/common/exceptions';
 
 @Injectable()
 export class UserService {
@@ -11,16 +16,28 @@ export class UserService {
     private hashService: HashService,
   ) {}
 
+  async getAllUsers() {
+    const users = await this.usersRepository.find();
+    return users;
+  }
+
   async getUserByEmail(email: string) {
-    return this.usersRepository.findOneBy({ email });
+    const user = await this.usersRepository.findOneBy({ email });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
   }
 
   async registerUser(createUserDto: CreateUserDto) {
-    const { email, password } = createUserDto;
+    const { email, password, role } = createUserDto;
     const createdUser = new UserEntity();
 
     createdUser.email = email;
     createdUser.password = password;
+    createdUser.role = role;
 
     const user = await this.getUserByEmail(email);
 
@@ -37,10 +54,5 @@ export class UserService {
     await this.usersRepository.save(createdUser);
 
     return createdUser;
-  }
-
-  async getAllUsers() {
-    const users = await this.usersRepository.find();
-    return users;
   }
 }

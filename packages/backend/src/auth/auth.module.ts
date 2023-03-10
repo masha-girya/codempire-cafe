@@ -15,7 +15,7 @@ import {
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       secret: AUTH.JWT_SECRET,
-      signOptions: { expiresIn: '360s' },
+      signOptions: { expiresIn: '120d' },
     }),
   ],
   controllers: [AuthController],

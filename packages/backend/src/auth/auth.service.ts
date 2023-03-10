@@ -31,10 +31,11 @@ export class AuthService {
   }
 
   async login(user: UserDto) {
-    const { email, id: sub } = user;
+    const { email, id: sub, role } = user;
     const payload: Omit<IPayload, 'iat'> = {
+      sub,
       email,
-      sub
+      role,
     };
 
     return {
