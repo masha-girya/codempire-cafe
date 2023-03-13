@@ -1,0 +1,55 @@
+@use 'styles/mixins';
+@use 'styles/variables' as var;
+
+.Input {
+  &__container {
+    position: relative;
+  }
+
+  &__password-eye-button {
+    position: absolute;
+    top: 18px;
+    left: 268px;
+
+    height: 19px;
+
+    @include mixins.eyeButton();
+
+    border: none;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    transition: all 0.5s;
+
+    cursor: pointer;
+
+    &:hover {
+      @include mixins.eyeButtonCross();
+    }
+
+    &--cross {
+      @include mixins.eyeButtonCross();
+
+
+      &:hover {
+        @include mixins.eyeButton();
+      }
+    }
+  }
+
+  & .MuiTextField-root {
+    width: var.$width-main;
+  
+    & .MuiOutlinedInput-input {
+      @include mixins.fontSubtitle1();
+      line-height: 24px;
+    }
+  
+    & .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+    & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: var.$color-text-secondary;
+    }
+  }
+}
