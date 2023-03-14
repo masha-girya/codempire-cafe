@@ -1,0 +1,67 @@
+@use './variables' as var;
+
+@mixin fontH1 {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xl;
+  font-weight: var.$font-weight-regular;
+  line-height: 36px;
+}
+
+@mixin fontH2 {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-l;
+  font-weight: var.$font-weight-regular;
+}
+
+@mixin fontH3 {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-m;
+  font-weight: var.$font-weight-medium;
+}
+
+@mixin fontSubtitle1 {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-s;
+  font-weight: var.$font-weight-regular;
+}
+
+@mixin fontSubtitle1Bold {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-m;
+  font-weight: var.$font-weight-medium;
+}
+
+@mixin fontSubtitle2Bold {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xs;
+  font-weight: var.$font-weight-medium;
+}
+
+@mixin fontBody {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xs;
+  font-weight: var.$font-weight-regular;
+}
+
+@mixin fontButton {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xs;
+  font-weight: var.$font-weight-medium;
+  text-transform: uppercase;
+}
+
+@mixin fontCaption {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xxs;
+  font-weight: var.$font-weight-regular;
+}
+
+@mixin eyeButton {
+  width: 22px;
+  background-image: url(../assets/icons/eye.svg);
+}
+
+@mixin eyeButtonCross {
+  width: 21.5px;
+  background-image: url(../assets/icons/eye-cross.svg);
+}
