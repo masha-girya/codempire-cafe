@@ -12,14 +12,16 @@ interface IProps {
   helperText?: string,
 }
 
-export const Input: React.FC<IProps> = ({
-  type,
-  placeholder,
-  value,
-  onChange,
-  isPass,
-  helperText,
-}) => {
+export const Input = (props: IProps) => {
+  const {
+    type,
+    placeholder,
+    value,
+    onChange,
+    isPass,
+    helperText,
+  } = props;
+
   const { passType, setPassType } = useInput();
 
   const handlePassTypeChange = () => {

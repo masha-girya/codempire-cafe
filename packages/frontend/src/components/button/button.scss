@@ -1,0 +1,56 @@
+@use 'styles/mixins';
+@use 'styles/variables' as var;
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: var.$width-main;
+  padding: 16px;
+
+  background-color: var.$color-primary;
+
+  border: 1px solid var.$color-primary;
+  border-radius: 4px;
+
+  @include mixins.fontButton();
+  line-height: 14px;
+  letter-spacing: 1.25px;
+  color: var.$color-text-contrast;
+
+  transition: all 0.3s;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var.$color-text-contrast;
+    color: var.$color-text-primary;
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border: 1px solid transparent;
+
+    color: var.$color-text-button;
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid var.$color-primary
+    }
+  }
+
+  &--small {
+    width: 124px;
+    padding: 10px;
+  }
+  
+  &:disabled {
+    background-color: var.$color-secondary;
+    border-color: transparent;
+    color: var.$color-text-contrast;
+
+    cursor: not-allowed;
+  }
+}
