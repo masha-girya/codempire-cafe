@@ -1,0 +1,30 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.auth-add-info {
+  &__title-block {
+    text-align: center;
+  }
+
+  &__title {
+    @include mixins.fontH1();
+
+    &--secondary {
+      margin-top: 8px;
+      @include mixins.fontSubtitle1();
+    }
+  }
+
+  &__subtitle {
+    margin: 25px 0 10px;
+    @include mixins.fontSubtitle2Bold
+  }
+
+  &__input-block {
+    margin-top: 50px;
+  }
+
+  &__button {
+    margin-top: 50px;
+  }
+}

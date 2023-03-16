@@ -1,0 +1,23 @@
+@use 'styles/variables' as var;
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: 120px;
+
+  &__logo {
+    display: block;
+  }
+
+  &__links {
+    display: flex;
+    justify-content: space-between;
+
+    width: var.$width-main;
+    padding: 0;
+    margin-top: 17px;
+  }
+}

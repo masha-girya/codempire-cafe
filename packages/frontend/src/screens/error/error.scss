@@ -1,0 +1,20 @@
+@use 'styles/mixins';
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  &__message {
+    @include mixins.fontH1();
+  }
+
+  &__link {
+    margin-top: 20px;
+    @include mixins.fontButton();
+  }
+}
