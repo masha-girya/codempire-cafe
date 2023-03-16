@@ -10,7 +10,7 @@ export const ROUTE_CONSTANTS = {
   HOME: '/',
   REGISTRATION: 'registration',
   REGISTRATION_ADD_INFO: '/registration/add-info',
-  MAIN_PAGE: 'main',
+  MAIN_PAGE: '/main',
   ERROR: 'error',
 };
 

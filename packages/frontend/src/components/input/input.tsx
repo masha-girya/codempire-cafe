@@ -39,7 +39,6 @@ export const Input = (props: IProps) => {
         variant="outlined"
         value={value}
         onChange={onChange}
-        className="Input__form-field"
         InputLabelProps={{
           style: { color: '#1E1E1E' },
         }}
