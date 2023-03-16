@@ -1,0 +1,29 @@
+@use 'styles/variables' as var;
+
+.auth-form {
+  &__form-field {
+    position: relative;
+  }
+
+  &__input {
+    margin-top: 30px;
+
+    &:last-of-type {
+      margin-top: 20px;
+    }
+  }
+
+  &__button {
+    margin-top: 40px;
+    &:last-of-type {
+      display: flex;
+      justify-content: center;
+
+      margin-top: 24px;
+    }
+  }
+
+  &__error {
+    color: var.$color-delete;
+  }
+}

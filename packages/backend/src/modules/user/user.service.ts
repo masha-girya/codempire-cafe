@@ -6,7 +6,6 @@ import {
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, HashService, UserEntity } from '../user';
-import {  } from '@nestjs/common/exceptions';
 
 @Injectable()
 export class UserService {
@@ -37,9 +36,9 @@ export class UserService {
 
     createdUser.email = email;
     createdUser.password = password;
-    createdUser.role = role;
+    createdUser.role = role ? role : 'authorizedUser';
 
-    const user = await this.getUserByEmail(email);
+    const user = await this.usersRepository.findOneBy({ email });
 
     if (user) {
       throw new BadRequestException({
@@ -54,5 +53,23 @@ export class UserService {
     await this.usersRepository.save(createdUser);
 
     return createdUser;
+  }
+
+  async updateUser(createUserDto: CreateUserDto) {
+    const { email, name, surname, phone } = createUserDto;
+
+    if(email.length === 0) {
+      throw new NotFoundException();
+    }
+
+    const user = await this.getUserByEmail(email);
+
+    user.name = name;
+    user.surname = surname;
+    user.phone = phone;
+
+    await this.usersRepository.save(user);
+
+    return user;
   }
 }

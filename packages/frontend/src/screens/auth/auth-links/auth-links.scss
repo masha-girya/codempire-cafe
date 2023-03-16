@@ -1,0 +1,13 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.link {
+  @include mixins.fontSubtitle2Bold();
+  line-height: 140%;
+  letter-spacing: 0.1px;
+  color: var.$color-text-primary;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

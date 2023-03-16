@@ -7,7 +7,7 @@ interface IProps {
   text: string,
   type: TButton,
   isDisabled: boolean,
-  onHandleClick: () => void,
+  onHandleClick?: () => void,
   iconStart?: React.ReactNode,
   iconEnd?: React.ReactNode,
   isSmall?: boolean,
