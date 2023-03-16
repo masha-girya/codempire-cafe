@@ -1,0 +1,130 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.header {
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 76px;
+  background-color: var.$color-primary;
+
+  &__container {
+    max-width: 1200px;
+  }
+
+  &__container-menus {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__left-menu, &__right-menu {
+    display: flex;
+    align-items: center;
+  }
+
+  &__right-menu {
+    justify-content: flex-end;
+  }
+
+  &__logo {
+    width: 126px;
+    margin-right: 50px;
+  }
+
+  &__icons {
+    display: flex;
+    column-gap: 20px;
+    margin-right: 40px;
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+
+    transition: border 0.5;
+
+    cursor: pointer;
+  }
+
+  &__form {
+    position: relative;
+  }
+
+  &__search {
+    width: var.$width-main - 16 * 2;
+    padding: 12px;
+
+    border: 1px solid var.$color-text-secondary;
+    border-radius: 3.5px;
+
+    background-color: transparent;
+
+    @include mixins.fontSubtitle1();
+    letter-spacing: 0.15px;
+    color: var.$color-icons-inactive;
+
+    &:hover {
+      border-color: var.$color-secondary;
+    }
+
+    &::placeholder {
+      @include mixins.fontSubtitle1();
+      color: var.$color-icons-inactive;
+    }
+
+    &:focus {
+      outline: 1px solid var.$color-text-secondary;
+    }
+  }
+
+  &__search-button {
+    position: absolute;
+    top: 12px;
+    left: 85%;
+
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+  }
+
+  &__user-info {
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+
+    &--text {
+      text-align: end;
+    }
+
+    &--photo {
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+      background-color: var.$color-text-secondary;
+    }
+  }
+
+  &__user-status {
+    @include mixins.fontCaption();
+    color: var.$color-text-secondary;
+  }
+
+  &__user-name {
+    @include mixins.fontSubtitle2Bold();
+    color: var.$color-text-secondary;
+  }
+}
