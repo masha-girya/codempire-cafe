@@ -65,3 +65,9 @@
   width: 21.5px;
   background-image: url(../assets/icons/eye-cross.svg);
 }
+
+@mixin centerItems($justify, $align) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
