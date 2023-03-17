@@ -3,12 +3,11 @@
 
 .container {
   @include mixins.centerItems(center, flex-end);
-
-  height: 100vh;
 }
 
 .bottom-bar {
   position: fixed;
+  bottom: 0;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -16,6 +15,7 @@
 
   width: 308px;
   height: 75px;
+  margin-top: auto;
   margin-bottom: 18px;
 
   border-radius: 60px;
