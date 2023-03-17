@@ -1,10 +1,8 @@
 @use 'styles/mixins';
 
 .error {
-  display: flex;
+  @include mixins.centerItems(center, center);
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
   width: 100%;
   height: 100vh;

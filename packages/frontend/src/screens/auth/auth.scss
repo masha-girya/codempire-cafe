@@ -1,20 +1,14 @@
 @use 'styles/variables' as var;
+@use 'styles/mixins';
 
 .auth {
-  display: flex;
+  @include mixins.centerItems(center, center);
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
   padding-top: 120px;
 
-  &__logo {
-    display: block;
-  }
-
   &__links {
-    display: flex;
-    justify-content: space-between;
+    @include mixins.centerItems(space-between, center);
 
     width: var.$width-main;
     padding: 0;

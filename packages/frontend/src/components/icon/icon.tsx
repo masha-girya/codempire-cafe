@@ -1,32 +1,35 @@
 import React, { memo } from 'react';
-
-import eye from 'assets/icons/eye.svg';
-import eyeCross from 'assets/icons/eye-cross.svg';
-import logo from 'assets/icons/cafe-logo.svg';
-import logoWhite from 'assets/icons/cafe-logo-white.svg';
-import cart from 'assets/icons/cart.svg';
-import cartHover from 'assets/icons/cart-hover.svg';
-import notifications from 'assets/icons/notifications.svg';
-import notificationsHover from 'assets/icons/notifications-hover.svg';
-import search from 'assets/icons/search.svg';
+import { ReactComponent as Eye } from 'assets/icons/eye.svg';
+import { ReactComponent as EyeCross } from 'assets/icons/eye-cross.svg';
+import { ReactComponent as Logo } from 'assets/icons/cafe-logo.svg';
+import { ReactComponent as LogoWhite } from 'assets/icons/cafe-logo-white.svg';
+import { ReactComponent as Cart } from 'assets/icons/cart.svg';
+import { ReactComponent as Notifications } from 'assets/icons/notifications.svg';
+import { ReactComponent as Search } from 'assets/icons/search.svg';
+import { ReactComponent as Home } from 'assets/icons/home.svg';
+import { ReactComponent as Profile } from 'assets/icons/profile.svg';
+import { ReactComponent as Orders } from 'assets/icons/orders.svg';
 
 export const ICONS = {
-  eye,
-  logo,
-  cart,
-  search,
-  eyeCross,
-  logoWhite,
-  cartHover,
-  notifications,
-  notificationsHover,
+  eye: Eye,
+  logo: Logo,
+  cart: Cart,
+  home: Home,
+  search: Search,
+  orders: Orders,
+  profile: Profile,
+  eyeCross: EyeCross,
+  logoWhite: LogoWhite,
+  notifications: Notifications,
 } as const;
 
 export type TIcon = keyof typeof ICONS;
 
-export const Icon = memo(({ type }: { type: TIcon }) => {
+export const Icon = memo(({ type }: { type: TIcon}) => {
+  const IconComponent = ICONS[type];
+
   return (
-    <img alt={type} src={ICONS[type]} />
+    <IconComponent />
   );
 });
 

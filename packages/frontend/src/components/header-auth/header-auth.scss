@@ -4,9 +4,7 @@
 .header-auth {
   position: fixed;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include mixins.centerItems(center, center);
 
   height: 74px;
   width: 100%;

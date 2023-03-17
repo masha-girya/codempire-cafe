@@ -2,9 +2,7 @@
 @use 'styles/variables' as var;
 
 .button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include mixins.centerItems(center, center);
   gap: 10px;
 
   width: var.$width-main;

@@ -112,7 +112,9 @@ export const AuthForm = (props: IProps) => {
         />
       </div>
 
-      <AuthLinks isSignUp={isSignUp} />
+      <div className="auth__links">
+        <AuthLinks isSignUp={isSignUp} />
+      </div>
 
       {(isError && isSignUp) && (
         <p className="auth-form__error">
@@ -127,23 +129,23 @@ export const AuthForm = (props: IProps) => {
       )}
 
       <div className="auth-form__button">
-          <MainButton
-            text={buttonText}
-            type="submit"
-            isDisabled={isButtonDisabled}
-          />
-        </div>
+        <MainButton
+          text={buttonText}
+          type="submit"
+          isDisabled={isButtonDisabled}
+        />
+      </div>
 
-        <div className="auth-form__button">
-          <MainButton
-            text="skip"
-            type="button"
-            isDisabled={false}
-            onHandleClick={handleSkipClick}
-            isSecondary={true}
-            isSmall={true}
-          />
-        </div>
+      <div className="auth-form__button">
+        <MainButton
+          text="skip"
+          type="button"
+          isDisabled={false}
+          onHandleClick={handleSkipClick}
+          isSecondary={true}
+          isSmall={true}
+        />
+      </div>
     </form>
   );
 };

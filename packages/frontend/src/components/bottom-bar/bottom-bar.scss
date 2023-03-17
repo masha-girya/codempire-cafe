@@ -1,0 +1,56 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.container {
+  @include mixins.centerItems(center, flex-end);
+
+  height: 100vh;
+}
+
+.bottom-bar {
+  position: fixed;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+
+  width: 308px;
+  height: 75px;
+  margin-bottom: 18px;
+
+  border-radius: 60px;
+
+  background-color: var.$color-text-main;
+
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 5px 5px rgba(0, 0, 0, 0.2);
+
+  filter: drop-shadow(0px 4px 5px rgba(123, 97, 255, 0.25)) drop-shadow(0px 1px 10px rgba(0, 0, 0, 0.12)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2));
+
+  &__nav {
+    background-color: transparent;
+    border: none;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    &--text {
+      margin-top: 2px;
+
+      @include mixins.fontCaption();
+      color: var.$color-text-secondary;
+    }
+
+    path {
+      fill: var.$color-text-secondary;
+    }
+
+    &:hover path, &--is-active path {
+      fill: var.$color-text-contrast;
+    }
+
+    &:hover &--text, &--is-active &--text {
+      color: var.$color-text-contrast;
+    }
+  }
+}

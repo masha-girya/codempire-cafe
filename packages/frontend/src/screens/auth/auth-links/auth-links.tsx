@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './auth-links.scss';
 
 interface IProps {
@@ -10,31 +11,19 @@ export const AuthLinks = (props: IProps) => {
   const { isSignUp } = props;
 
   return (
-    <div className="auth__links">
-      {isSignUp ? (
-        <Link
-          to="/"
-          className="link"
-        >
-          Log In
-        </Link>
-      ) : (
+    <>
+      {isSignUp ? <Link to={ROUTE.HOME} className="link" >Log In</Link>
+      : (
         <>
-          <Link
-            to="/"
-            className="link"
-          >
+          <Link to={ROUTE.HOME} className="link" >
             Forgot password?
           </Link>
 
-          <Link
-            to="/registration"
-            className="link"
-          >
+          <Link to={ROUTE.REGISTRATION} className="link" >
             Sign up
           </Link>
         </>
       )}
-    </div>
+    </>
   );
 };
