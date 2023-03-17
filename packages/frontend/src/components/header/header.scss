@@ -2,7 +2,7 @@
 @use 'styles/mixins';
 
 .header {
-  position: fixed;
+  position: sticky;
 
   @include mixins.centerItems(center, center);
 
