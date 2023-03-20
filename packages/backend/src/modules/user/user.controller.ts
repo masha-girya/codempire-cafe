@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Param, UseGuards, Patch } from '@nestjs/common';
-import { ROUTE_CONSTANTS } from 'constants/constants';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Patch,
+} from '@nestjs/common';
+import { Role, RolesGuard } from 'auth/roles-strategy';
+import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { UserService, CreateUserDto } from '../user';
-import { Role } from 'modules/decorators';
 import { ROLE } from 'utils/types';
-import { JwtAuthGuard, RolesGuard } from 'auth';
+import { ROUTE_CONSTANTS } from 'constants/constants';
 
 @Controller(ROUTE_CONSTANTS.USER)
 export class UserController {

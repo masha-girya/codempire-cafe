@@ -2,23 +2,36 @@ import React from 'react';
 import { MainButton } from 'components/button';
 import { cutDescription } from 'utils/helpers';
 import './product-card.scss';
+import { IDish } from 'utils/types';
 
-export const ProductCard = () => {
+interface IProps {
+  card: IDish,
+}
+
+export const ProductCard = ({ card }: IProps) => {
+  const {
+    title,
+    description,
+    weight,
+    price,
+    image,
+   } = card;
+
   return (
     <div className="container-card">
       <div className="card">
         <div className="card__content">
-          <div className="card__image" />
+          <img src={image} className="card__image" />
 
           <div className="card__main-info">
-            <p className="card__title">Some Salad</p>
+            <p className="card__title">{title}</p>
             <p className="card__description">
-              {cutDescription('Description')}
+              {cutDescription(description)}
             </p>
 
             <div className="card__info">
-              <h3 className="card__price">500 UAH</h3>
-              <h3 className="card__weight">120g</h3>
+              <h3 className="card__price">{`${price}uah`}</h3>
+              <h3 className="card__weight">{`${weight}g`}</h3>
             </div>
           </div>
 

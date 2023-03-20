@@ -5,10 +5,10 @@ import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
 import { UserEntity, UserService, HashService } from 'modules/user';
 import {
   AuthService,
-  LocalStrategy,
   AuthController,
-  JwtStrategy,
 } from '../auth';
+import { JwtStrategyModule } from './jwt-strategy';
+import { LocalStrategyModule } from './local-strategy';
 
 @Module({
   imports: [
@@ -17,13 +17,13 @@ import {
       secret: AUTH.JWT_SECRET,
       signOptions: { expiresIn: '120d' },
     }),
+    JwtStrategyModule,
+    LocalStrategyModule,
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     UserService,
-    LocalStrategy,
-    JwtStrategy,
     HashService,
   ],
   exports: [AuthService],

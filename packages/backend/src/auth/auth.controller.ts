@@ -5,13 +5,12 @@ import {
   Post,
   Get,
 } from '@nestjs/common';
-import {
-  AuthService,
-  LocalAuthGuard,
-  JwtAuthGuard,
-} from '../auth';
+import { LocalAuthGuard } from './local-strategy';
+import { JwtAuthGuard } from './jwt-strategy';
+import { AuthService } from '../auth';
 import { AuthenticatedRequest } from 'utils/types';
 import { ROUTE_CONSTANTS } from 'constants/constants';
+
 
 @Controller(ROUTE_CONSTANTS.AUTH)
 export class AuthController {
