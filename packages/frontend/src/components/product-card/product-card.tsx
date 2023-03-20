@@ -1,8 +1,7 @@
 import React from 'react';
 import { MainButton } from 'components/button';
-import { cutDescription } from 'utils/helpers';
-import './product-card.scss';
 import { IDish } from 'utils/types';
+import './product-card.scss';
 
 interface IProps {
   card: IDish,
@@ -21,12 +20,12 @@ export const ProductCard = ({ card }: IProps) => {
     <div className="container-card">
       <div className="card">
         <div className="card__content">
-          <img src={image} className="card__image" />
+          <img src={`data:image/png;base64,${image}`} className="card__image" />
 
           <div className="card__main-info">
             <p className="card__title">{title}</p>
             <p className="card__description">
-              {cutDescription(description)}
+              {description}
             </p>
 
             <div className="card__info">
