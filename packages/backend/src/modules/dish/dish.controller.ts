@@ -7,12 +7,15 @@ import {
   UseGuards,
   Delete,
   Patch,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CreatedDishDto, DishService } from '../dish';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { ROLE } from 'utils/types';
 import { ROUTE_CONSTANTS } from 'constants/constants';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller(ROUTE_CONSTANTS.DISH)
 export class DishController {
@@ -33,13 +36,26 @@ export class DishController {
   }
 
   @Post()
-  addDish(@Body() dishDto: CreatedDishDto) {
-    return this.dishService.addDish(dishDto);
+  @UseInterceptors(FileInterceptor('image'))
+  addDish(@Body() dishDto: CreatedDishDto, @UploadedFile() image: Express.Multer.File) {
+    const bufferImage = Buffer.from(image.buffer);
+
+    return this.dishService.addDish(dishDto, bufferImage);
   }
 
   @Patch(ROUTE_CONSTANTS.DISH_ID)
-  updateDish(@Param('id') id: string, @Body() updatedDishDto: CreatedDishDto) {
-    return this.dishService.updateDish(id, updatedDishDto);
+  @UseInterceptors(FileInterceptor('image'))
+  updateDish(
+    @Param('id') id: string,
+    @Body() updatedDishDto: CreatedDishDto,
+    @UploadedFile() image?: Express.Multer.File) {
+    let bufferImage = null;
+
+    if(image) {
+      bufferImage = Buffer.from(image.buffer);
+    }
+
+    return this.dishService.updateDish(id, updatedDishDto, bufferImage);
   }
 
   @Delete(ROUTE_CONSTANTS.DISH_ID)

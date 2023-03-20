@@ -43,7 +43,7 @@ export class DishEntity {
   @Column('char', { array: true, length: 255 })
   categories: string[];
 
-  @Column('char',{ nullable: true, length: 255 })
+  @Column('character varying',{ nullable: true })
   image: string;
 
   @ManyToOne(() => UserEntity, (user) => user.createdDishes, { nullable: true })
