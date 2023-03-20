@@ -12,10 +12,10 @@ export class DishEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('character varying')
   title: string;
 
-  @Column()
+  @Column('character varying')
   description: string;
 
   @Column('int')
@@ -24,11 +24,12 @@ export class DishEntity {
   @Column('int')
   price: number;
 
-  @Column('char', { array: true })
+  @Column('char', { array: true, length: 255 })
   ingredients: string[];
 
   @Column('char', {
     array: true,
+    length: 255,
     nullable: true,
   })
   allergens: string[];
@@ -39,17 +40,15 @@ export class DishEntity {
   })
   sort: SORT;
 
-  @Column('char', { array: true })
+  @Column('char', { array: true, length: 255 })
   categories: string[];
 
-  @Column({
-    nullable: true,
-  })
+  @Column('char',{ nullable: true, length: 255 })
   image: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.createdDishes)
+  @ManyToOne(() => UserEntity, (user) => user.createdDishes, { nullable: true })
   createdBy: UserEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.editedDishes)
+  @ManyToOne(() => UserEntity, (user) => user.editedDishes, { nullable: true })
   editedBy: UserEntity;
 }

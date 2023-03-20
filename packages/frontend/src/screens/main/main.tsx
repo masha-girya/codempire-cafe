@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from 'components/header';
 import { BottomBar } from 'components/bottom-bar';
-import { ProductList } from '../main';
+import { ProductList, Sidebar } from '../main';
 import './main.scss';
 
 export const Main = () => {
@@ -10,6 +10,7 @@ export const Main = () => {
       <Header />
 
       <div className="main__container">
+        <Sidebar />
         <ProductList />
       </div>
 

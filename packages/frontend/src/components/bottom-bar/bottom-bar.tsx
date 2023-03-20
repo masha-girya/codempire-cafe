@@ -1,12 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Icon } from 'components/icon';
 import { NAVIGATION_CONSTANTS as navigation } from 'utils/constants';
 import './bottom-bar.scss';
 
 
 export const BottomBar = () => {
+  const location = useLocation();
+
   return (
     <div className="container">
       <nav className="bottom-bar">

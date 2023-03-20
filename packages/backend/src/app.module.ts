@@ -20,8 +20,8 @@ import { AuthModule } from 'auth';
     }),
     AuthModule,
     UserModule,
-    OrderModule,
     DishModule,
+    OrderModule,
     MenuModule,
   ],
 })

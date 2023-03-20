@@ -6,6 +6,7 @@ export const API_CONSTANTS = {
   LOGIN_URL: '/auth/login',
   VALIDATE_TOKEN_URL: '/auth/profile',
   USER_EDIT: '/user/edit',
+  DISH: '/dish',
 };
 
 export const ROUTE_CONSTANTS = {
