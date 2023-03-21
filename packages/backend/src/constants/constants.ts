@@ -29,4 +29,6 @@ export const ROUTE_CONSTANTS = {
   AUTH_PROFILE: 'profile',
   DISH: 'dish',
   DISH_ID: ':id',
+  MENU: 'menu',
+  MENU_ID: ':id',
 } as const;

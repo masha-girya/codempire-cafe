@@ -7,6 +7,7 @@ export const API_CONSTANTS = {
   VALIDATE_TOKEN_URL: '/auth/profile',
   USER_EDIT: '/user/edit',
   DISH: '/dish',
+  MENU: '/menu',
 };
 
 export const ROUTE_CONSTANTS = {
@@ -14,6 +15,8 @@ export const ROUTE_CONSTANTS = {
   REGISTRATION: '/registration',
   REGISTRATION_ADD_INFO: '/registration/add-info',
   MAIN_PAGE: '/home',
+  MAIN_PAGE_DISH: '/home/dishes',
+  MAIN_PAGE_MENU: '/home/menus',
   ERROR: '/error',
 };
 

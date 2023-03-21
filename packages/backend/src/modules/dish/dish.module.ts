@@ -22,5 +22,6 @@ import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
     DishService,
   ],
   controllers: [DishController],
+  exports: [DishService],
 })
 export class DishModule {}

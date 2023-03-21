@@ -1,18 +1,41 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'store/store.hooks';
-import { loadDishes } from 'store/features/dishes';
+import { useEffect, useState, useCallback } from 'react';
+import { useProductRequest, getDishes, getMenus } from '../product-list';
+import { IDish, IMenu } from 'utils/types';
 
-export const useProductState = () => {
-  const dispatch = useAppDispatch();
+interface IProps {
+  productOnLoad: string,
+}
+
+export const useProductState = (props: IProps) => {
+  const { productOnLoad } = props;
+  const [ products, setProducts ] = useState<IMenu[] | IDish[]>([]);
   const {
-    dishes,
-    isLoading,
+    sendRequest,
     isError,
-  } = useAppSelector(state => state.dishes);
+    isLoading,
+  } = useProductRequest();
 
-  useEffect(() => {
-    dispatch(loadDishes());
+  const loadDishes = useCallback(async() => {
+    const dishes = await sendRequest(getDishes);
+    setProducts(dishes || []);
+    return dishes;
   }, []);
 
-  return { dishes, isLoading, isError };
+  const loadMenus = useCallback(async() => {
+    const menus = await sendRequest(getMenus);
+    setProducts(menus || []);
+    return menus;
+  }, []);
+
+  useEffect(() => {
+    if(productOnLoad === 'dishes') {
+      loadDishes();
+    }
+
+    if(productOnLoad === 'menus') {
+      loadMenus();
+    }
+  }, [productOnLoad]);
+
+  return { products, isLoading, isError };
 };

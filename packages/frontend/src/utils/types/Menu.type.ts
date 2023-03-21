@@ -1,12 +1,9 @@
 import { IDish, IUser } from '../types';
 
-export interface IMenu {
-  id: string,
-  title: string,
-  description: string,
-  weight: number,
-  price: number,
+export interface IMenu extends IDish {
   createdBy: IUser,
   editedBy: IUser,
   dishes: IDish[],
+  dishesId: string[],
+  dishesTitle: string[],
 }

@@ -1,7 +1,23 @@
 .main {
   &__container {
     height: 100vh;
-    margin-top: 24px;
+    margin: 24px auto 0;
     max-width: 960px;
+  }
+
+  &__top-menu {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    column-gap: 16px;
+  }
+
+  &__product-list {
+    margin-top: 32px;
   }
 }
