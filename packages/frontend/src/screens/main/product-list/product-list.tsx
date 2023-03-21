@@ -1,22 +1,34 @@
 import React from 'react';
 import { ProductCard } from 'components/product-card';
-import { IDish } from 'utils/types';
+import { IDish, IMenu } from 'utils/types';
 import { useProductState } from '../product-list';
 import './product-list.scss';
 
-export const ProductList = () => {
-  const { dishes, isLoading, isError } = useProductState();
+interface IProps {
+  productOnLoad: 'menus' | 'dishes',
+}
+
+export const ProductList = (props: IProps) => {
+  const { productOnLoad } = props;
+  const {
+    products,
+    isLoading,
+    isError,
+  } = useProductState({ productOnLoad });
 
   return (
     <div className="product-list">
       {isLoading && <p>Loading...</p>}
-
-      {isError
-        ? <p>{isError}</p>
-        : dishes.map((card: IDish) => (
-          <ProductCard key={card.id} card={card} />
-        ))
-      }
+        {isError
+          ? <p>Something went wrong</p>
+          : products.map((prod: IDish | IMenu) => (
+            <ProductCard
+              key={prod.id}
+              card={prod}
+              dishesTitle={'dishesTitle' in prod ? prod.dishesTitle : undefined}
+            />
+          ))
+        }
     </div>
   );
 };

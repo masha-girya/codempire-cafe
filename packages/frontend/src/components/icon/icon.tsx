@@ -9,6 +9,7 @@ import { ReactComponent as Search } from 'assets/icons/search.svg';
 import { ReactComponent as Home } from 'assets/icons/home.svg';
 import { ReactComponent as Profile } from 'assets/icons/profile.svg';
 import { ReactComponent as Orders } from 'assets/icons/orders.svg';
+import { ReactComponent as SelectIcon } from 'assets/icons/select-icon.svg';
 
 export const ICONS = {
   eye: Eye,
@@ -20,6 +21,7 @@ export const ICONS = {
   profile: Profile,
   eyeCross: EyeCross,
   logoWhite: LogoWhite,
+  selectIcon: SelectIcon,
   notifications: Notifications,
 } as const;
 

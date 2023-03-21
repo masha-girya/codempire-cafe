@@ -1,13 +1,14 @@
 import React from 'react';
 import { MainButton } from 'components/button';
-import { IDish } from 'utils/types';
+import { IDish, IMenu } from 'utils/types';
 import './product-card.scss';
 
 interface IProps {
-  card: IDish,
+  card: IDish | IMenu,
+  dishesTitle?: string[],
 }
 
-export const ProductCard = ({ card }: IProps) => {
+export const ProductCard = ({ card, dishesTitle }: IProps) => {
   const {
     title,
     description,
@@ -25,7 +26,7 @@ export const ProductCard = ({ card }: IProps) => {
           <div className="card__main-info">
             <p className="card__title">{title}</p>
             <p className="card__description">
-              {description}
+              {dishesTitle ? dishesTitle.join(', ') : description}
             </p>
 
             <div className="card__info">

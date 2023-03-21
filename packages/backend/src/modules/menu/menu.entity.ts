@@ -14,10 +14,10 @@ export class MenuEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('character varying')
   title: string;
 
-  @Column()
+  @Column('character varying')
   description: string;
 
   @Column('int')
@@ -25,6 +25,35 @@ export class MenuEntity {
 
   @Column('int')
   price: number;
+
+  @Column('character varying', { nullable: true })
+  image: string;
+
+  @Column('character varying',{
+    array: true,
+    nullable: true,
+  })
+  dishesTitle: string[];
+
+  @Column('char', { array: true, length: 255 })
+  ingredients: string[];
+
+  @Column('char', { array: true, length: 255 })
+  categories: string[];
+
+  @Column('char', {
+    array: true,
+    length: 255,
+    nullable: true,
+  })
+  allergens: string[];
+
+  @Column('char', {
+    array: true,
+    length: 255,
+    nullable: true,
+  })
+  dishesId: string[];
 
   @ManyToOne(() => UserEntity, (user) => user.createdMenus)
   createdBy: UserEntity;
