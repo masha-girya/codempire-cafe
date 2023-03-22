@@ -7,7 +7,7 @@
   }
 
   &__line {
-    @include mixins.filterLine();
+    @include mixins.line();
   }
 
   &__checkbox.MuiCheckbox-root.Mui-checked {

@@ -11,12 +11,14 @@ import { ReactComponent as Profile } from 'assets/icons/profile.svg';
 import { ReactComponent as Orders } from 'assets/icons/orders.svg';
 import { ReactComponent as SelectIcon } from 'assets/icons/select-icon.svg';
 import { ReactComponent as Filter } from 'assets/icons/filter.svg';
+import { ReactComponent as Back } from 'assets/icons/back.svg';
 
 export const ICONS = {
   eye: Eye,
   logo: Logo,
   cart: Cart,
   home: Home,
+  back: Back,
   search: Search,
   filter: Filter,
   orders: Orders,

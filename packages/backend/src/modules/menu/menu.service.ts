@@ -47,6 +47,7 @@ export class MenuService {
 
   async addMenu(createdMenuDto: CreatedMenuDto, bufferImage: Buffer) {
     const { title, dishesId } = createdMenuDto;
+
     const menu = await this.menuRepository.findOneBy({ title });
 
     if (menu) {
@@ -67,10 +68,10 @@ export class MenuService {
 
     createdMenu.dishes = dishes;
 
-    createdMenu.ingredients = getDishesProperties(dishes, 'ingredients');
+    createdMenu.ingredients = dishes.map(dish => dish.title);
     createdMenu.categories = getDishesProperties(dishes, 'categories');
     createdMenu.allergens = getDishesProperties(dishes, 'allergens');
-    createdMenu.dishesTitle = getDishesProperties(dishes, 'title');
+
     createdMenu.weight = getTotalWeight(dishes);
 
     const base64Image = bufferImage.toString('base64');

@@ -2,13 +2,10 @@
   display: grid;
   grid-template-columns: repeat(3, 226px);
   gap: 21px;
-  justify-content: flex-end;
+  align-content: start;
 
   &__container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    column-gap: 20px;
-
-    margin-top: 32px;
   }
 }

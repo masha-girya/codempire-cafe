@@ -8,8 +8,8 @@ export const API_CONSTANTS = {
   USER_EDIT: '/user/edit',
   DISH: '/dish',
   DISH_FILTER: '/dish?filter=',
-  MENU_FILTER: '/menu?filter=',
   MENU: '/menu',
+  MENU_FILTER: '/menu?filter=',
 };
 
 export const ROUTE_CONSTANTS = {
