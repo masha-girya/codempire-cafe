@@ -72,7 +72,7 @@ export const AuthForm = (props: IProps) => {
         await sendAuthRequest(async() => {
           const res = await login(email, password);
           if (res) {
-            navigate(ROUTE.MAIN_PAGE);
+            navigate(ROUTE.MAIN_PAGE_DISH);
           }
         });
         break;
@@ -83,7 +83,7 @@ export const AuthForm = (props: IProps) => {
   };
 
   const handleSkipClick = () => {
-    navigate(ROUTE.MAIN_PAGE);
+    navigate(ROUTE.MAIN_PAGE_DISH);
   };
 
   return (

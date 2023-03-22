@@ -3,9 +3,10 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ArrayContains, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DishEntity, CreatedDishDto, cutDescription } from '../dish';
+import { SORT } from 'utils/types';
 
 @Injectable()
 export class DishService {
@@ -14,9 +15,18 @@ export class DishService {
     private dishRepository: Repository<DishEntity>,
   ) {}
 
-  async getAllDishes() {
-    const dishes = await this.dishRepository.find();
-    const upDishes = dishes.map(dish => {
+  async getDishes(categories: string[]) {
+    let dishes;
+
+    if(categories.length === 0) {
+      dishes = await this.dishRepository.find();
+    } else {
+      dishes = await this.dishRepository
+      .findBy({
+        categories: ArrayContains(categories) });
+    }
+
+    const updatedDishes = dishes.map(dish => {
       const { description } = dish;
 
       dish.description = cutDescription(description);
@@ -24,7 +34,7 @@ export class DishService {
       return dish;
     });
 
-    return upDishes;
+    return updatedDishes;
   }
 
   async getDishById(id: string) {
@@ -76,5 +86,15 @@ export class DishService {
 
   async removeDish(id: string) {
     await this.dishRepository.delete(id);
+  }
+
+  async getCategories(sort: SORT) {
+    const dishes = await this.dishRepository.findBy({ sort });
+
+    const categories = dishes.map(dish => dish.categories).flat();
+
+    const uniqueCategories = [...new Set(categories)];
+
+    return uniqueCategories;
   }
 }

@@ -9,28 +9,40 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatedDishDto, DishService } from '../dish';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { ROLE } from 'utils/types';
-import { ROUTE_CONSTANTS } from 'constants/constants';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { ROLE, SORT } from 'utils/types';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
 
-@Controller(ROUTE_CONSTANTS.DISH)
+@Controller(ROUTE.DISH)
 export class DishController {
   constructor(private readonly dishService: DishService) {}
 
-  // @Role(ROLE.manager)
-  // @UseGuards(JwtAuthGuard)
   @Get()
-  getAllDishes() {
-    return this.dishService.getAllDishes();
+  getDishes(@Query('filter') filter: string[] | string) {
+    let category;
+
+    if(filter) {
+      category = Array.isArray(filter) ? filter : [filter];
+    } else {
+      category = [];
+    }
+
+    return this.dishService.getDishes(category);
+  }
+
+  @Get(ROUTE.DISH_SORT)
+  getCategories(@Query('sort') sort: SORT) {
+    return this.dishService.getCategories(sort);
   }
 
   @Role(ROLE.manager)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get(ROUTE_CONSTANTS.DISH_ID)
+  @Get(ROUTE.DISH_ID)
   getDishById(@Param('id') id: string) {
     return this.dishService.getDishById(id);
   }
@@ -43,7 +55,7 @@ export class DishController {
     return this.dishService.addDish(dishDto, bufferImage);
   }
 
-  @Patch(ROUTE_CONSTANTS.DISH_ID)
+  @Patch(ROUTE.DISH_ID)
   @UseInterceptors(FileInterceptor('image'))
   updateDish(
     @Param('id') id: string,
@@ -58,7 +70,7 @@ export class DishController {
     return this.dishService.updateDish(id, updatedDishDto, bufferImage);
   }
 
-  @Delete(ROUTE_CONSTANTS.DISH_ID)
+  @Delete(ROUTE.DISH_ID)
   removeDish(@Param('id') id: string) {
     return this.dishService.removeDish(id);
   }

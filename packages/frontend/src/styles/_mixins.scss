@@ -71,3 +71,8 @@
   align-items: $align;
   justify-content: $justify;
 }
+
+@mixin filterLine() {
+  border-top: 0.2px var.$color-icons-inactive;
+  opacity: 0.2;
+}

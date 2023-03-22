@@ -1,11 +1,8 @@
 import { CreatedDishDto } from 'modules/dish';
 
 export function getDishesProperties(dishes: CreatedDishDto[], prop: string) {
-  const newProp = dishes
-    .map(dish => dish[prop])
-    .reduce((accumulator, currentValue) => (
-      accumulator.concat(currentValue)
-      ), []);
+  const newProp: string[] = dishes
+    .map(dish => dish[prop]).flat();
 
   return newProp;
 }

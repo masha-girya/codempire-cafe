@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from 'components/icon';
 import { useAppSelector } from 'store';
+import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './header.scss';
 
 export const Header = () => {
@@ -12,7 +14,9 @@ export const Header = () => {
         <div className="header__container-menus">
           <div className="header__left-menu">
             <div className="header__logo">
-              <Icon type="logoWhite" />
+              <Link to={ROUTE.MAIN_PAGE_DISH}>
+                <Icon type="logoWhite" />
+              </Link>
             </div>
 
             <div className="header__icons">

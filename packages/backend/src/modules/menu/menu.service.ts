@@ -3,7 +3,7 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ArrayContains, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DishService } from 'modules/dish';
 import {
@@ -21,8 +21,18 @@ export class MenuService {
     private dishService: DishService,
   ) {}
 
-  async getAllMenus() {
-    return await this.menuRepository.find();
+  async getMenus(categories: string[]) {
+    let menus;
+
+    if(categories.length === 0) {
+      menus = await this.menuRepository.find();
+    } else {
+      menus = await this.menuRepository
+      .findBy({
+        categories: ArrayContains(categories) });
+    }
+
+    return menus;
   }
 
   async getMenuById(id: string) {

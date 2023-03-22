@@ -12,6 +12,7 @@ interface IProps {
   iconEnd?: React.ReactNode,
   isSmall?: boolean,
   isSecondary?: boolean,
+  isActive?: boolean,
 }
 
 export const MainButton = (props: IProps) => {
@@ -24,6 +25,7 @@ export const MainButton = (props: IProps) => {
     iconEnd,
     isSmall,
     isSecondary,
+    isActive,
   } = props;
 
   return (
@@ -34,6 +36,7 @@ export const MainButton = (props: IProps) => {
         className={classnames('button', {
           'button--small': isSmall,
           'button--secondary': isSecondary,
+          'button--active': isActive,
         })}
       >
         {iconStart}

@@ -7,6 +7,8 @@ export const API_CONSTANTS = {
   VALIDATE_TOKEN_URL: '/auth/profile',
   USER_EDIT: '/user/edit',
   DISH: '/dish',
+  DISH_FILTER: '/dish?filter=',
+  MENU_FILTER: '/menu?filter=',
   MENU: '/menu',
 };
 

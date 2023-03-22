@@ -51,7 +51,7 @@ export const AuthAddInfo = () => {
       ]);
 
       if(res) {
-        navigate(ROUTE.MAIN_PAGE);
+        navigate(ROUTE.MAIN_PAGE_DISH);
         return;
       }
 
