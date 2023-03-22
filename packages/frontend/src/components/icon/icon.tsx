@@ -10,6 +10,7 @@ import { ReactComponent as Home } from 'assets/icons/home.svg';
 import { ReactComponent as Profile } from 'assets/icons/profile.svg';
 import { ReactComponent as Orders } from 'assets/icons/orders.svg';
 import { ReactComponent as SelectIcon } from 'assets/icons/select-icon.svg';
+import { ReactComponent as Filter } from 'assets/icons/filter.svg';
 
 export const ICONS = {
   eye: Eye,
@@ -17,6 +18,7 @@ export const ICONS = {
   cart: Cart,
   home: Home,
   search: Search,
+  filter: Filter,
   orders: Orders,
   profile: Profile,
   eyeCross: EyeCross,

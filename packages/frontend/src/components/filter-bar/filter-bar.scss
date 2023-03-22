@@ -1,27 +1,13 @@
 @use 'styles/mixins';
 @use 'styles/variables' as var;
 
-.sidebar {
+.filter-bar {
   &__title {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-
-    @include mixins.fontSubtitle2Bold();
-    color: var.$color-primary;
-  }
-
-  &__category-box {
-    margin-top: 24px;
-  }
-
-  &__category-title {
     @include mixins.fontSubtitle1Bold();
   }
 
   &__line {
     @include mixins.filterLine();
-    margin-top: 10px;
   }
 
   &__checkbox.MuiCheckbox-root.Mui-checked {

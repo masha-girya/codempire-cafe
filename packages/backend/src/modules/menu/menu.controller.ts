@@ -9,26 +9,35 @@ import {
   Patch,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatedMenuDto, MenuService } from '../menu';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { ROLE } from 'utils/types';
-import { ROUTE_CONSTANTS } from 'constants/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
 
-@Controller(ROUTE_CONSTANTS.MENU)
+@Controller(ROUTE.MENU)
 export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @Get()
-  getAllMenus() {
-    return this.menuService.getAllMenus();
+  getMenus(@Query('filter') filter: string[] | string) {
+    let category;
+
+    if(filter) {
+      category = Array.isArray(filter) ? filter : [filter];
+    } else {
+      category = [];
+    }
+
+    return this.menuService.getMenus(category);
   }
 
   @Role(ROLE.manager)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get(ROUTE_CONSTANTS.MENU_ID)
+  @Get(ROUTE.MENU_ID)
   getMenuById(@Param('id') id: string) {
     return this.menuService.getMenuById(id);
   }
@@ -44,7 +53,7 @@ export class MenuController {
     return this.menuService.addMenu(menuDto, bufferImage);
   }
 
-  @Patch(ROUTE_CONSTANTS.MENU_ID)
+  @Patch(ROUTE.MENU_ID)
   @UseInterceptors(FileInterceptor('image'))
   updateMenu(
     @Param('id') id: string,
@@ -59,7 +68,7 @@ export class MenuController {
     return this.menuService.updateMenu(id, updatedMenuDto, bufferImage);
   }
 
-  @Delete(ROUTE_CONSTANTS.MENU_ID)
+  @Delete(ROUTE.MENU_ID)
   removeMenu(@Param('id') id: string) {
     return this.menuService.removeMenu(id);
   }

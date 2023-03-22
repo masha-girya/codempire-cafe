@@ -40,7 +40,10 @@ export class DishEntity {
   })
   sort: SORT;
 
-  @Column('char', { array: true, length: 255 })
+  @Column('character varying', {
+    array: true,
+    nullable: true,
+  })
   categories: string[];
 
   @Column('character varying',{ nullable: true })

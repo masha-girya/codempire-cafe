@@ -17,18 +17,21 @@ export const ProductList = (props: IProps) => {
   } = useProductState({ productOnLoad });
 
   return (
-    <div className="product-list">
-      {isLoading && <p>Loading...</p>}
-        {isError
-          ? <p>Something went wrong</p>
-          : products.map((prod: IDish | IMenu) => (
-            <ProductCard
-              key={prod.id}
-              card={prod}
-              dishesTitle={'dishesTitle' in prod ? prod.dishesTitle : undefined}
-            />
-          ))
-        }
+    <div className="product-list__container">
+      <div className="product-list">
+        {isLoading && <p>Loading...</p>}
+          {isError
+            ? <p>Something went wrong</p>
+            : products.map((prod: IDish | IMenu) => (
+              <ProductCard
+                key={prod.id}
+                card={prod}
+                dishesTitle={'dishesTitle' in prod ? prod.dishesTitle : undefined}
+              />
+            ))
+          }
+      </div>
     </div>
+    
   );
 };

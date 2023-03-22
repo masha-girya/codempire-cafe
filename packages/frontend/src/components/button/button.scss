@@ -44,6 +44,11 @@
     width: 194px;
     padding: 10px;
   }
+
+  &--active {
+    background-color: transparent;
+    color: var.$color-primary;
+  }
   
   &:disabled {
     background-color: var.$color-secondary;

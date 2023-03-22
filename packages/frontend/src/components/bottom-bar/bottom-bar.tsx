@@ -17,7 +17,7 @@ export const BottomBar = () => {
             key={nav}
             to={`/${nav}`}
             className={classNames('bottom-bar__nav', {
-              'bottom-bar__nav--is-active': location.pathname === `/${nav}`,
+              'bottom-bar__nav--is-active': location.pathname.includes(nav),
             })}
           >
             <Icon type={nav} />
