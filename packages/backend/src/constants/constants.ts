@@ -33,5 +33,5 @@ export const ROUTE_CONSTANTS = {
   DISH_FILTER: 'filter',
   MENU: 'menu',
   MENU_ID: ':id',
-  MENU_FILTER: 'filter',
+  RECOMMENDED: 'recommended/:id',
 } as const;

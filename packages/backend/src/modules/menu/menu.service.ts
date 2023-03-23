@@ -6,6 +6,7 @@ import {
 import {
   ArrayContains,
   ArrayOverlap,
+  Not,
   Repository,
 } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -56,6 +57,22 @@ export class MenuService {
     }
 
     return menu;
+  }
+
+  async getRecommended(id: string) {
+    const menu = await this.getMenuById(id);
+
+    const { categories, ingredients } = menu;
+
+    const recommended = await this.menuRepository.find({
+      where: {
+        id: Not(id),
+        categories: ArrayOverlap(categories),
+        ingredients: ArrayOverlap(ingredients),
+      }
+    });
+
+    return recommended;
   }
 
   async addMenu(createdMenuDto: CreatedMenuDto, bufferImage: Buffer) {

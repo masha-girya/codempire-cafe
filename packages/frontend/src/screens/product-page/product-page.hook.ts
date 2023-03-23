@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react';
-import { IMenu, IDish } from 'utils/types';
 
 export const useProductPageRequest = () => {
   const [ isError, setIsError ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
 
-  const sendRequest = useCallback(async (callback: () => Promise<IDish | IMenu>) => {
+  const sendRequest = useCallback(async (callback: () => Promise<any>) => {
     try{
       setIsError(false);
       return await callback();

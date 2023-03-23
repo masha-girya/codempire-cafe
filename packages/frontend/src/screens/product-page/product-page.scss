@@ -111,4 +111,13 @@
     @include mixins.fontSubtitle2Bold();
     letter-spacing: 0.1px;
   }
+
+  &__recommend-block {
+    display: grid;
+    grid-template-columns: repeat(4, 226px);
+    gap: 21px;
+    align-content: start;
+    margin-top: 42px;
+    margin-bottom: var.$height-bottom-menu + var.$padding-bottom-menu + 21px;
+  }
 }
