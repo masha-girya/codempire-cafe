@@ -2,7 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne
+  ManyToOne,
+  CreateDateColumn
 } from 'typeorm';
 import { SORT } from 'utils/types';
 import { UserEntity } from 'modules/user';
@@ -11,6 +12,9 @@ import { UserEntity } from 'modules/user';
 export class DishEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 
   @Column('character varying')
   title: string;

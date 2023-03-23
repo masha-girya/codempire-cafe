@@ -3,8 +3,11 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Header } from 'components/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
-import { Icon } from 'components/icon';
-import { Sidebar, FilterContextProvider } from '../main';
+import {
+  Sidebar,
+  Selection,
+  FilterContextProvider,
+} from '../main';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './main.scss';
 
@@ -16,6 +19,7 @@ export const Main = () => {
       <Header />
 
       <div className="main__container">
+        <FilterContextProvider>
         <div className="main__top-menu">
           <div className="main__buttons">
             <Link to={ROUTE.MAIN_PAGE_DISH}>
@@ -40,23 +44,15 @@ export const Main = () => {
           </div>
 
           <div className="main__select-button">
-            <MainButton
-              type="button"
-              text="Sorting by"
-              isDisabled={false}
-              isSecondary={true}
-              isSmall={true}
-              iconEnd={<Icon type="selectIcon" />}
-            />
+            <Selection />
           </div>
         </div>
 
         <div className="main__grid-container">
-          <FilterContextProvider>
-            <Sidebar />
-            <Outlet />
-          </FilterContextProvider>
+          <Sidebar />
+          <Outlet />
         </div>
+        </FilterContextProvider>
       </div>
 
       <BottomBar />

@@ -5,6 +5,7 @@ import {
   ManyToMany,
   JoinTable,
   ManyToOne,
+  CreateDateColumn,
 } from 'typeorm';
 import { DishEntity } from 'modules/dish';
 import { UserEntity } from 'modules/user';
@@ -13,6 +14,9 @@ import { UserEntity } from 'modules/user';
 export class MenuEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @CreateDateColumn()
+  createdDate: Date;
 
   @Column('character varying')
   title: string;

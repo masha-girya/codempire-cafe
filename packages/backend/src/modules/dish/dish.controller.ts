@@ -23,16 +23,11 @@ export class DishController {
   constructor(private readonly dishService: DishService) {}
 
   @Get()
-  getDishes(@Query('filter') filter: string[] | string) {
-    let category;
-
-    if(filter) {
-      category = Array.isArray(filter) ? filter : [filter];
-    } else {
-      category = [];
-    }
-
-    return this.dishService.getDishes(category);
+  getDishes(
+    @Query('filter') filter: string[] | string,
+    @Query('sortBy') sortBy: string,
+  ) {
+    return this.dishService.getDishes(filter, sortBy);
   }
 
   @Get(ROUTE.DISH_SORT)

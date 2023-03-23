@@ -4,13 +4,13 @@ import {
   useCallback,
   useContext,
 } from 'react';
+import { FilterContext } from '../../main';
 import {
   useProductRequest,
   getDishes,
   getMenus,
 } from '../product-list';
 import { IDish, IMenu } from 'utils/types';
-import { FilterContext } from '../../main';
 
 interface IProps {
   productOnLoad: string,
@@ -19,7 +19,7 @@ interface IProps {
 export const useProductState = (props: IProps) => {
   const { productOnLoad } = props;
   const [ products, setProducts ] = useState<IMenu[] | IDish[]>([]);
-  const { filter } = useContext(FilterContext);
+  const { filter, sortBy, setSortBy, setFilter } = useContext(FilterContext);
 
   const {
     sendRequest,
@@ -28,18 +28,18 @@ export const useProductState = (props: IProps) => {
   } = useProductRequest();
 
   const loadDishes = useCallback(async() => {
-    const request = () => getDishes(filter);
+    const request = () => getDishes(filter, sortBy);
     const dishes = await sendRequest(request);
 
     setProducts(dishes || []);
-  }, [filter]);
+  }, [filter, sortBy]);
 
   const loadMenus = useCallback(async() => {
-    const request = () => getMenus(filter);
+    const request = () => getMenus(filter, sortBy);
     const menus = await sendRequest(request);
 
     setProducts(menus || []);
-  }, [filter]);
+  }, [filter, sortBy]);
 
   useEffect(() => {
     if(productOnLoad === 'dishes') {
@@ -49,7 +49,12 @@ export const useProductState = (props: IProps) => {
     if(productOnLoad === 'menus') {
       loadMenus();
     }
-  }, [productOnLoad, filter]);
+  }, [productOnLoad, filter, sortBy]);
+
+  useEffect(() => {
+    setFilter([]);
+    setSortBy('');
+  }, [productOnLoad]);
 
   return { products, isLoading, isError };
 };
