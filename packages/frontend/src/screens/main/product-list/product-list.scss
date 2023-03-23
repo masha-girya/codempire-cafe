@@ -1,8 +1,12 @@
+@use 'styles/variables' as var;
+
 .product-list {
   display: grid;
   grid-template-columns: repeat(3, 226px);
   gap: 21px;
   align-content: start;
+
+  margin-bottom: var.$height-bottom-menu + var.$padding-bottom-menu + 21px;
 
   &__container {
     display: grid;

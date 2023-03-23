@@ -14,9 +14,9 @@
   align-items: center;
 
   width: 308px;
-  height: 75px;
+  height: var.$height-bottom-menu;
   margin-top: auto;
-  margin-bottom: 18px;
+  margin-bottom: var.$padding-bottom-menu;
 
   border-radius: 60px;
 

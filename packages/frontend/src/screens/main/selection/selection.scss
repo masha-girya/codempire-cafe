@@ -1,0 +1,30 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.selection {
+  & .MuiFormControl-root {
+    min-width: 200px;
+  }
+
+  &__label.MuiFormLabel-root.MuiInputLabel-root {
+    @include mixins.fontButton();
+    color: var.$color-text-button;
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+  }
+
+  &__button .MuiSelect-icon{
+    color: var.$color-text-button;
+  }
+
+  & .MuiInputBase-root{
+    &::before {
+    border-bottom: none;
+    color: var.$color-text-button;
+    }
+
+    &:hover:not(.Mui-disabled .Mui-error)::before {
+      border-color: var.$color-text-button;
+    }
+  }
+}

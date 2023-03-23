@@ -1,14 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
 import { API_CONSTANTS as API } from 'utils/constants';
 import { IDish, IMenu } from 'utils/types';
+import { detectURL } from 'utils/helpers';
 
-export const getDishes = async(filter: string[]) => {
-  let URL;
+export const getDishes = async(filter: string[], sortBy: string) => {
+  let URL = API.DISH;
 
-  if(filter.length === 0) {
-    URL = API.DISH_FILTER;
-  } else {
-    URL = API.DISH_FILTER + filter.join('&filter=');
+  if(filter.length > 0 || sortBy.length > 0) {
+    URL += detectURL(filter, sortBy);
   }
 
   const response: AxiosResponse<IDish[]> = await axios.get(
@@ -18,13 +17,11 @@ export const getDishes = async(filter: string[]) => {
   return response.data;
 };
 
-export const getMenus = async(filter: string[]) => {
-  let URL;
+export const getMenus = async(filter: string[], sortBy: string) => {
+  let URL = API.MENU;
 
-  if(filter.length === 0) {
-    URL = API.MENU_FILTER;
-  } else {
-    URL = API.MENU_FILTER + filter.join('&filter=');
+  if(filter.length > 0 || sortBy.length > 0) {
+    URL += detectURL(filter, sortBy);
   }
 
   const response: AxiosResponse<IMenu[]> = await axios.get(

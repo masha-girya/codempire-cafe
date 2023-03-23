@@ -3,7 +3,7 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { ArrayContains, Repository } from 'typeorm';
+import { ArrayOverlap, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DishEntity, CreatedDishDto, cutDescription } from '../dish';
 import { SORT } from 'utils/types';
@@ -15,18 +15,27 @@ export class DishService {
     private dishRepository: Repository<DishEntity>,
   ) {}
 
-  async getDishes(categories: string[]) {
+  async getDishes(categories: string[] | string = [], sortBy: string) {
     let dishes;
 
     if(categories.length === 0) {
-      dishes = await this.dishRepository.find();
+      dishes = await this.dishRepository.find({
+        order: {
+          [sortBy || 'createdDate']: 'ASC',
+        },
+      });
     } else {
-      dishes = await this.dishRepository
-      .findBy({
-        categories: ArrayContains(categories) });
+      dishes = await this.dishRepository.find({
+        where: {
+          categories: ArrayOverlap([categories].flat()),
+        },
+        order: {
+          [sortBy || 'createdDate']: 'ASC',
+        },
+      });
     }
 
-    const updatedDishes = dishes.map(dish => {
+    const updatedDishes: CreatedDishDto[] = dishes.map(dish => {
       const { description } = dish;
 
       dish.description = cutDescription(description);

@@ -23,16 +23,8 @@ export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @Get()
-  getMenus(@Query('filter') filter: string[] | string) {
-    let category;
-
-    if(filter) {
-      category = Array.isArray(filter) ? filter : [filter];
-    } else {
-      category = [];
-    }
-
-    return this.menuService.getMenus(category);
+  getMenus(@Query('filter') filter: string[] | string, sortBy: string) {
+    return this.menuService.getMenus(filter, sortBy);
   }
 
   @Get(ROUTE.MENU_ID)

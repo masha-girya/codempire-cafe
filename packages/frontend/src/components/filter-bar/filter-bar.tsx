@@ -41,6 +41,7 @@ export const FilterBar = (props: IProps) => {
               <Checkbox
                 className="filter-bar__checkbox"
                 value={category}
+                checked={filter.includes(category)}
                 onChange={handleChange}
               />
             }
