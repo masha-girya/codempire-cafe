@@ -27,14 +27,14 @@ export const useProductState = (props: IProps) => {
     isLoading,
   } = useProductRequest();
 
-  const loadDishesByFilter = useCallback(async() => {
+  const loadDishes = useCallback(async() => {
     const request = () => getDishes(filter);
     const dishes = await sendRequest(request);
 
     setProducts(dishes || []);
   }, [filter]);
 
-  const loadMenusByFilter = useCallback(async() => {
+  const loadMenus = useCallback(async() => {
     const request = () => getMenus(filter);
     const menus = await sendRequest(request);
 
@@ -43,11 +43,11 @@ export const useProductState = (props: IProps) => {
 
   useEffect(() => {
     if(productOnLoad === 'dishes') {
-      loadDishesByFilter();
+      loadDishes();
     }
 
     if(productOnLoad === 'menus') {
-      loadMenusByFilter();
+      loadMenus();
     }
   }, [productOnLoad, filter]);
 

@@ -5,5 +5,4 @@ export interface IMenu extends IDish {
   editedBy: IUser,
   dishes: IDish[],
   dishesId: string[],
-  dishesTitle: string[],
 }

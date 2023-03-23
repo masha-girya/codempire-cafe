@@ -20,7 +20,7 @@
   }
 
   &__line {
-    @include mixins.filterLine();
+    @include mixins.line();
     margin-top: 10px;
   }
 

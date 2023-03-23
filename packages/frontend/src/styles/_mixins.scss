@@ -72,7 +72,7 @@
   justify-content: $justify;
 }
 
-@mixin filterLine() {
+@mixin line() {
   border-top: 0.2px var.$color-icons-inactive;
   opacity: 0.2;
 }

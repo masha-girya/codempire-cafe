@@ -33,9 +33,6 @@ export class MenuEntity {
     array: true,
     nullable: true,
   })
-  dishesTitle: string[];
-
-  @Column('char', { array: true, length: 255 })
   ingredients: string[];
 
   @Column('character varying', {

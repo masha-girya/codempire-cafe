@@ -26,7 +26,6 @@ export const ProductList = (props: IProps) => {
               <ProductCard
                 key={prod.id}
                 card={prod}
-                dishesTitle={'dishesTitle' in prod ? prod.dishesTitle : undefined}
               />
             ))
           }

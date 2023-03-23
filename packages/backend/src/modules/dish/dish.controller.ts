@@ -40,8 +40,6 @@ export class DishController {
     return this.dishService.getCategories(sort);
   }
 
-  @Role(ROLE.manager)
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(ROUTE.DISH_ID)
   getDishById(@Param('id') id: string) {
     return this.dishService.getDishById(id);

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Auth } from 'screens/auth';
 import { Error } from 'screens/error';
 import { Main, ProductList } from 'screens/main';
+import { ProductPage } from 'screens/product-page';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 
 const App: React.FC = () => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             <ProductList productOnLoad="dishes" />
           }
         />
+
         <Route
           path={ROUTE.MAIN_PAGE_MENU}
           element={
@@ -36,6 +38,16 @@ const App: React.FC = () => {
           }
         />
       </Route>
+
+      <Route
+        path={`${ROUTE.MAIN_PAGE_DISH}/:id`}
+        element={<ProductPage />}
+      />
+
+      <Route
+        path={`${ROUTE.MAIN_PAGE_MENU}/:id`}
+        element={<ProductPage />}
+      />
 
       <Route
         path={ROUTE.REGISTRATION_ADD_INFO}

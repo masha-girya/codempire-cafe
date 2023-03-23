@@ -35,8 +35,6 @@ export class MenuController {
     return this.menuService.getMenus(category);
   }
 
-  @Role(ROLE.manager)
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get(ROUTE.MENU_ID)
   getMenuById(@Param('id') id: string) {
     return this.menuService.getMenuById(id);
