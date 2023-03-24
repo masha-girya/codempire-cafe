@@ -4,9 +4,10 @@ import { Icon } from 'components/icon';
 import { useAppSelector } from 'store';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './header.scss';
+import { Search } from 'screens/search';
 
 export const Header = () => {
-  const { name } = useAppSelector(state => state.user);
+  const { name } = useAppSelector((state) => state.user);
 
   return (
     <div className="header">
@@ -29,18 +30,9 @@ export const Header = () => {
               </button>
             </div>
 
-            <form className="header__form">
-              <input
-                className="header__search"
-                type="search"
-                placeholder="Search"
-              />
-              <button className="header__search-button">
-                <Icon type="search" />
-              </button>
-            </form>
+            <Search />
           </div>
-          
+
           <div className="header__right-menu">
             <div className="header__user-info">
               <div className="header__user-info--text">
@@ -50,8 +42,7 @@ export const Header = () => {
                 </p>
               </div>
 
-              <div className="header__user-info--photo">
-              </div>
+              <div className="header__user-info--photo"></div>
             </div>
           </div>
         </div>

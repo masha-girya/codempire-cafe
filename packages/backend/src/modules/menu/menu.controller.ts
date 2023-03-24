@@ -27,6 +27,15 @@ export class MenuController {
     return this.menuService.getMenus(filter, sortBy);
   }
 
+  @Get(ROUTE.QUERY)
+  getByQuery(@Query('query') query: string) {
+    if(query.length === 0) {
+      return [];
+    }
+
+    return this.menuService.getByQuery(query);
+  }
+
   @Get(ROUTE.MENU_ID)
   getMenuById(@Param('id') id: string) {
     return this.menuService.getMenuById(id);

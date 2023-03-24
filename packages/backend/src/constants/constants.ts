@@ -34,4 +34,5 @@ export const ROUTE_CONSTANTS = {
   MENU: 'menu',
   MENU_ID: ':id',
   RECOMMENDED: 'recommended/:id',
+  QUERY: 'query',
 } as const;

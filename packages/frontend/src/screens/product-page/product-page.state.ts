@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IDish, IMenu } from 'utils/types';
+import { useRequest } from 'utils/hooks';
 import {
   getDish,
   getMenu,
   getRecommendedDishes,
   getRecommendedMenus,
-  useProductPageRequest,
 } from '../product-page';
 
 interface IProps {
@@ -18,18 +18,18 @@ export const useProductPage = (props: IProps) => {
   const [ product, setProduct ] = useState<IDish | IMenu | null>(null);
   const [ recommended, setRecommended ] = useState<IDish[] | IMenu[] | []>([]);
   const {
-    sendRequest,
+    sendUniqueRequest,
     isError,
     isLoading,
-  } = useProductPageRequest();
+  } = useRequest();
 
   const loadDish = useCallback(async() => {
     const requestDish = () => getDish(id || '');
     const requestRecommended = () => getRecommendedDishes(id || '');
 
     const [dish, recommended] = await Promise.all([
-      await sendRequest(requestDish),
-      await sendRequest(requestRecommended),
+      await sendUniqueRequest(requestDish),
+      await sendUniqueRequest(requestRecommended),
     ]);
 
     setProduct(dish || null);
@@ -41,8 +41,8 @@ export const useProductPage = (props: IProps) => {
     const requestRecommended = () => getRecommendedMenus(id || '');
 
     const [menu, recommended] = await Promise.all([
-      await sendRequest(requestMenu),
-      await sendRequest(requestRecommended),
+      await sendUniqueRequest(requestMenu),
+      await sendUniqueRequest(requestRecommended),
     ]);
 
     setProduct(menu || null);
