@@ -6,6 +6,7 @@ import {
 import {
   ArrayContains,
   ArrayOverlap,
+  ILike,
   Not,
   Repository,
 } from 'typeorm';
@@ -38,7 +39,7 @@ export class MenuService {
     } else {
       menus = await this.menuRepository.find({
         where: {
-          categories: ArrayContains([categories].flat()),
+          categories: ArrayOverlap([categories].flat()),
         },
         order: {
           [sortBy || 'createdDate']: 'ASC',
@@ -73,6 +74,29 @@ export class MenuService {
     });
 
     return recommended;
+  }
+
+  async getByQuery(query: string) {
+    const normalizedQuery = query[0].toUpperCase() + query.slice(1);
+
+    const menusByQuery = await this.menuRepository.find({
+      where:
+        [
+          { title: ILike(`%${query}%`) },
+          { description: ILike(`%${query}%`) },
+          { ingredients: ArrayContains([normalizedQuery]) },
+          { categories: ArrayContains([normalizedQuery]) },
+        ],
+    });
+  
+    const dishesByQuery = await this.dishService.getByQuery(query);
+  
+    const mappedMenus = menusByQuery.map(menu => {
+      const { title, description, id } = menu;
+      return { title, description, id, type: 'menus' };
+    });
+  
+    return [...dishesByQuery, ...mappedMenus];
   }
 
   async addMenu(createdMenuDto: CreatedMenuDto, bufferImage: Buffer) {

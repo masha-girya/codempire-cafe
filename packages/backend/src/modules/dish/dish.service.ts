@@ -3,9 +3,19 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { ArrayOverlap, Not, Repository } from 'typeorm';
+import {
+  ArrayContains,
+  ArrayOverlap,
+  ILike,
+  Not,
+  Repository,
+} from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DishEntity, CreatedDishDto, cutDescription } from '../dish';
+import {
+  DishEntity,
+  CreatedDishDto,
+  cutDescription,
+} from '../dish';
 import { SORT } from 'utils/types';
 
 @Injectable()
@@ -77,6 +87,27 @@ export class DishService {
     });
 
     return updatedDishes;
+  }
+
+  async getByQuery(query: string) {
+    const normalizedQuery = query[0].toUpperCase() + query.slice(1);
+
+    const productsByQuery = await this.dishRepository.find({
+      where:
+        [
+          { title: ILike(`%${query}%`) },
+          { description: ILike(`%${query}%`) },
+          { ingredients: ArrayContains([normalizedQuery]) },
+          { categories: ArrayContains([normalizedQuery]) },
+        ],
+    });
+  
+    const mappedProducts = productsByQuery.map(dish => {
+      const { title, description, id } = dish;
+      return { title, description, id, type: 'dishes' };
+    });
+  
+    return mappedProducts;
   }
 
   async addDish(createdDishDto: CreatedDishDto, bufferImage: Buffer) {

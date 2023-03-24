@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 
-export const useProductPageRequest = () => {
+export const useRequest = () => {
   const [ isError, setIsError ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
 
-  const sendRequest = useCallback(async (callback: () => Promise<any>) => {
+  const sendUniqueRequest = useCallback(async (callback: () => Promise<any>) => {
     try{
       setIsError(false);
       return await callback();
@@ -17,7 +17,7 @@ export const useProductPageRequest = () => {
   }, []);
 
   return {
-    sendRequest,
+    sendUniqueRequest,
     isError,
     setIsError,
     isLoading,

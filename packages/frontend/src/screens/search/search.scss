@@ -1,0 +1,96 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.search-form {
+  position: relative;
+
+  &__search {
+    width: var.$width-main - 16 * 2;
+    padding: 12px;
+
+    border: 1px solid var.$color-text-secondary;
+    border-radius: 3.5px;
+
+    background-color: transparent;
+
+    @include mixins.fontSubtitle1();
+    letter-spacing: 0.15px;
+    color: var.$color-icons-inactive;
+
+    &:hover {
+      border-color: var.$color-text-contrast;
+    }
+
+    &::placeholder {
+      @include mixins.fontSubtitle1();
+      color: var.$color-icons-inactive;
+    }
+
+    &:focus {
+      outline: 1px solid var.$color-text-secondary;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 12px;
+    left: 85%;
+
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+  }
+
+  &__menu {
+    position: absolute;
+    top: 105%;
+  
+    width: var.$width-main - 17 * 2;
+    min-height: 50px;
+  
+    background-color: var.$color-text-contrast;
+    border: 1px solid var.$color-secondary;
+    border-radius: 3px;
+  }
+
+  &__menu-text {
+    padding: 16px;
+
+    @include mixins.fontBody();
+    letter-spacing: 0.2px;
+    color: var.$color-secondary;
+  }
+  
+  &__list {
+    list-style: none;
+    padding: 0;
+  
+    &--column {
+      display: flex;
+      justify-content: center;
+      padding: 10px 10px 0;
+    }
+  
+    &--link {
+      color: var.$color-primary;
+
+      &:hover {
+        color: var.$color-text-button
+      }
+    }
+  
+    &--title {
+      @include mixins.fontSubtitle2Bold();
+    }
+  
+    &--description {
+      @include mixins.fontCaption();
+    }
+
+    &--line {
+      @include mixins.line();
+      width: 80%;
+    }
+  }
+}

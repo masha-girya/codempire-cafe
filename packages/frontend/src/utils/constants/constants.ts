@@ -11,6 +11,7 @@ export const API_CONSTANTS = {
   SORT: 'sortBy=',
   FILTER: 'filter=',
   RECOMMENDED: '/recommended',
+  SEARCH: '/query?query=',
 };
 
 export const ROUTE_CONSTANTS = {
