@@ -32,6 +32,11 @@ export class MenuController {
     return this.menuService.getMenuById(id);
   }
 
+  @Get(ROUTE.RECOMMENDED)
+  getRecommended(@Param('id') id: string) {
+    return this.menuService.getRecommended(id);
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   addMenu(

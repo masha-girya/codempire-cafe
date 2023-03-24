@@ -40,6 +40,11 @@ export class DishController {
     return this.dishService.getDishById(id);
   }
 
+  @Get(ROUTE.RECOMMENDED)
+  getRecommended(@Param('id') id: string) {
+    return this.dishService.getRecommended(id);
+  }
+
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   addDish(@Body() dishDto: CreatedDishDto, @UploadedFile() image: Express.Multer.File) {

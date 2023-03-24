@@ -10,6 +10,7 @@ export const API_CONSTANTS = {
   MENU: '/menu',
   SORT: 'sortBy=',
   FILTER: 'filter=',
+  RECOMMENDED: '/recommended',
 };
 
 export const ROUTE_CONSTANTS = {

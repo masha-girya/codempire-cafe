@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Auth } from 'screens/auth';
 import { Error } from 'screens/error';
 import { Main, ProductList } from 'screens/main';
@@ -23,7 +23,12 @@ const App: React.FC = () => {
         }
       />
 
-      <Route path={ROUTE.MAIN_PAGE} element={<Main />} >
+      <Route
+        path={ROUTE.MAIN_PAGE}
+        element={<Navigate to={ROUTE.MAIN_PAGE_DISH} replace />}
+      />
+
+      <Route element={<Main />} >
         <Route
           path={ROUTE.MAIN_PAGE_DISH}
           element={

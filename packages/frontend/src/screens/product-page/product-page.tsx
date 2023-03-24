@@ -8,6 +8,7 @@ import { Header } from 'components/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
+import { ProductCard } from 'components/product-card';
 import { useProductPage } from '../product-page';
 import './product-page.scss';
 
@@ -16,6 +17,7 @@ export const ProductPage = () => {
   const location = useLocation();
   const params = useParams();
   const {
+    recommended,
     product,
     isError,
     isLoading,
@@ -109,10 +111,16 @@ export const ProductPage = () => {
 
             <hr className="product-page__line" />
 
-            <div className="product-page__recommend-block">
+            <div>
               <h4 className="product-page__subtitle">
                 Tastes best with:
               </h4>
+              <div className="product-page__recommend-block">
+                {recommended.map(card => (
+                  <ProductCard key={card.id} card={card} />
+                 )
+                )}
+              </div>
             </div>
           </div>)
       }
