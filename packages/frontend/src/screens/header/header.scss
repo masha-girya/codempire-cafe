@@ -65,44 +65,6 @@
     position: relative;
   }
 
-  &__search {
-    width: var.$width-main - 16 * 2;
-    padding: 12px;
-
-    border: 1px solid var.$color-text-secondary;
-    border-radius: 3.5px;
-
-    background-color: transparent;
-
-    @include mixins.fontSubtitle1();
-    letter-spacing: 0.15px;
-    color: var.$color-icons-inactive;
-
-    &:hover {
-      border-color: var.$color-text-contrast;
-    }
-
-    &::placeholder {
-      @include mixins.fontSubtitle1();
-      color: var.$color-icons-inactive;
-    }
-
-    &:focus {
-      outline: 1px solid var.$color-text-secondary;
-    }
-  }
-
-  &__search-button {
-    position: absolute;
-    top: 12px;
-    left: 85%;
-
-    background-color: transparent;
-    border: none;
-
-    cursor: pointer;
-  }
-
   &__user-info {
     @include mixins.centerItems(center, center);
 
@@ -113,11 +75,16 @@
     }
 
     &--photo {
+      @include mixins.centerItems(center, center);
+
       width: 48px;
       height: 48px;
 
       border-radius: 50%;
       background-color: var.$color-text-secondary;
+
+      @include mixins.fontCaption();
+      color: var.$color-text-contrast;
     }
   }
 

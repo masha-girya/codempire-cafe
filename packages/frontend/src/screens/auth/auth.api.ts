@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
   API_CONSTANTS as API,
   STORAGE_CONSTANTS as STORAGE,
@@ -32,13 +32,13 @@ export async function login(email: string, password: string) {
 export async function validateToken() {
   const token = getLocalItem(STORAGE.ACCESS_TOKEN) || '';
 
-  await axios.get(
+  const response: AxiosResponse<IUser> = await axios.get(
     API.BASE_URL + API.VALIDATE_TOKEN_URL,
     {headers: {
       [API_HEADERS.AUTH]: `Bearer ${token}`,
     }});
 
-  return true;
+  return { user: response.data , token };
 }
 
 export async function updateUser(data: Partial<IUser>) {

@@ -6,7 +6,7 @@ import './button.scss';
 interface IProps {
   text: string,
   type: TButton,
-  isDisabled: boolean,
+  isDisabled?: boolean,
   onHandleClick?: () => void,
   iconStart?: React.ReactNode,
   iconEnd?: React.ReactNode,

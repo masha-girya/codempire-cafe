@@ -1,0 +1,139 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 104px;
+
+  margin: 24px auto 0;
+  margin-bottom: var.$padding-bottom-menu + var.$height-bottom-menu + 20px;
+  max-width: 880px;
+
+  &__user {
+    @include mixins.centerItems(flex-start, center);
+    flex-direction: column;
+  }
+
+  &__photo {
+    @include mixins.centerItems(center, center);
+
+    width: 222px;
+    height: 222px;
+
+    background-color: var.$color-text-secondary;
+    border-radius: 50%;
+
+    @include mixins.fontSubtitle1();
+    letter-spacing: 0.3px;
+    color: var.$color-text-contrast;
+  }
+
+  &__info {
+    width: max-content;
+    text-align: center;
+  }
+
+  &__username {
+    margin-top: 16px;
+
+    @include mixins.fontH1();
+    color: var.$color-text-main;
+    letter-spacing: 0.15px;
+  }
+
+  &__status {
+    margin-top: 8px;
+
+    @include mixins.fontCaption();
+    color: var.$color-text-main;
+    letter-spacing: 0.4px;
+  }
+
+  &__phone {
+    margin-top: 4px;
+
+    @include mixins.fontSubtitle2Bold();
+    color: var.$color-text-main;
+    letter-spacing: 0.15px;
+  }
+
+  &__settings, &__addresses {
+    list-style: none;
+    padding: 0;
+
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+
+    & li {
+      p {
+        padding-left: 16px;
+      }
+
+      svg {
+        padding-right: 5px;
+      }
+
+      &:first-of-type {
+        padding: 16px;
+  
+        @include mixins.fontSubtitle2Bold();
+      }
+    }
+  }
+
+  &__link {
+    @include mixins.centerItems(space-between, center);
+
+    max-width: 100%;
+    height: 56px;
+    margin: 0 16px;
+
+    @include mixins.fontBody();
+    letter-spacing: 0.25px;
+    color: var.$color-text-main;
+
+    border-top: 1px solid var.$color-line;
+
+    &:hover path {
+      color: var.$color-text-button;
+      fill: var.$color-text-button;
+    }
+
+    &:hover{
+      color: var.$color-text-button;
+    }
+
+    &--address {
+      &:hover {
+        color: var.$color-text-main;
+      }
+    }
+  }
+
+  &__add-address {
+    @include mixins.centerItems(space-between, center);
+
+    width: 100%;
+
+    background-color: transparent;
+    border: none;
+  
+    @include mixins.fontSubtitle2Bold();
+
+    cursor: pointer;
+
+    &:hover path {
+      fill: var.$color-text-button;
+    }
+
+    &:hover {
+      color: var.$color-text-button;
+    }
+  }
+
+  &__actions {
+    @include mixins.centerItems(space-between, center);
+
+    margin-top: 16px;
+  }
+}

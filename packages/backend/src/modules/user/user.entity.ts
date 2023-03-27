@@ -45,9 +45,9 @@ export class UserEntity {
   })
   phone: string;
 
-  @Column('char', {
+  @Column('character varying', {
     array: true,
-    nullable: true,
+    default: [],
   })
   address: string[];
 

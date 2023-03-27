@@ -4,7 +4,7 @@ import { MainButton } from 'components/button';
 import { useAppDispatch } from 'store';
 import { validateName, validatePhone } from 'utils/helpers';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
-import { setName, setPhone } from 'store/features';
+import { userActions } from 'store/features';
 import {
   useAuth,
   updateUser,
@@ -61,12 +61,12 @@ export const AuthAddInfo = () => {
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsNameValid(true);
-    dispatch(setName(event?.target.value));
+    dispatch(userActions.setName(event?.target.value));
   };
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPhoneValid(true);
-    dispatch(setPhone(event?.target.value));
+    dispatch(userActions.setPhone(event?.target.value));
   };
 
   return (
@@ -112,7 +112,6 @@ export const AuthAddInfo = () => {
           <MainButton
             text="Next"
             type="submit"
-            isDisabled={false}
           />
         </div>
       </form>

@@ -24,8 +24,7 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  @Role(ROLE.manager)
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(ROUTE_CONSTANTS.USER_EMAIL)
   getUserByEmail(@Param('email') email: string) {
     return this.userService.getUserByEmail(email);

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Auth } from 'screens/auth';
-import { Error } from 'screens/error';
+import { Error } from 'components/error';
 import { Main, ProductList } from 'screens/main';
 import { ProductPage } from 'screens/product-page';
+import { Profile } from 'screens/profile';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 
 const App: React.FC = () => {
@@ -52,6 +53,13 @@ const App: React.FC = () => {
       <Route
         path={`${ROUTE.MAIN_PAGE_MENU}/:id`}
         element={<ProductPage />}
+      />
+
+      <Route
+        path={ROUTE.PROFILE}
+        element={
+          <Profile />
+        }
       />
 
       <Route

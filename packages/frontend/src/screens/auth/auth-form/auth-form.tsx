@@ -5,7 +5,7 @@ import { AuthLinks } from '../../../screens/auth';
 import { useAppDispatch } from 'store';
 import { validateEmail } from 'utils/helpers';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
-import { setEmail, setPassword } from 'store/features';
+import {userActions } from 'store/features';
 import {
   useAuth,
   useAuthRequest,
@@ -38,12 +38,12 @@ export const AuthForm = (props: IProps) => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsError(false);
     setIsValidEmail(true);
-    dispatch(setEmail(event.target.value));
+    dispatch(userActions.setEmail(event.target.value));
   };
 
   const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsError(false);
-    dispatch(setPassword(event.target.value));
+    dispatch(userActions.setPassword(event.target.value));
   };
 
   const buttonText = useMemo(() => {
@@ -140,7 +140,6 @@ export const AuthForm = (props: IProps) => {
         <MainButton
           text="skip"
           type="button"
-          isDisabled={false}
           onHandleClick={handleSkipClick}
           isSecondary={true}
           isSmall={true}

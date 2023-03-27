@@ -6,7 +6,7 @@
   margin: 0 auto;
 
   &__back-link {
-    @include mixins.centerItems('flex-end', 'center');
+    @include mixins.centerItems(flex-end, center);
     column-gap: 10px;
 
     margin-top: 24px;
@@ -76,8 +76,7 @@
   }
 
   &__actions {
-    display: flex;
-    justify-content: flex-end;
+    @include mixins.centerItems(flex-end, flex-start);
     flex-direction: column;
 
     height: 100%;

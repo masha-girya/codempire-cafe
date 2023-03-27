@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Header } from 'components/header';
+import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
@@ -87,13 +87,11 @@ export const ProductPage = () => {
                 <MainButton
                   type="button"
                   text="Add to cart"
-                  isDisabled={false}
                 />
 
                 <MainButton
                   type="button"
                   text="Skip"
-                  isDisabled={false}
                   isSecondary={true}
                 />
               </div>

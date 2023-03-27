@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from 'components/icon';
-import { useSearch } from '.';
+import { useSearch } from '../search';
+import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './search.scss';
 
 export const Search = () => {
@@ -53,7 +54,7 @@ export const Search = () => {
                       <li className="search-form__list--column" key={title}>
                         <Link
                           className="search-form__list--link"
-                          to={`/home/${type}/${id}`}
+                          to={`${ROUTE.MAIN_PAGE}/${type}/${id}`}
                         >
                           <p className="search-form__list--title">{title}</p>
                           <p className="search-form__list--desc">{description}</p>
@@ -69,9 +70,9 @@ export const Search = () => {
               <p className="search-form__menu-text">Type to search</p>
           )}
 
-          {isLoading && <p>Searching...</p>}
+          {isLoading && <p className="search-form__menu-text">Searching...</p>}
 
-          {isError && <p>Something went wrong</p>}
+          {isError && <p className="search-form__menu-text">Something went wrong</p>}
         </div>
       )}
     </form>
