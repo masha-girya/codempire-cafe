@@ -51,7 +51,6 @@ export const ProductCard = (props: IProps) => {
           <MainButton
             type="button"
             text="To cart"
-            isDisabled={false}
             isSmall={true}
           />
         </div>

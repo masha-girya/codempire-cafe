@@ -12,6 +12,10 @@ import { ReactComponent as Orders } from 'assets/icons/orders.svg';
 import { ReactComponent as SelectIcon } from 'assets/icons/select-icon.svg';
 import { ReactComponent as Filter } from 'assets/icons/filter.svg';
 import { ReactComponent as Back } from 'assets/icons/back.svg';
+import { ReactComponent as RightArrow } from 'assets/icons/right-arrow.svg';
+import { ReactComponent as Plus } from 'assets/icons/plus.svg';
+import { ReactComponent as Close } from 'assets/icons/close.svg';
+
 
 export const ICONS = {
   eye: Eye,
@@ -19,12 +23,15 @@ export const ICONS = {
   cart: Cart,
   home: Home,
   back: Back,
+  plus: Plus,
+  close: Close,
   search: Search,
   filter: Filter,
   orders: Orders,
   profile: Profile,
   eyeCross: EyeCross,
   logoWhite: LogoWhite,
+  rightArrow: RightArrow,
   selectIcon: SelectIcon,
   notifications: Notifications,
 } as const;

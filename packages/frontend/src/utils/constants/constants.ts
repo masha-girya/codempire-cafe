@@ -6,6 +6,7 @@ export const API_CONSTANTS = {
   LOGIN_URL: '/auth/login',
   VALIDATE_TOKEN_URL: '/auth/profile',
   USER_EDIT: '/user/edit',
+  USER: '/user',
   DISH: '/dish',
   MENU: '/menu',
   SORT: 'sortBy=',
@@ -22,6 +23,7 @@ export const ROUTE_CONSTANTS = {
   MAIN_PAGE_DISH: '/home/dishes',
   MAIN_PAGE_MENU: '/home/menus',
   ERROR: '/error',
+  PROFILE: '/profile',
 };
 
 export const STORAGE_CONSTANTS = {

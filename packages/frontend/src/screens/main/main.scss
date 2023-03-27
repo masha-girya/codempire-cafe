@@ -16,7 +16,7 @@
   }
 
   &__top-menu {
-    @include mixins.centerItems(space-between, end);
+    @include mixins.centerItems(space-between, flex-end);
 
     width: 100%;
   }

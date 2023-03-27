@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Header } from 'components/header';
+import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
-import { Sidebar, Selection, FilterContextProvider } from '../main';
+import {
+  Sidebar,
+  Selection,
+  FilterContextProvider,
+} from '../main';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './main.scss';
 
@@ -22,7 +26,6 @@ export const Main = () => {
                 <MainButton
                   type="button"
                   text="dish"
-                  isDisabled={false}
                   isSmall={true}
                   isActive={location.pathname === ROUTE.MAIN_PAGE_DISH}
                 />
@@ -32,7 +35,6 @@ export const Main = () => {
                 <MainButton
                   type="button"
                   text="menu"
-                  isDisabled={false}
                   isSmall={true}
                   isActive={location.pathname === ROUTE.MAIN_PAGE_MENU}
                 />
