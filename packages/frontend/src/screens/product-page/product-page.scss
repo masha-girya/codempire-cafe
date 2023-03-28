@@ -41,8 +41,7 @@
   }
 
   &__image {
-    width: var.$width-main;
-    height: var.$width-main;
+    @include mixins.square(var.$width-main);
 
     object-fit: cover;
   }
@@ -76,7 +75,7 @@
   }
 
   &__actions {
-    @include mixins.centerItems(flex-end, flex-start);
+    @include mixins.centerItems(flex-end, space-between);
     flex-direction: column;
 
     height: 100%;

@@ -72,7 +72,30 @@
   justify-content: $justify;
 }
 
-@mixin line() {
+@mixin line {
   border-top: 0.2px var.$color-icons-inactive;
   opacity: 0.2;
+}
+
+@mixin modalSize {
+  width: 684px;
+  height: max-content;
+}
+
+@mixin square($length) {
+  width: $length;
+  height: $length;
+}
+
+@mixin userPhoto($square) {
+  @include centerItems(center, center);
+
+  @include square($square);
+
+  background-color: var.$color-text-secondary;
+  border-radius: 50%;
+
+  @include fontSubtitle1();
+  letter-spacing: 0.3px;
+  color: var.$color-text-contrast;
 }

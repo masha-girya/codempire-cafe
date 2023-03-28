@@ -16,17 +16,7 @@
   }
 
   &__photo {
-    @include mixins.centerItems(center, center);
-
-    width: 222px;
-    height: 222px;
-
-    background-color: var.$color-text-secondary;
-    border-radius: 50%;
-
-    @include mixins.fontSubtitle1();
-    letter-spacing: 0.3px;
-    color: var.$color-text-contrast;
+    @include mixins.userPhoto(222px);
   }
 
   &__info {

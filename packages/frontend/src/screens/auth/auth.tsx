@@ -1,13 +1,7 @@
 import React, { useMemo } from 'react';
-import { Navigate } from 'react-router-dom';
-import {
-  AuthForm,
-  AuthAddInfo,
-  useAuth,
-} from '../../screens/auth';
+import { AuthForm, AuthAddInfo } from '../../screens/auth';
 import { HeaderAuth } from 'components/header-auth';
 import { Icon } from 'components/icon';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './auth.scss';
 
 interface IProps {
@@ -17,11 +11,6 @@ interface IProps {
 
 export const Auth = (props: IProps) => {
   const { isSignUp, isStart } = props;
-  const { isUser } = useAuth();
-
-  if(isUser) {
-    return <Navigate to={ROUTE.MAIN_PAGE_DISH} replace />;
-  }
 
   const headerText = useMemo(() => {
     return isSignUp ? 'sign up' : 'log in';

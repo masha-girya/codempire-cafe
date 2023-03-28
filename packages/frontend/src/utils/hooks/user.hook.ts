@@ -7,11 +7,13 @@ export const useUser = () => {
   const dispatch = useAppDispatch();
 
   const checkUser = async() => {
-    const { user: validUser, token } = await validateToken();
+    const localToken = await validateToken();
 
-    if(!validUser) {
-      return;
+    if(!localToken) {
+      return null;
     }
+
+    const { user: validUser, token } = localToken;
 
     const user = await getUser(validUser.email, token);
 

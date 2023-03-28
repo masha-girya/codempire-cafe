@@ -63,6 +63,8 @@ export const AuthForm = (props: IProps) => {
         await sendAuthRequest(async() => {
           const res = await signUp(email, password);
           if(res) {
+            dispatch(userActions.setId(res.id));
+            await login(email, password);
             navigate(ROUTE.REGISTRATION_ADD_INFO);
           }
         });
@@ -93,7 +95,7 @@ export const AuthForm = (props: IProps) => {
     >
       <div className="auth-form__input">
         <Input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}

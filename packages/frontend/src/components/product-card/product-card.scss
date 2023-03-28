@@ -27,8 +27,7 @@
   }
 
   &__image {
-    width: 206px;
-    height: 206px;
+    @include mixins.square(206px);
     margin-top: 10px;
 
     object-fit: cover;

@@ -4,10 +4,12 @@ import {
   NotFoundException,
   Inject,
   forwardRef,
+  ConflictException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, HashService, UserEntity } from '../user';
+import { AuthService } from 'auth';
 
 @Injectable()
 export class UserService {
@@ -16,6 +18,8 @@ export class UserService {
     private usersRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => HashService))
     private hashService: HashService,
+    @Inject(forwardRef(() => AuthService))
+    private authService: AuthService,
   ) {}
 
   async getAllUsers() {
@@ -25,6 +29,16 @@ export class UserService {
 
   async getUserByEmail(email: string) {
     const user = await this.usersRepository.findOneBy({ email });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
+  }
+
+  async getUserById(id: string) {
+    const user = await this.usersRepository.findOneBy({ id });
 
     if (!user) {
       throw new NotFoundException();
@@ -58,21 +72,21 @@ export class UserService {
     return createdUser;
   }
 
-  async updateUser(createUserDto: CreateUserDto) {
-    const { email, name, surname, phone } = createUserDto;
+  async updateUser(id: string, createUserDto: CreateUserDto) {
+    const { email } = createUserDto;
+    const userExists = await this.usersRepository.findOneBy({ email });
 
-    if(email.length === 0) {
-      throw new NotFoundException();
+    if(userExists && userExists.email !== email ) {
+      throw new ConflictException('Email is already exists');
     }
 
-    const user = await this.getUserByEmail(email);
+    const user = await this.getUserById(id);
+    const token = await this.authService.login(user);
 
-    user.name = name;
-    user.surname = surname;
-    user.phone = phone;
+    Object.assign(user, createUserDto);
 
     await this.usersRepository.save(user);
 
-    return user;
+    return { user, token };
   }
 }

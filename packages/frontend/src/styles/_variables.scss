@@ -24,6 +24,7 @@ $color-text-button: #6200EE;
 $color-icons-inactive: #C2C2C2;
 $color-delete: #FF0000;
 $color-line: #EDEDED;
+$color-modal-background: #1E1E1E90;
 
 // WIDTHS
 $width-main: 306px;
@@ -31,3 +32,6 @@ $width-main: 306px;
 // HEIGHT
 $height-bottom-menu: 75px;
 $padding-bottom-menu: 18px;
+
+// Z-INDEX
+$index-modal: 1;

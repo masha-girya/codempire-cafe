@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from 'store';
 import { useRequest } from 'utils/hooks';
 import { validateToken } from '../auth';
+import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 
 export const useAuth = () => {
   const navigate = useNavigate();
   const { sendUniqueRequest } = useRequest();
   const {
+    id,
     email,
     password,
     name,
@@ -18,15 +20,15 @@ export const useAuth = () => {
   const [ isValidEmail, setIsValidEmail ] = useState(true);
   const [ isNameValid, setIsNameValid ] = useState(true);
   const [ isPhoneValid, setIsPhoneValid ] = useState(true);
-  const [ isUser, setIsUser ] = useState(true);
+  const [ isUser, setIsUser ] = useState(false);
 
   const checkUser = useCallback(async() => {
-    const { user } = await sendUniqueRequest(validateToken);
+    const user = await sendUniqueRequest(validateToken);
 
-    if(!user) {
-      setIsUser(false);
+    if(user) {
+      setIsUser(true);
     }
-  }, [isUser]);
+  }, []);
 
   useEffect(() => {
     if (!(email.length && password.length)) {
@@ -38,6 +40,10 @@ export const useAuth = () => {
 
   useEffect(() => {
     checkUser();
+
+    if(isUser && !location.hash.includes('registration')) {
+      navigate(ROUTE.MAIN_PAGE_DISH);
+    }
   }, [isUser]);
 
   return {
@@ -55,5 +61,6 @@ export const useAuth = () => {
     name,
     phone,
     isUser,
+    id,
   };
 };
