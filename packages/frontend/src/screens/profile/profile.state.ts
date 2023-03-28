@@ -4,6 +4,7 @@ import { useUser } from 'utils/hooks';
 
 export const useProfile = () => {
   const [ isUser, setIsUser ] = useState(true);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const { sendUniqueRequest } = useRequest();
   const { checkUser } = useUser();
 
@@ -20,5 +21,5 @@ export const useProfile = () => {
     loadUser();
   }, [isUser]);
 
-  return { isUser };
+  return { isUser, isModalOpen, setIsModalOpen };
 };

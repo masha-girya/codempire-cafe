@@ -75,16 +75,8 @@
     }
 
     &--photo {
-      @include mixins.centerItems(center, center);
-
-      width: 48px;
-      height: 48px;
-
-      border-radius: 50%;
-      background-color: var.$color-text-secondary;
-
+      @include mixins.userPhoto(48px);
       @include mixins.fontCaption();
-      color: var.$color-text-contrast;
     }
   }
 

@@ -12,6 +12,7 @@ export const Header = () => {
   const { isUser } = useHeader();
   const {
     name,
+    surname,
     role,
     avatar,
   } = useAppSelector(state => state.user);
@@ -49,7 +50,7 @@ export const Header = () => {
                 <div className="header__user-info--text">
                   <p className="header__user-status">{role}</p>
                   <p className="header__user-name">
-                    {name ? name : 'Name Surname'}
+                    {name ? `${name} ${surname}` : 'Name Surname'}
                   </p>
                 </div>
 
@@ -59,13 +60,13 @@ export const Header = () => {
               </div>
             </Link>)
               : (
-                <div className="header__right-menu">
+                <Link to={ROUTE.HOME} className="header__right-menu">
                   <MainButton
                     type="button"
                     text="log in"
                     isSmall={true}
                   />
-                </div>
+                </Link>
               )}
         </div>
       </div>

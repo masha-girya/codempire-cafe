@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategyModule } from 'auth/jwt-strategy';
-import { AuthService } from 'auth';
+import { AuthModule } from 'auth';
 import {
   UserEntity,
   HashService,
@@ -20,11 +20,11 @@ import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
       secret: AUTH.JWT_SECRET,
       signOptions: { expiresIn: '120d' },
     }),
+    forwardRef(() => AuthModule),
   ],
   providers: [
     UserService,
     HashService,
-    AuthService,
   ],
   controllers: [UserController],
   exports: [UserService, HashService],

@@ -37,7 +37,10 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(ROUTE_CONSTANTS.USER_UPDATE)
-  updateUser(@Body() createUserDto: CreateUserDto) {
-    return this.userService.updateUser(createUserDto);
+  updateUser(
+    @Param('id') id: string,
+    @Body() createUserDto: CreateUserDto,
+  ) {
+    return this.userService.updateUser(id, createUserDto);
   }
 }

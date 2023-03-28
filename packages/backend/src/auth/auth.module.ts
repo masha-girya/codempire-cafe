@@ -1,12 +1,9 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
-import { UserEntity, UserService, HashService } from 'modules/user';
-import {
-  AuthService,
-  AuthController,
-} from '../auth';
+import { UserEntity, HashService, UserModule } from 'modules/user';
+import {  AuthService, AuthController } from '../auth';
 import { JwtStrategyModule } from './jwt-strategy';
 import { LocalStrategyModule } from './local-strategy';
 
@@ -19,11 +16,11 @@ import { LocalStrategyModule } from './local-strategy';
     }),
     JwtStrategyModule,
     LocalStrategyModule,
+    forwardRef(() => UserModule),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
-    UserService,
     HashService,
   ],
   exports: [AuthService],

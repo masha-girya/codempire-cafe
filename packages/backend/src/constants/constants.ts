@@ -23,7 +23,7 @@ export const ROUTE_CONSTANTS = {
   USER: 'user',
   USER_EMAIL: ':email',
   USER_REGISTER: 'register',
-  USER_UPDATE: 'edit',
+  USER_UPDATE: 'edit/:id',
   AUTH: 'auth',
   AUTH_LOGIN: 'login',
   AUTH_PROFILE: 'profile',

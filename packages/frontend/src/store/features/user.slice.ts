@@ -3,9 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from 'utils/types';
 
 interface IInitialState {
+  id: string,
   email: string,
   password: string,
   name: string,
+  surname: string,
   phone: string,
   role: string,
   avatar: string,
@@ -13,9 +15,11 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
+  id: '',
   email: '',
   password: '',
   name: '',
+  surname: '',
   phone: '',
   role: '',
   avatar: '',
@@ -43,6 +47,12 @@ export const userSlice = createSlice({
     },
     setAddress: (state, action: PayloadAction<string[]>) => {
       state.address = action.payload;
+    },
+    setId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+    },
+    setSurname: (state, action: PayloadAction<string>) => {
+      state.surname = action.payload;
     },
     setUser: (state, action: PayloadAction<IUser>) => {
       return { ...state, ...action.payload};

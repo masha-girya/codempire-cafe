@@ -9,7 +9,6 @@ import {
   useAuth,
   updateUser,
   useAuthRequest,
-  login,
 } from '../../../screens/auth';
 import './auth-add-info.scss';
 
@@ -22,9 +21,9 @@ export const AuthAddInfo = () => {
     isPhoneValid,
     setIsPhoneValid,
     email,
-    password,
     name,
     phone,
+    id,
     navigate,
   } = useAuth();
 
@@ -45,10 +44,12 @@ export const AuthAddInfo = () => {
     }
 
     await sendAuthRequest(async() => {
-      const res = await Promise.all([
-        login(email, password),
-        updateUser({ email, name: validName[0], surname: validName[1], phone })
-      ]);
+      const res = await updateUser(id, {
+        email,
+        name: validName[0],
+        surname: validName[1],
+        phone,
+      });
 
       if(res) {
         navigate(ROUTE.MAIN_PAGE_DISH);
@@ -89,7 +90,7 @@ export const AuthAddInfo = () => {
         <Input
           type="text"
           placeholder="Name Surname"
-          value={name}
+          value={name || ''}
           onChange={handleNameChange}
           isPass={false}
           helperText={!isNameValid ? 'Please, write by this pattern: Name Surname' : ''}
@@ -102,7 +103,7 @@ export const AuthAddInfo = () => {
         <Input
           type="text"
           placeholder="Format +380 99 999 99 99"
-          value={phone}
+          value={phone || ''}
           onChange={handlePhoneChange}
           isPass={false}
           helperText={!isPhoneValid ? 'Please, write by this pattern: +380 99 999 99 99' : ''}
