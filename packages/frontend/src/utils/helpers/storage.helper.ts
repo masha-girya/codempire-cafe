@@ -7,3 +7,7 @@ export function getLocalItem(key: string) {
 
   return token;
 }
+
+export function removeLocalItem(key: string) {
+  localStorage.removeItem(key);
+}

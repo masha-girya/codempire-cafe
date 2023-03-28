@@ -5,6 +5,7 @@ import { Error } from 'components/error';
 import { Main, ProductList } from 'screens/main';
 import { ProductPage } from 'screens/product-page';
 import { Profile } from 'screens/profile';
+import { Logout } from 'screens/logout';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 
 const App: React.FC = () => {
@@ -59,6 +60,11 @@ const App: React.FC = () => {
         path={ROUTE.PROFILE}
         element={
           <Profile />
+        }
+      />
+
+      <Route path={ROUTE.PROFILE_LOGOUT} element={
+          <Logout />
         }
       />
 

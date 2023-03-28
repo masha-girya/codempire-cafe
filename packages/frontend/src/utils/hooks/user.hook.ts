@@ -22,5 +22,9 @@ export const useUser = () => {
     return validUser;
   };
 
-  return { checkUser };
+  const removeUser = () => {
+    dispatch(userActions.clearUser);
+  };
+
+  return { checkUser, removeUser };
 };

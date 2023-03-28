@@ -57,6 +57,9 @@ export const userSlice = createSlice({
     setUser: (state, action: PayloadAction<IUser>) => {
       return { ...state, ...action.payload};
     },
+    clearUser: (state) => {
+      return { ...state, ...initialState };
+    },
   },
 });
 
