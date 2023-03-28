@@ -18,12 +18,14 @@ export const EditUserModal = (props: IProps) => {
     isNameValid,
     isEmailValid,
     isPhoneValid,
+    isEditOnSuccess,
     setIsEmailValid,
     setIsNameValid,
     setIsPhoneValid,
     setNameOnEdit,
     setEmailOnEdit,
     setPhoneOnEdit,
+    setIsEditOnSuccess,
   } = useEditUserModal();
   const { onHandleClose } = props;
 
@@ -33,8 +35,13 @@ export const EditUserModal = (props: IProps) => {
     const successEdit = await editUser();
 
     if(successEdit) {
-      onHandleClose();
+      setIsEditOnSuccess(true);
     }
+  };
+
+  const handleSuccessClose = () => {
+    onHandleClose();
+    setIsEditOnSuccess(false);
   };
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,85 +62,101 @@ export const EditUserModal = (props: IProps) => {
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if(event.target === event.currentTarget) {
       onHandleClose();
+      setIsEditOnSuccess(false);
     }
   };
 
   return (
     <div className="edit-user-modal" onClick={handleModalClose}>
-      <div className="edit-user-modal__block">
-        <div className="edit-user-modal__fields">
-          <h1 className="edit-user-modal__title">Change Profile</h1>
-          <img
-            src=""
-            alt="profile photo"
-            className="edit-user-modal__photo"
-          />
+      {isEditOnSuccess
+        ? (<div className="edit-user-modal__success">
+           <button
+              className="edit-user-modal__success--close"
+              onClick={handleSuccessClose}
+            >
+              <Icon type="close" />
+            </button>
 
-          <MainButton
-            type="button"
-            text="skip"
-            isSecondary={true}
-            onHandleClick={onHandleClose}
-          />
-        </div>
-
-        <div className="edit-user-modal__fields">
-          <button
-            className="edit-user-modal__close"
-            onClick={onHandleClose}
-          >
-            <Icon type="close" />
-          </button>
-
-          <form
-            className="edit-user-modal__form"
-            onSubmit={handleSubmit}
-          >
-            <label className="edit-user-modal__form-label">
-              Name
-              <Input
-                type="text"
-                placeholder=""
-                isPass={false}
-                value={nameOnEdit || ''}
-                onChange={handleChangeName}
-                helperText={!isNameValid ? 'Enter Name and Surname' : ''}
+            <h1 className="edit-user-modal__title">
+              Changed successfully!
+            </h1>
+          </div>)
+        : (
+          <div className="edit-user-modal__block">
+            <div className="edit-user-modal__fields">
+              <h1 className="edit-user-modal__title">Change Profile</h1>
+              <img
+                src=""
+                alt="profile photo"
+                className="edit-user-modal__photo"
               />
-            </label>
 
-            <label className="edit-user-modal__form-label">
-              Email
-              <Input
-                type="email"
-                placeholder=""
-                isPass={false}
-                value={emailOnEdit || ''}
-                onChange={handleChangeEmail}
-                helperText={!isEmailValid ? 'Enter correct email: someemail@gmail.com' : ''}
-              />
-            </label>
-
-            <label className="edit-user-modal__form-label">
-              Phone
-              <Input
-                type="phone"
-                placeholder=""
-                isPass={false}
-                value={phoneOnEdit || ''}
-                onChange={handleChangePhone}
-                helperText={!isPhoneValid ? 'Enter phone by pattern: +380 99 999 99 99' : ''}
-              />
-            </label>
-
-            <div className="edit-user-modal__form-submit">
               <MainButton
-                type="submit"
-                text="Create"
+                type="button"
+                text="skip"
+                isSecondary={true}
+                onHandleClick={onHandleClose}
               />
             </div>
-          </form>
-        </div>
-      </div>
+
+            <div className="edit-user-modal__fields">
+              <button
+                className="edit-user-modal__close"
+                onClick={onHandleClose}
+              >
+                <Icon type="close" />
+              </button>
+
+              <form
+                className="edit-user-modal__form"
+                onSubmit={handleSubmit}
+              >
+                <label className="edit-user-modal__form-label">
+                  Name
+                  <Input
+                    type="text"
+                    placeholder=""
+                    isPass={false}
+                    value={nameOnEdit || ''}
+                    onChange={handleChangeName}
+                    helperText={!isNameValid ? 'Enter Name and Surname' : ''}
+                  />
+                </label>
+
+                <label className="edit-user-modal__form-label">
+                  Email
+                  <Input
+                    type="email"
+                    placeholder=""
+                    isPass={false}
+                    value={emailOnEdit || ''}
+                    onChange={handleChangeEmail}
+                    helperText={!isEmailValid ? 'Enter correct email: someemail@gmail.com' : ''}
+                  />
+                </label>
+
+                <label className="edit-user-modal__form-label">
+                  Phone
+                  <Input
+                    type="phone"
+                    placeholder=""
+                    isPass={false}
+                    value={phoneOnEdit || ''}
+                    onChange={handleChangePhone}
+                    helperText={!isPhoneValid ? 'Enter phone by pattern: +380 99 999 99 99' : ''}
+                  />
+                </label>
+
+                <div className="edit-user-modal__form-submit">
+                  <MainButton
+                    type="submit"
+                    text="Create"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>)
+      }
     </div>
   );
 };

@@ -6,13 +6,14 @@ import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
 import { EditUserModal } from '../profile/edit-user-modal';
 import { useAppSelector } from 'store';
-import { useProfile } from '../profile';
+import { deleteUser, useProfile } from '../profile';
 import { removeLocalItem } from 'utils/helpers';
 import {
   ROUTE_CONSTANTS as ROUTE,
   STORAGE_CONSTANTS as STORAGE,
 } from 'utils/constants';
 import './profile.scss';
+import { validateToken } from '../../screens/auth';
 
 export const Profile = () => {
   const {
@@ -21,8 +22,10 @@ export const Profile = () => {
     setIsModalOpen,
     navigate,
     removeUser,
+    sendUniqueRequest,
   } = useProfile();
   const {
+    id,
     name,
     phone,
     role,
@@ -45,6 +48,17 @@ export const Profile = () => {
     removeUser();
   };
 
+  const handleDeleteAccount = async() => {
+    const localToken = await validateToken();
+
+    await sendUniqueRequest(async() => {
+      deleteUser(id, localToken?.token || '');
+    });
+
+    removeLocalItem(STORAGE.ACCESS_TOKEN);
+    navigate(ROUTE.PROFILE_LOGOUT);
+  };
+
   return (
     <>
     {isModalOpen && <EditUserModal onHandleClose={handleModalClose} />}
@@ -64,7 +78,7 @@ export const Profile = () => {
 
                 <div className="profile__info">
                   <h1 className="profile__username">
-                    {`${name} ${surname}`}
+                    {name ? `${name} ${surname}` : 'Name Surname'}
                   </h1>
                   <p className="profile__status">{role}</p>
                   <p className="profile__phone">{phone}</p>
@@ -89,10 +103,12 @@ export const Profile = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/" className="profile__link" >
-                      <p>Delete account</p>
-                      <Icon type="rightArrow" />
-                    </Link>
+                    <div className="profile__link" >
+                      <button className="profile__link--delete" onClick={handleDeleteAccount}>
+                        <p>Delete account</p>
+                        <Icon type="rightArrow" />
+                      </button>
+                    </div>
                   </li>
                   <li>
                     <Link to="/" className="profile__link" >

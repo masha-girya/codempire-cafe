@@ -1,4 +1,8 @@
 export const validateName = (enteredName: string) => {
+  if(!enteredName) {
+    return false;
+  }
+
   const fullEnteredName = enteredName.trim().split(' ');
 
   if (fullEnteredName.length === 2) {
@@ -9,6 +13,10 @@ export const validateName = (enteredName: string) => {
 };
 
 export const validatePhone = (enteredPhone: string) => {
+  if(!enteredPhone) {
+    return false;
+  }
+
   const phone = enteredPhone.split(' ').join('');
 
   if (phone.length === 13
@@ -22,5 +30,9 @@ export const validatePhone = (enteredPhone: string) => {
 };
 
 export const validateEmail = (enteredEmail: string) => {
+  if(!enteredEmail) {
+    return '';
+  }
+
   return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(enteredEmail);
 };

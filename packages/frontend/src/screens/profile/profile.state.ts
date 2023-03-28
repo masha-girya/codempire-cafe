@@ -28,5 +28,6 @@ export const useProfile = () => {
     setIsModalOpen,
     navigate,
     removeUser,
+    sendUniqueRequest,
   };
 };

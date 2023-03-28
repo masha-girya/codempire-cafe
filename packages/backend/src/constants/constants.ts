@@ -24,6 +24,7 @@ export const ROUTE_CONSTANTS = {
   USER_EMAIL: ':email',
   USER_REGISTER: 'register',
   USER_UPDATE: 'edit/:id',
+  USER_ID: 'id/:id',
   AUTH: 'auth',
   AUTH_LOGIN: 'login',
   AUTH_PROFILE: 'profile',
@@ -35,4 +36,5 @@ export const ROUTE_CONSTANTS = {
   MENU_ID: ':id',
   RECOMMENDED: 'recommended/:id',
   QUERY: 'query',
+  ID: ':id',
 } as const;
