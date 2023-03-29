@@ -1,0 +1,25 @@
+
+@use 'styles/mixins';
+
+.logout {
+  display: grid;
+  place-items: center;
+
+  &__container {
+    padding-top: 120px;
+  }
+
+  &__title {
+    @include mixins.fontH1();
+  }
+
+  &__button-login {
+    display: block;
+    margin-top: 80px;
+  }
+
+  &__button-signup {
+    display: block;
+    margin-top: 10px;
+  }
+}

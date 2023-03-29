@@ -8,6 +8,7 @@ import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import {userActions } from 'store/features';
 import {
   useAuth,
+  useAuthForm,
   useAuthRequest,
   login,
   signUp,
@@ -26,24 +27,30 @@ export const AuthForm = (props: IProps) => {
     isError,
     setIsError,
   } = useAuthRequest();
+
   const {
-    email,
-    password,
-    isButtonDisabled,
     navigate,
     isValidEmail,
     setIsValidEmail,
   } = useAuth();
 
+  const {
+    enteredEmail,
+    enteredPassword,
+    isButtonDisabled,
+    setEnteredEmail,
+    setEnteredPassword,
+  } = useAuthForm();
+
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsError(false);
     setIsValidEmail(true);
-    dispatch(userActions.setEmail(event.target.value));
+    setEnteredEmail(event.target.value);
   };
 
   const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsError(false);
-    dispatch(userActions.setPassword(event.target.value));
+    setEnteredPassword(event.target.value);
   };
 
   const buttonText = useMemo(() => {
@@ -53,7 +60,7 @@ export const AuthForm = (props: IProps) => {
   const handleSubmit = async(event: React.FormEvent) => {
     event?.preventDefault();
 
-    if(!validateEmail(email)) {
+    if(!validateEmail(enteredEmail)) {
       setIsValidEmail(false);
       return;
     }
@@ -61,10 +68,10 @@ export const AuthForm = (props: IProps) => {
     switch(isSignUp) {
       case true:
         await sendAuthRequest(async() => {
-          const res = await signUp(email, password);
+          const res = await signUp(enteredEmail, enteredPassword);
           if(res) {
             dispatch(userActions.setId(res.id));
-            await login(email, password);
+            await login(enteredEmail, enteredPassword);
             navigate(ROUTE.REGISTRATION_ADD_INFO);
           }
         });
@@ -72,7 +79,7 @@ export const AuthForm = (props: IProps) => {
 
       case false:
         await sendAuthRequest(async() => {
-          const res = await login(email, password);
+          const res = await login(enteredEmail, enteredPassword);
           if (res) {
             navigate(ROUTE.MAIN_PAGE_DISH);
           }
@@ -97,7 +104,7 @@ export const AuthForm = (props: IProps) => {
         <Input
           type="email"
           placeholder="Email"
-          value={email}
+          value={enteredEmail}
           onChange={handleEmailChange}
           isPass={false}
           helperText={!isValidEmail ? 'Please, write a correct email': ''}
@@ -108,7 +115,7 @@ export const AuthForm = (props: IProps) => {
         <Input
           type="password"
           placeholder="Password"
-          value={password}
+          value={enteredPassword}
           onChange={handlePassChange}
           isPass={true}
         />

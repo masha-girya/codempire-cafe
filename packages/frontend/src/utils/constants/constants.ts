@@ -24,6 +24,7 @@ export const ROUTE_CONSTANTS = {
   MAIN_PAGE_MENU: '/home/menus',
   ERROR: '/error',
   PROFILE: '/profile',
+  PROFILE_LOGOUT: '/profile/logout',
 };
 
 export const STORAGE_CONSTANTS = {

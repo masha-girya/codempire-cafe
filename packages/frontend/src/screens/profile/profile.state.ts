@@ -1,19 +1,20 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRequest } from 'utils/hooks';
 import { useUser } from 'utils/hooks';
 
 export const useProfile = () => {
+  const navigate = useNavigate();
   const [ isUser, setIsUser ] = useState(true);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const { sendUniqueRequest } = useRequest();
-  const { checkUser } = useUser();
+  const { checkUser, removeUser } = useUser();
 
   const loadUser = useCallback(async() => {
     const user = await sendUniqueRequest(checkUser);
 
     if(!user) {
       setIsUser(false);
-      return;
     }
   }, [isUser]);
 
@@ -21,5 +22,11 @@ export const useProfile = () => {
     loadUser();
   }, [isUser]);
 
-  return { isUser, isModalOpen, setIsModalOpen };
+  return {
+    isUser,
+    isModalOpen,
+    setIsModalOpen,
+    navigate,
+    removeUser,
+  };
 };

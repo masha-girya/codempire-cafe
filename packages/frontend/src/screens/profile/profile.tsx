@@ -7,11 +7,21 @@ import { Icon } from 'components/icon';
 import { EditUserModal } from '../profile/edit-user-modal';
 import { useAppSelector } from 'store';
 import { useProfile } from '../profile';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { removeLocalItem } from 'utils/helpers';
+import {
+  ROUTE_CONSTANTS as ROUTE,
+  STORAGE_CONSTANTS as STORAGE,
+} from 'utils/constants';
 import './profile.scss';
 
 export const Profile = () => {
-  const { isUser, isModalOpen, setIsModalOpen } = useProfile();
+  const {
+    isUser,
+    isModalOpen,
+    setIsModalOpen,
+    navigate,
+    removeUser,
+  } = useProfile();
   const {
     name,
     phone,
@@ -21,10 +31,6 @@ export const Profile = () => {
     address: addresses,
   } = useAppSelector(state => state.user);
 
-  if(!isUser) {
-    return <Navigate to={ROUTE.ERROR} replace />;
-  }
-
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
@@ -33,97 +39,108 @@ export const Profile = () => {
     setIsModalOpen(true);
   };
 
+  const handleLogOut = () => {
+    removeLocalItem(STORAGE.ACCESS_TOKEN);
+    navigate(ROUTE.PROFILE_LOGOUT);
+    removeUser();
+  };
+
   return (
     <>
-      {isModalOpen && <EditUserModal onHandleClose={handleModalClose} />}
+    {isModalOpen && <EditUserModal onHandleClose={handleModalClose} />}
 
-      <div>
-        <Header />
-
-        <div className="profile">
-          <div className="profile__user">
-            <img
-              className="profile__photo"
-              src={avatar}
-              alt="profile photo"
-            />
-
-            <div className="profile__info">
-              <h1 className="profile__username">
-                {`${name} ${surname}`}
-              </h1>
-              <p className="profile__status">{role}</p>
-              <p className="profile__phone">{phone}</p>
-            </div>
-          </div>
-
+      {isUser
+        ? (
           <div>
-            <ul className="profile__settings">
-              <li>Settings</li>
+            <Header />
 
-              <li>
-                <Link to="/" className="profile__link" >
-                  <p>Privacy policy</p>
-                  <Icon type="rightArrow" />
-                </Link>
-              </li>
+            <div className="profile">
+              <div className="profile__user">
+                <img
+                  className="profile__photo"
+                  src={avatar}
+                  alt="profile photo"
+                />
 
-              <li>
-                <Link to="/" className="profile__link" >
-                  <p>Change password</p>
-                  <Icon type="rightArrow" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="profile__link" >
-                  <p>Delete account</p>
-                  <Icon type="rightArrow" />
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="profile__link" >
-                  <p>Orders</p>
-                  <Icon type="rightArrow" />
-                </Link>
-              </li>
-            </ul>
+                <div className="profile__info">
+                  <h1 className="profile__username">
+                    {`${name} ${surname}`}
+                  </h1>
+                  <p className="profile__status">{role}</p>
+                  <p className="profile__phone">{phone}</p>
+                </div>
+              </div>
 
-            <ul className="profile__addresses">
-              <li>
-                <button className="profile__add-address" >
-                  Addresses
-                  <Icon type="plus" />
-                </button>
-              </li>
+              <div>
+                <ul className="profile__settings">
+                  <li>Settings</li>
 
-              {addresses.map(address => (
-                <li key={address} className="profile__link profile__link--address">
-                  <p>{address}</p>
-                </li>
-              ))}
-            </ul>
+                  <li>
+                    <Link to="/" className="profile__link" >
+                      <p>Privacy policy</p>
+                      <Icon type="rightArrow" />
+                    </Link>
+                  </li>
 
-            <div className="profile__actions">
-              <MainButton
-                type="button"
-                text="Edit"
-                isSecondary={true}
-                isSmall={true}
-                onHandleClick={handleModalOpen}
-              />
+                  <li>
+                    <Link to="/" className="profile__link" >
+                      <p>Change password</p>
+                      <Icon type="rightArrow" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/" className="profile__link" >
+                      <p>Delete account</p>
+                      <Icon type="rightArrow" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/" className="profile__link" >
+                      <p>Orders</p>
+                      <Icon type="rightArrow" />
+                    </Link>
+                  </li>
+                </ul>
 
-              <MainButton
-                type="button"
-                text="Log out"
-                isSecondary={true}
-                isSmall={true}
-              />
+                <ul className="profile__addresses">
+                  <li>
+                    <button className="profile__add-address" >
+                      Addresses
+                      <Icon type="plus" />
+                    </button>
+                  </li>
+
+                  {addresses.map(address => (
+                    <li key={address} className="profile__link profile__link--address">
+                      <p>{address}</p>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="profile__actions">
+                  <MainButton
+                    type="button"
+                    text="Edit"
+                    isSecondary={true}
+                    isSmall={true}
+                    onHandleClick={handleModalOpen}
+                  />
+
+                  <MainButton
+                    type="button"
+                    text="Log out"
+                    isSecondary={true}
+                    isSmall={true}
+                    onHandleClick={handleLogOut}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <BottomBar />
-      </div>
+            <BottomBar />
+          </div>)
+        : <Navigate to={ROUTE.HOME} replace />
+      }
     </>
   );
 };
