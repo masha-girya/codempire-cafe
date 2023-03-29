@@ -35,7 +35,7 @@ export class DishController {
     return this.dishService.getCategories(sort);
   }
 
-  @Get(ROUTE.DISH_ID)
+  @Get(ROUTE.ID)
   getDishById(@Param('id') id: string) {
     return this.dishService.getDishById(id);
   }
@@ -53,7 +53,7 @@ export class DishController {
     return this.dishService.addDish(dishDto, bufferImage);
   }
 
-  @Patch(ROUTE.DISH_ID)
+  @Patch(ROUTE.ID)
   @UseInterceptors(FileInterceptor('image'))
   updateDish(
     @Param('id') id: string,
@@ -68,7 +68,7 @@ export class DishController {
     return this.dishService.updateDish(id, updatedDishDto, bufferImage);
   }
 
-  @Delete(ROUTE.DISH_ID)
+  @Delete(ROUTE.ID)
   removeDish(@Param('id') id: string) {
     return this.dishService.removeDish(id);
   }

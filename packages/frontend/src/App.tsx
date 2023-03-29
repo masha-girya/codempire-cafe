@@ -63,6 +63,20 @@ const App: React.FC = () => {
         }
       />
 
+      <Route
+        path={ROUTE.PROFILE_EDIT_USER}
+        element={
+          <Profile isUserOnEdit={true} />
+        }
+      />
+
+      <Route
+        path={ROUTE.PROFILE_CHANGE_PASS}
+        element={
+          <Profile isPassOnEdit={true} />
+        }
+      />
+
       <Route path={ROUTE.PROFILE_LOGOUT} element={
           <Logout />
         }

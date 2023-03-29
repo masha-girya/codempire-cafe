@@ -10,6 +10,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, HashService, UserEntity } from '../user';
 import { AuthService } from 'auth';
+import { IPassword } from 'utils/types';
 
 @Injectable()
 export class UserService {
@@ -81,13 +82,35 @@ export class UserService {
     }
 
     const user = await this.getUserById(id);
-    const token = await this.authService.login(user);
 
     Object.assign(user, createUserDto);
 
     await this.usersRepository.save(user);
 
+    const token = await this.authService.login(user);
+
     return { user, token };
+  }
+
+  async changePassword(id: string, passwords: IPassword) {
+    const user = await this.usersRepository.findOneBy({ id });
+    const { oldPass, newPass} = passwords;
+
+    const isOldPassValid = await this.hashService.comparePassword(oldPass, user.password);
+
+    if(!isOldPassValid) {
+      throw new BadRequestException({
+        message: 'You have entered a wrong password',
+      });
+    }
+
+    user.password = await this.hashService.hashPassword(newPass);
+
+    await this.usersRepository.save(user);
+
+    const token = await this.authService.login(user);
+
+    return { token };
   }
 
   async removeUser(id: string) {

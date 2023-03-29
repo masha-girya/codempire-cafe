@@ -36,7 +36,7 @@ export class MenuController {
     return this.menuService.getByQuery(query);
   }
 
-  @Get(ROUTE.MENU_ID)
+  @Get(ROUTE.ID)
   getMenuById(@Param('id') id: string) {
     return this.menuService.getMenuById(id);
   }
@@ -57,7 +57,7 @@ export class MenuController {
     return this.menuService.addMenu(menuDto, bufferImage);
   }
 
-  @Patch(ROUTE.MENU_ID)
+  @Patch(ROUTE.ID)
   @UseInterceptors(FileInterceptor('image'))
   updateMenu(
     @Param('id') id: string,
@@ -72,7 +72,7 @@ export class MenuController {
     return this.menuService.updateMenu(id, updatedMenuDto, bufferImage);
   }
 
-  @Delete(ROUTE.MENU_ID)
+  @Delete(ROUTE.ID)
   removeMenu(@Param('id') id: string) {
     return this.menuService.removeMenu(id);
   }

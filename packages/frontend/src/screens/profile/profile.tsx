@@ -4,26 +4,32 @@ import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import { EditUserModal } from '../profile/edit-user-modal';
+import { Modal } from '../profile/modal';
 import { useAppSelector } from 'store';
 import { deleteUser, useProfile } from '../profile';
 import { removeLocalItem } from 'utils/helpers';
+import { validateToken } from '../../screens/auth';
 import {
   ROUTE_CONSTANTS as ROUTE,
   STORAGE_CONSTANTS as STORAGE,
 } from 'utils/constants';
 import './profile.scss';
-import { validateToken } from '../../screens/auth';
 
-export const Profile = () => {
+interface IProps {
+  isPassOnEdit?: boolean,
+  isUserOnEdit?: boolean,
+}
+
+export const Profile = (props: IProps) => {
+  const { isPassOnEdit, isUserOnEdit } = props;
+
   const {
     isUser,
-    isModalOpen,
-    setIsModalOpen,
     navigate,
     removeUser,
     sendUniqueRequest,
   } = useProfile();
+
   const {
     id,
     name,
@@ -34,12 +40,8 @@ export const Profile = () => {
     address: addresses,
   } = useAppSelector(state => state.user);
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
   const handleModalOpen = () => {
-    setIsModalOpen(true);
+    navigate(ROUTE.PROFILE_EDIT_USER);
   };
 
   const handleLogOut = () => {
@@ -61,7 +63,17 @@ export const Profile = () => {
 
   return (
     <>
-    {isModalOpen && <EditUserModal onHandleClose={handleModalClose} />}
+    {isPassOnEdit && (
+      <Modal
+        isPass={true}
+      />
+    )}
+
+    {isUserOnEdit && (
+      <Modal
+        isPass={false}
+      />
+    )}
 
       {isUser
         ? (
@@ -97,7 +109,7 @@ export const Profile = () => {
                   </li>
 
                   <li>
-                    <Link to="/" className="profile__link" >
+                    <Link to={ROUTE.PROFILE_CHANGE_PASS} className="profile__link" >
                       <p>Change password</p>
                       <Icon type="rightArrow" />
                     </Link>

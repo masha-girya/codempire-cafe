@@ -17,7 +17,7 @@
 
     border: none;
     background-color: transparent;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 
@@ -31,7 +31,6 @@
 
     &--cross {
       @include mixins.eyeButtonCross();
-
 
       &:hover {
         @include mixins.eyeButton();

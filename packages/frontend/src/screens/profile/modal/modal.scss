@@ -1,0 +1,39 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var.$index-modal;
+
+  @include mixins.centerItems(center, center);
+
+  width: 100%;
+  height: 100vh;
+
+  background-color: var.$color-modal-background;
+
+  &__block {
+    @include mixins.modalSize();
+    padding: 24px;
+
+    background-color: var.$color-text-contrast;
+    opacity: 1;
+  }
+
+  &__header {
+    @include mixins.centerItems(space-between, center);
+    margin-bottom: 48px;
+  }
+
+  &__title {
+    @include mixins.fontH1();
+  }
+
+  &__close {
+    &:hover path {
+      fill: var.$color-text-button;
+    }
+  }
+}

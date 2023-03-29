@@ -1,0 +1,47 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.change-pass {
+  &__form {
+    @include mixins.centerItems(center, center);
+    flex-direction: column;
+  }
+
+  &__fields {
+    @include mixins.centerItems(center, center);
+    flex-direction: column;
+    row-gap: 24px;
+  }
+
+  &__form-label {
+    @include mixins.centerItems(space-between, flex-start);
+    flex-direction: column;
+    row-gap: 8px;
+
+    @include mixins.fontSubtitle1();
+    font-weight: var.$font-weight-medium;
+  }
+
+  &__form-submit {
+    @include mixins.centerItems(space-between, center);
+    margin-top: 80px;
+  }
+
+  &__forgot-pass {
+    align-self: flex-start;
+
+    @include mixins.fontBody();
+    color: var.$color-text-button;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__error {
+    margin-top: 5px;
+
+    @include mixins.fontBody();
+    color: var.$color-error;
+  }
+}
