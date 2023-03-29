@@ -25,6 +25,26 @@
     opacity: 1;
   }
 
+  &__success {
+    display: grid;
+
+    padding: 20px;
+    width: 500px;
+    height: 300px;
+
+    background-color: var.$color-text-contrast;
+    text-align: center;
+
+    &--close {
+      justify-self: flex-end;
+      height: max-content;
+
+      &:hover path {
+        fill: var.$color-text-button;
+      }
+    }
+  }
+
   &__title {
     @include mixins.fontH1();
   }

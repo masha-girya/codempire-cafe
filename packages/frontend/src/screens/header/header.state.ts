@@ -14,7 +14,7 @@ export const useHeader = () => {
       setIsUser(false);
       return;
     }
-  }, [isUser]);
+  }, []);
 
   useEffect(() => {
     loadUser();

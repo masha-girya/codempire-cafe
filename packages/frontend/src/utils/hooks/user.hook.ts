@@ -15,7 +15,7 @@ export const useUser = () => {
 
     const { user: validUser, token } = localToken;
 
-    const user = await getUser(validUser.email, token);
+    const user = await getUser(validUser.id, token);
 
     dispatch(userActions.setUser(user));
 
@@ -23,7 +23,7 @@ export const useUser = () => {
   };
 
   const removeUser = () => {
-    dispatch(userActions.clearUser);
+    dispatch(userActions.clearUser());
   };
 
   return { checkUser, removeUser };
