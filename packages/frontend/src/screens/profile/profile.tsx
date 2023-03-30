@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
@@ -40,15 +40,15 @@ export const Profile = (props: IProps) => {
     address: addresses,
   } = useAppSelector(state => state.user);
 
-  const handleModalOpen = () => {
+  const handleModalOpen = useCallback(() => {
     navigate(ROUTE.PROFILE_EDIT_USER);
-  };
+  }, []);
 
-  const handleLogOut = () => {
+  const handleLogOut = useCallback(() => {
     removeLocalItem(STORAGE.ACCESS_TOKEN);
     navigate(ROUTE.PROFILE_LOGOUT);
     removeUser();
-  };
+  }, []);
 
   const handleDeleteAccount = async() => {
     const localToken = await validateToken();
@@ -84,7 +84,7 @@ export const Profile = (props: IProps) => {
               <div className="profile__user">
                 <img
                   className="profile__photo"
-                  src={avatar}
+                  src={`data:image/png;base64,${avatar}`}
                   alt="profile photo"
                 />
 

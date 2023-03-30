@@ -45,20 +45,20 @@ export const Header = () => {
 
           {isUser
             ? (
-            <Link to={ROUTE.PROFILE} className="header__right-menu">
               <div className="header__user-info">
-                <div className="header__user-info--text">
-                  <p className="header__user-status">{role}</p>
-                  <p className="header__user-name">
-                    {name ? `${name} ${surname}` : 'Name Surname'}
-                  </p>
-                </div>
+                <Link to={ROUTE.PROFILE} className="header__right-menu">
+                  <div className="header__user-info--text">
+                    <p className="header__user-status">{role}</p>
+                    <p className="header__user-name">
+                      {name ? `${name} ${surname}` : 'Name Surname'}
+                    </p>
+                  </div>
 
-                <div>
-                  <img src={avatar} alt="photo" className="header__user-info--photo" />
-                </div>
-              </div>
-            </Link>)
+                  <div>
+                    <img src={`data:image/png;base64,${avatar}`} alt="photo" className="header__user-info--photo" />
+                  </div>
+                </Link>
+              </div>)
               : (
                 <Link to={ROUTE.HOME} className="header__right-menu">
                   <MainButton

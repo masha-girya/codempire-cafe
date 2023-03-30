@@ -73,17 +73,22 @@ export class UserService {
     return createdUser;
   }
 
-  async updateUser(id: string, createUserDto: CreateUserDto) {
+  async updateUser(id: string, createUserDto: CreateUserDto, bufferAvatar: Buffer) {
     const { email } = createUserDto;
     const userExists = await this.usersRepository.findOneBy({ email });
 
-    if(userExists && userExists.email !== email ) {
+    if(userExists && userExists.email !== email) {
       throw new ConflictException('Email is already exists');
     }
 
     const user = await this.getUserById(id);
 
     Object.assign(user, createUserDto);
+
+    if(bufferAvatar) {
+      const base64Avatar = bufferAvatar.toString('base64');
+      user.avatar = base64Avatar;
+    }
 
     await this.usersRepository.save(user);
 

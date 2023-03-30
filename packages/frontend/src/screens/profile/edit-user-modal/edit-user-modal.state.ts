@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useRequest } from 'utils/hooks';
+import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from 'store';
 import { updateUser } from '../../auth';
 import { userActions } from 'store/features';
-import {
-  validatePhone,
-  validateName,
-  validateEmail,
-  setLocalItem,
-} from 'utils/helpers';
+import { setLocalItem, validationUser } from 'utils/helpers';
 import { STORAGE_CONSTANTS as STORAGE } from 'utils/constants';
+import { IUser } from 'utils/types';
 
-export const useEditUserModal = () => {
+interface IProps {
+  setSuccess: Dispatch<SetStateAction<boolean>>,
+}
+
+export const useEditUserModal = (props: IProps) => {
+  const { setSuccess } = props;
   const dispatch = useAppDispatch();
   const { sendUniqueRequest } = useRequest();
   const {
@@ -20,42 +22,50 @@ export const useEditUserModal = () => {
     phone,
     name,
     surname,
+    avatar,
   } = useAppSelector(state => state.user);
 
-  const [ isEmailValid, setIsEmailValid ] = useState(true);
-  const [ isNameValid, setIsNameValid ] = useState(true);
-  const [ isPhoneValid, setIsPhoneValid ] = useState(true);
+  const [ avatarOnEdit, setAvatarOnEdit ] = useState<File | null>(null);
 
-  const [ emailOnEdit, setEmailOnEdit ] = useState(email);
-  const [ phoneOnEdit, setPhoneOnEdit ] = useState(phone);
-  const [ nameOnEdit, setNameOnEdit ] = useState(`${name} ${surname}`);
+  const formik = useFormik({
+    initialValues: {
+      name: `${name} ${surname}`,
+      email: email,
+      phone: phone,
+    },
+    validationSchema: validationUser,
+    onSubmit: async(values) => {
+      const successEdit = await editUser(values);
 
-  const editUser = async() => {
-    const validName = validateName(nameOnEdit);
-    const isValidPhone = validatePhone(phoneOnEdit);
-    const isValidEmail = validateEmail(emailOnEdit);
+      if(successEdit) {
+        setSuccess(true);
+      }
+    },
+  });
 
-    if(!validName) {
-      setIsNameValid(false);
-      return false;
+  const editUser = async(
+    values: Pick<IUser, 'name' | 'email' |'phone'>,
+  ) => {
+    const { email, name, phone } = values;
+
+    const formData = new FormData();
+
+    if(avatarOnEdit) {
+      formData.append(
+        'avatar',
+        new Blob([avatarOnEdit], { type: 'image/jpeg' }),
+        avatarOnEdit.name
+      );
     }
 
-    if(!isValidEmail) {
-      setIsEmailValid(false);
-      return false;
-    }
+    const validName = name.split(' ');
 
-    if(!isValidPhone) {
-      setIsPhoneValid(false);
-      return false;
-    }
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('name', validName[0]);
+    formData.append('surname', validName[1]);
 
-    const request = () => updateUser(id, {
-      email: emailOnEdit,
-      phone: phoneOnEdit,
-      name: validName[0],
-      surname: validName[1],
-    });
+    const request = () => updateUser(id, formData);
 
     const { user, token } = await sendUniqueRequest(request);
 
@@ -67,18 +77,9 @@ export const useEditUserModal = () => {
   };
 
   return {
-    editUser,
-    nameOnEdit,
-    emailOnEdit,
-    phoneOnEdit,
-    isNameValid,
-    isEmailValid,
-    isPhoneValid,
-    setIsEmailValid,
-    setIsNameValid,
-    setIsPhoneValid,
-    setNameOnEdit,
-    setEmailOnEdit,
-    setPhoneOnEdit,
+    formik,
+    avatar,
+    avatarOnEdit,
+    setAvatarOnEdit,
   };
 };

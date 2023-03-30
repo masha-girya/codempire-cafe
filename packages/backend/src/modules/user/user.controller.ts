@@ -7,12 +7,15 @@ import {
   UseGuards,
   Patch,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { UserService, CreateUserDto } from '../user';
 import { IPassword, ROLE } from 'utils/types';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller(ROUTE.USER)
 export class UserController {
@@ -42,13 +45,21 @@ export class UserController {
     return this.userService.registerUser(createUserDto);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Patch(ROUTE.USER_UPDATE)
+  @UseInterceptors(FileInterceptor('avatar'))
   updateUser(
     @Param('id') id: string,
     @Body() createUserDto: CreateUserDto,
+    @UploadedFile() avatar?: Express.Multer.File,
   ) {
-    return this.userService.updateUser(id, createUserDto);
+    let bufferAvatar = null;
+
+    if(avatar) {
+      bufferAvatar = Buffer.from(avatar.buffer);
+    }
+
+    return this.userService.updateUser(id, createUserDto, bufferAvatar);
   }
 
   @UseGuards(JwtAuthGuard)

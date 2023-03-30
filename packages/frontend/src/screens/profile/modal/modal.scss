@@ -24,7 +24,7 @@
 
   &__header {
     @include mixins.centerItems(space-between, center);
-    margin-bottom: 48px;
+    margin-bottom: 40px;
   }
 
   &__title {

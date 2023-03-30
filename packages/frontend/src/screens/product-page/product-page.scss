@@ -22,7 +22,7 @@
     @include mixins.fontSubtitle1Bold();
     color: var.$color-primary;
 
-    transition: all 0.3s;
+    transition: all var.$transition-main;
 
     cursor: pointer;
 
