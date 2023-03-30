@@ -6,6 +6,7 @@ export const API_CONSTANTS = {
   LOGIN_URL: '/auth/login',
   VALIDATE_TOKEN_URL: '/auth/profile',
   USER_EDIT: '/user/edit',
+  USER_CHANGE_PASS: '/user/edit/password',
   USER: '/user',
   USER_ID: '/user/id',
   DISH: '/dish',
@@ -26,6 +27,8 @@ export const ROUTE_CONSTANTS = {
   ERROR: '/error',
   PROFILE: '/profile',
   PROFILE_LOGOUT: '/profile/logout',
+  PROFILE_EDIT_USER: '/profile/edit-user',
+  PROFILE_CHANGE_PASS: '/profile/change-password',
 };
 
 export const STORAGE_CONSTANTS = {

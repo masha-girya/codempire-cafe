@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export const validateName = (enteredName: string) => {
   if(!enteredName) {
     return false;
@@ -36,3 +38,15 @@ export const validateEmail = (enteredEmail: string) => {
 
   return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(enteredEmail);
 };
+
+export const validationPasswordChange = yup.object({
+  oldPass: yup
+    .string()
+    .required('Password is required'),
+  newPass: yup
+    .string()
+    .required('Password is required')
+    .test('passwords-match', 'New password must be different from old password', function(value) {
+      return value !== this.parent.oldPass;
+    }),
+});

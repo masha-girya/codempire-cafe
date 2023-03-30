@@ -1,0 +1,26 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.success {
+  display: grid;
+
+  padding: 20px;
+  width: 500px;
+  height: 300px;
+
+  background-color: var.$color-text-contrast;
+  text-align: center;
+
+  &__title {
+    @include mixins.fontH1();
+  }
+
+  &--close {
+    justify-self: flex-end;
+    height: max-content;
+
+    &:hover path {
+      fill: var.$color-text-button;
+    }
+  }
+}

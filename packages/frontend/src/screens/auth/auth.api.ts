@@ -5,7 +5,7 @@ import {
   API_HEADERS_CONSTANTS as API_HEADERS
 } from 'utils/constants';
 import { getLocalItem, setLocalItem } from 'utils/helpers';
-import { IUser } from 'utils/types';
+import { IPassword, IUser } from 'utils/types';
 
 export async function signUp(email: string, password: string) {
   const user = await axios.post(
@@ -51,6 +51,20 @@ export async function updateUser(id: string, data: Partial<IUser>) {
   const user = await axios.patch(
     API.BASE_URL + API.USER_EDIT + '/' + id,
     data,
+    {headers: {
+      [API_HEADERS.AUTH]: `Bearer ${token}`,
+    }}
+  );
+
+  return user.data;
+}
+
+export async function changePassword(id: string, passwords: IPassword) {
+  const token = getLocalItem(STORAGE.ACCESS_TOKEN) || '';
+
+  const user = await axios.patch(
+    API.BASE_URL + API.USER_CHANGE_PASS + '/' + id,
+    passwords,
     {headers: {
       [API_HEADERS.AUTH]: `Bearer ${token}`,
     }}

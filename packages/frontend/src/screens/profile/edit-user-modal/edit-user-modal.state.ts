@@ -22,8 +22,6 @@ export const useEditUserModal = () => {
     surname,
   } = useAppSelector(state => state.user);
 
-  const [ isEditOnSuccess, setIsEditOnSuccess ] = useState(false);
-
   const [ isEmailValid, setIsEmailValid ] = useState(true);
   const [ isNameValid, setIsNameValid ] = useState(true);
   const [ isPhoneValid, setIsPhoneValid ] = useState(true);
@@ -76,13 +74,11 @@ export const useEditUserModal = () => {
     isNameValid,
     isEmailValid,
     isPhoneValid,
-    isEditOnSuccess,
     setIsEmailValid,
     setIsNameValid,
     setIsPhoneValid,
     setNameOnEdit,
     setEmailOnEdit,
     setPhoneOnEdit,
-    setIsEditOnSuccess,
   };
 };

@@ -6,7 +6,6 @@ import { useUser } from 'utils/hooks';
 export const useProfile = () => {
   const navigate = useNavigate();
   const [ isUser, setIsUser ] = useState(true);
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const { sendUniqueRequest } = useRequest();
   const { checkUser, removeUser } = useUser();
 
@@ -24,8 +23,6 @@ export const useProfile = () => {
 
   return {
     isUser,
-    isModalOpen,
-    setIsModalOpen,
     navigate,
     removeUser,
     sendUniqueRequest,

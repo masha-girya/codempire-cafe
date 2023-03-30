@@ -71,6 +71,10 @@
     }
   }
 
+  &__settings {
+    margin-top: 0;
+  }
+
   &__link {
     @include mixins.centerItems(space-between, center);
 

@@ -11,7 +11,7 @@ import {
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { UserService, CreateUserDto } from '../user';
-import { ROLE } from 'utils/types';
+import { IPassword, ROLE } from 'utils/types';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
 
 @Controller(ROUTE.USER)
@@ -49,6 +49,15 @@ export class UserController {
     @Body() createUserDto: CreateUserDto,
   ) {
     return this.userService.updateUser(id, createUserDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(ROUTE.USER_CHANGE_PASS)
+  changePassword(
+    @Param('id') id: string,
+    @Body() passwords: IPassword,
+  ) {
+    return this.userService.changePassword(id, passwords);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import './input.scss';
 import { useInput } from '../input';
+import './input.scss';
 
 interface IProps {
   type: string,
@@ -9,17 +9,23 @@ interface IProps {
   value: string,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   isPass: boolean,
-  helperText?: string,
+  helperText?: string | boolean,
+  id?: string,
+  name?: string,
+  error?: boolean,
 }
 
 export const Input = (props: IProps) => {
   const {
+    id,
+    name,
     type,
-    placeholder,
+    error,
     value,
-    onChange,
     isPass,
+    onChange,
     helperText,
+    placeholder,
   } = props;
 
   const { passType, setPassType } = useInput();
@@ -43,6 +49,9 @@ export const Input = (props: IProps) => {
           style: { color: '#1E1E1E' },
         }}
         helperText={helperText}
+        id={id}
+        name={name}
+        error={error}
       />
 
       {isPass && (
