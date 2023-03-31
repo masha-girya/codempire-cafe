@@ -1,33 +1,37 @@
 import React, { useCallback } from 'react';
 import { SuccessModal } from 'components/success-modal';
 import { Icon } from 'components/icon';
-import { EditUserModal } from '../../profile/edit-user-modal';
-import { ChangePassModal } from '../../profile/change-pass-modal';
-import { useModal } from '../../profile/modal';
+import {
+  EditUserModal,
+  ChangePassModal,
+  EditAddressModal,
+  useModal,
+} from '../../profile';
+import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './modal.scss';
+import { useLocation } from 'react-router-dom';
 
-interface IProps {
-  isPass: boolean,
-}
-
-export const Modal = (props: IProps) => {
+export const Modal = () => {
+  const { pathname } = useLocation();
   const {
     isEditOnSuccess,
     setIsEditOnSuccess,
     navigate,
   } = useModal();
 
-  const { isPass } = props;
+  const isUser = pathname.includes('user');
+  const isPass = pathname.includes('pass');
+  const isAddress = pathname.includes('address');
 
   const handleModalClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if(event.target === event.currentTarget) {
-      navigate('/profile');
+      navigate(ROUTE.PROFILE);
       setIsEditOnSuccess(false);
     }
   };
 
   const handleClose = useCallback(() => {
-    navigate('/profile');
+    navigate(ROUTE.PROFILE);
   }, []);
 
   return (
@@ -38,8 +42,9 @@ export const Modal = (props: IProps) => {
           <div className="modal__block">
             <div className="modal__header">
               <h1 className="modal__title">
-                Change
-                {isPass ? ' Password' : ' Profile'}
+                {isPass && 'Change Password'}
+                {isUser && 'Change Profile'}
+                {isAddress && 'Add a new address'}
               </h1>
 
               <button
@@ -50,10 +55,11 @@ export const Modal = (props: IProps) => {
               </button>
             </div>
 
-            {isPass
-              ? <ChangePassModal setSuccess={setIsEditOnSuccess} />
-              : <EditUserModal setSuccess={setIsEditOnSuccess} />
-            }
+            {isPass && <ChangePassModal setSuccess={setIsEditOnSuccess} />}
+
+            {isUser && <EditUserModal setSuccess={setIsEditOnSuccess} />}
+
+            {isAddress && <EditAddressModal setSuccess={setIsEditOnSuccess} />}
           </div>)
       }
     </div>

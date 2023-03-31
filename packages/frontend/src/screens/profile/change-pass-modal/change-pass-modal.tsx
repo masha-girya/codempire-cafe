@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
-import { useChangePass } from '../../profile/change-pass-modal';
+import { useChangePass } from '../../profile';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './change-pass-modal.scss';
 

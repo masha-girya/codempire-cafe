@@ -1,8 +1,12 @@
-import React, { Dispatch, SetStateAction, useCallback } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
-import { useEditUserModal } from '../../profile/edit-user-modal';
+import { useEditUserModal } from '../../profile';
 import './edit-user-modal.scss';
 
 interface IProps {

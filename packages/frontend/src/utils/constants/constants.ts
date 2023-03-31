@@ -29,6 +29,7 @@ export const ROUTE_CONSTANTS = {
   PROFILE_LOGOUT: '/profile/logout',
   PROFILE_EDIT_USER: '/profile/edit-user',
   PROFILE_CHANGE_PASS: '/profile/change-password',
+  PROFILE_CHANGE_ADDRESS: '/profile/change-address',
 };
 
 export const STORAGE_CONSTANTS = {

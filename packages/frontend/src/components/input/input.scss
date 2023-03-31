@@ -51,4 +51,10 @@
       border-color: var.$color-text-secondary;
     }
   }
+
+  &--full-width {
+    & .MuiTextField-root {
+      width: 100%;
+    }
+  }
 }

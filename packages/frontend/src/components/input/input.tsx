@@ -13,6 +13,7 @@ interface IProps {
   id?: string,
   name?: string,
   error?: boolean,
+  isFullWidth?: boolean,
 }
 
 export const Input = (props: IProps) => {
@@ -26,6 +27,7 @@ export const Input = (props: IProps) => {
     onChange,
     helperText,
     placeholder,
+    isFullWidth,
   } = props;
 
   const { passType, setPassType } = useInput();
@@ -38,7 +40,9 @@ export const Input = (props: IProps) => {
   };
 
   return (
-    <div className="Input Input__container">
+    <div className= {isFullWidth
+      ? 'Input Input--full-width Input__container'
+      : 'Input Input__container'}>
       <TextField
         type={type === 'password' ? passType : type}
         label={placeholder}

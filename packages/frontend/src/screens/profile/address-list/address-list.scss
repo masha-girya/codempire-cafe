@@ -1,0 +1,17 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.address-list {
+  &__field {
+    @include mixins.profileField();
+
+    &:hover {
+      color: var.$color-text-main;
+    }
+  }
+
+  &__remove svg {
+    width: 10px;
+    margin-right: 4px;
+  }
+}

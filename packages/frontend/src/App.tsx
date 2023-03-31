@@ -57,7 +57,7 @@ const App: React.FC = () => {
       />
 
       <Route
-        path={ROUTE.PROFILE}
+        path={ROUTE.PROFILE + '/*'}
         element={
           <Profile />
         }
@@ -66,14 +66,21 @@ const App: React.FC = () => {
       <Route
         path={ROUTE.PROFILE_EDIT_USER}
         element={
-          <Profile isUserOnEdit={true} />
+          <Profile isModal={true} />
         }
       />
 
       <Route
         path={ROUTE.PROFILE_CHANGE_PASS}
         element={
-          <Profile isPassOnEdit={true} />
+          <Profile isModal={true} />
+        }
+      />
+
+      <Route
+        path={ROUTE.PROFILE_CHANGE_ADDRESS}
+        element={
+          <Profile isModal={true} />
         }
       />
 
