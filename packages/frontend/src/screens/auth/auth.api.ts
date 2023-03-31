@@ -48,12 +48,18 @@ export async function validateToken() {
 export async function updateUser(id: string, data: Partial<IUser> | FormData) {
   const token = getLocalItem(STORAGE.ACCESS_TOKEN) || '';
 
+  let headerFormData = {};
+
+  if(data instanceof FormData) {
+    headerFormData = {'Content-Type': 'multipart/form-data'};
+  }
+
   const user = await axios.patch(
     API.BASE_URL + API.USER_EDIT + '/' + id,
     data,
     {headers: {
       [API_HEADERS.AUTH]: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
+      ...headerFormData,
     }}
   );
 

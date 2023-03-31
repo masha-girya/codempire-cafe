@@ -4,9 +4,13 @@ import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import { Modal } from '../profile/modal';
+import {
+  Modal,
+  AddressList,
+  deleteUser,
+  useProfile,
+} from '../profile';
 import { useAppSelector } from 'store';
-import { deleteUser, useProfile } from '../profile';
 import { removeLocalItem } from 'utils/helpers';
 import { validateToken } from '../../screens/auth';
 import {
@@ -16,12 +20,11 @@ import {
 import './profile.scss';
 
 interface IProps {
-  isPassOnEdit?: boolean,
-  isUserOnEdit?: boolean,
+  isModal?: boolean,
 }
 
 export const Profile = (props: IProps) => {
-  const { isPassOnEdit, isUserOnEdit } = props;
+  const { isModal } = props;
 
   const {
     isUser,
@@ -37,7 +40,6 @@ export const Profile = (props: IProps) => {
     role,
     avatar,
     surname,
-    address: addresses,
   } = useAppSelector(state => state.user);
 
   const handleModalOpen = useCallback(() => {
@@ -61,19 +63,13 @@ export const Profile = (props: IProps) => {
     navigate(ROUTE.PROFILE_LOGOUT);
   };
 
+  const handleOpenAddress = useCallback(() => {
+    navigate(ROUTE.PROFILE_CHANGE_ADDRESS);
+  }, []);
+
   return (
     <>
-    {isPassOnEdit && (
-      <Modal
-        isPass={true}
-      />
-    )}
-
-    {isUserOnEdit && (
-      <Modal
-        isPass={false}
-      />
-    )}
+      {isModal && <Modal /> }
 
       {isUser
         ? (
@@ -99,7 +95,7 @@ export const Profile = (props: IProps) => {
 
               <div>
                 <ul className="profile__settings">
-                  <li>Settings</li>
+                  <li className="profile__title">Settings</li>
 
                   <li>
                     <Link to="/" className="profile__link" >
@@ -114,14 +110,19 @@ export const Profile = (props: IProps) => {
                       <Icon type="rightArrow" />
                     </Link>
                   </li>
+
                   <li>
                     <div className="profile__link" >
-                      <button className="profile__link--delete" onClick={handleDeleteAccount}>
+                      <button
+                        className="profile__link--delete"
+                        onClick={handleDeleteAccount}
+                      >
                         <p>Delete account</p>
                         <Icon type="rightArrow" />
                       </button>
                     </div>
                   </li>
+
                   <li>
                     <Link to="/" className="profile__link" >
                       <p>Orders</p>
@@ -132,17 +133,16 @@ export const Profile = (props: IProps) => {
 
                 <ul className="profile__addresses">
                   <li>
-                    <button className="profile__add-address" >
+                    <button
+                      className="profile__addresses-open profile__title"
+                      onClick={handleOpenAddress}
+                    >
                       Addresses
                       <Icon type="plus" />
                     </button>
                   </li>
 
-                  {addresses.map(address => (
-                    <li key={address} className="profile__link profile__link--address">
-                      <p>{address}</p>
-                    </li>
-                  ))}
+                  <AddressList />
                 </ul>
 
                 <div className="profile__actions">
