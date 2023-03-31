@@ -2,17 +2,8 @@ import React, { useMemo } from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
 import { AuthLinks } from '../../../screens/auth';
-import { useAppDispatch } from 'store';
-import { validateEmail } from 'utils/helpers';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
-import {userActions } from 'store/features';
-import {
-  useAuth,
-  useAuthForm,
-  useAuthRequest,
-  login,
-  signUp,
-} from '../../../screens/auth';
+import { useAuthForm } from '../../../screens/auth';
 import './auth-form.scss';
 
 interface IProps {
@@ -21,75 +12,25 @@ interface IProps {
 
 export const AuthForm = (props: IProps) => {
   const { isSignUp } = props;
-  const dispatch = useAppDispatch();
+
   const {
-    sendAuthRequest,
+    formik,
     isError,
-    setIsError,
-  } = useAuthRequest();
-
-  const {
-    navigate,
-    isValidEmail,
-    setIsValidEmail,
-  } = useAuth();
-
-  const {
-    enteredEmail,
-    enteredPassword,
     isButtonDisabled,
-    setEnteredEmail,
-    setEnteredPassword,
-  } = useAuthForm();
+    navigate,
+  } = useAuthForm({ isSignUp });
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsError(false);
-    setIsValidEmail(true);
-    setEnteredEmail(event.target.value);
-  };
-
-  const handlePassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsError(false);
-    setEnteredPassword(event.target.value);
-  };
+  const {
+    touched,
+    errors,
+    values,
+    handleChange,
+    handleSubmit,
+  } = formik;
 
   const buttonText = useMemo(() => {
     return isSignUp ? 'Create' : 'Log in';
   }, [isSignUp]);
-
-  const handleSubmit = async(event: React.FormEvent) => {
-    event?.preventDefault();
-
-    if(!validateEmail(enteredEmail)) {
-      setIsValidEmail(false);
-      return;
-    }
-
-    switch(isSignUp) {
-      case true:
-        await sendAuthRequest(async() => {
-          const res = await signUp(enteredEmail, enteredPassword);
-          if(res) {
-            dispatch(userActions.setId(res.id));
-            await login(enteredEmail, enteredPassword);
-            navigate(ROUTE.REGISTRATION_ADD_INFO);
-          }
-        });
-        break;
-
-      case false:
-        await sendAuthRequest(async() => {
-          const res = await login(enteredEmail, enteredPassword);
-          if (res) {
-            navigate(ROUTE.MAIN_PAGE_DISH);
-          }
-        });
-        break;
-
-      default:
-        break;
-    }
-  };
 
   const handleSkipClick = () => {
     navigate(ROUTE.MAIN_PAGE_DISH);
@@ -102,22 +43,29 @@ export const AuthForm = (props: IProps) => {
     >
       <div className="auth-form__input">
         <Input
+          id="email"
+          name="email"
           type="email"
           placeholder="Email"
-          value={enteredEmail}
-          onChange={handleEmailChange}
           isPass={false}
-          helperText={!isValidEmail ? 'Please, write a correct email': ''}
+          value={values.email}
+          onChange={handleChange}
+          error={touched.email && Boolean(errors.email)}
+          helperText={touched.email && errors.email}
         />
       </div>
 
       <div className="auth-form__input">
         <Input
+          id="password"
+          name="password"
           type="password"
           placeholder="Password"
-          value={enteredPassword}
-          onChange={handlePassChange}
           isPass={true}
+          value={values.password}
+          onChange={handleChange}
+          error={touched.password && Boolean(errors.password)}
+          helperText={touched.password && errors.password}
         />
       </div>
 

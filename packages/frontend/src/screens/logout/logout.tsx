@@ -30,7 +30,7 @@ export const Logout = () => {
                 />
               </Link>
   
-              <Link to={ROUTE.HOME} className="logout__button-signup">
+              <Link to={ROUTE.REGISTRATION} className="logout__button-signup">
                 <MainButton
                   type="button"
                   text="Sign up"
