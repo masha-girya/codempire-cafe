@@ -90,3 +90,13 @@ export const validationPasswordChange = yup.object({
       return value !== this.parent.oldPass;
     }),
 });
+
+export const validationLogin = yup.object({
+  email: emailValidation,
+  password: passValidation,
+});
+
+export const validationSingUp = yup.object({
+  name: nameValidation,
+  phone: phoneValidation,
+});

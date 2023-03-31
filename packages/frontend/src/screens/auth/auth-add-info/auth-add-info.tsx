@@ -1,74 +1,19 @@
 import React from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
-import { useAppDispatch } from 'store';
-import { validateName, validatePhone } from 'utils/helpers';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
-import { userActions } from 'store/features';
-import {
-  useAuth,
-  updateUser,
-  useAuthRequest,
-} from '../../../screens/auth';
+import { useAuthAddInfo } from '../../../screens/auth';
 import './auth-add-info.scss';
 
 export const AuthAddInfo = () => {
-  const dispatch = useAppDispatch();
-  const { sendAuthRequest } = useAuthRequest();
+  const { formik } = useAuthAddInfo();
+
   const {
-    isNameValid,
-    setIsNameValid,
-    isPhoneValid,
-    setIsPhoneValid,
-    email,
-    name,
-    phone,
-    id,
-    navigate,
-  } = useAuth();
-
-  const handleSubmit = async(event: React.FormEvent) => {
-    event.preventDefault();
-
-    const validName = validateName(name);
-    const isPhoneValid = validatePhone(phone);
-
-    if(!validName) {
-      setIsNameValid(false);
-      return;
-    }
-
-    if(!isPhoneValid) {
-      setIsPhoneValid(false);
-      return;
-    }
-
-    await sendAuthRequest(async() => {
-      const res = await updateUser(id, {
-        email,
-        name: validName[0],
-        surname: validName[1],
-        phone,
-      });
-
-      if(res) {
-        navigate(ROUTE.MAIN_PAGE_DISH);
-        return;
-      }
-
-      navigate(ROUTE.ERROR);
-    });
-  };
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsNameValid(true);
-    dispatch(userActions.setName(event?.target.value));
-  };
-
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsPhoneValid(true);
-    dispatch(userActions.setPhone(event?.target.value));
-  };
+    touched,
+    errors,
+    values,
+    handleChange,
+    handleSubmit,
+  } = formik;
 
   return (
     <div className="auth-add-info">
@@ -88,12 +33,15 @@ export const AuthAddInfo = () => {
         </h3>
 
         <Input
+          id="name"
+          name="name"
           type="text"
           placeholder="Name Surname"
-          value={name || ''}
-          onChange={handleNameChange}
           isPass={false}
-          helperText={!isNameValid ? 'Please, write by this pattern: Name Surname' : ''}
+          value={values.name}
+          onChange={handleChange}
+          error={touched.name && Boolean(errors.name)}
+          helperText={touched.name && errors.name}
         />
 
         <h3 className="auth-add-info__subtitle">
@@ -101,12 +49,15 @@ export const AuthAddInfo = () => {
         </h3>
 
         <Input
-          type="text"
+          id="phone"
+          name="phone"
+          type="phone"
           placeholder="Format +380 99 999 99 99"
-          value={phone || ''}
-          onChange={handlePhoneChange}
           isPass={false}
-          helperText={!isPhoneValid ? 'Please, write by this pattern: +380 99 999 99 99' : ''}
+          value={values.phone}
+          onChange={handleChange}
+          error={touched.phone && Boolean(errors.phone)}
+          helperText={touched.phone && errors.phone}
         />
 
         <div className="auth-add-info__button">
