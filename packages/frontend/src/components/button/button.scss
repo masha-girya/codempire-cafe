@@ -18,7 +18,7 @@
   letter-spacing: 1.25px;
   color: var.$color-text-contrast;
 
-  transition: all 0.3s;
+  transition: all var.$transition-main;
 
   cursor: pointer;
 

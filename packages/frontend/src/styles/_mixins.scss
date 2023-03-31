@@ -95,6 +95,8 @@
   background-color: var.$color-text-secondary;
   border-radius: 50%;
 
+  object-fit: cover;
+
   @include fontSubtitle1();
   letter-spacing: 0.3px;
   color: var.$color-text-contrast;

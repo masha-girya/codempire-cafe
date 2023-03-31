@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { SuccessModal } from 'components/success-modal';
 import { Icon } from 'components/icon';
 import { EditUserModal } from '../../profile/edit-user-modal';
@@ -26,9 +26,9 @@ export const Modal = (props: IProps) => {
     }
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     navigate('/profile');
-  };
+  }, []);
 
   return (
     <div className="modal" onClick={handleModalClose}>
@@ -39,7 +39,7 @@ export const Modal = (props: IProps) => {
             <div className="modal__header">
               <h1 className="modal__title">
                 Change
-                {isPass ? ' Password' : 'Profile'}
+                {isPass ? ' Password' : ' Profile'}
               </h1>
 
               <button

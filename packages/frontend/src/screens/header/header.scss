@@ -24,7 +24,8 @@
   }
 
   &__right-menu {
-    justify-content: flex-end;
+    @include mixins.centerItems(center, center);
+    column-gap: 10px;
   }
 
   &__logo {
@@ -48,7 +49,7 @@
     border: 1px solid transparent;
     border-radius: 50%;
 
-    transition: border 0.5;
+    transition: border var.$transition-long;
 
     cursor: pointer;
 
@@ -66,9 +67,7 @@
   }
 
   &__user-info {
-    @include mixins.centerItems(center, center);
-
-    column-gap: 16px;
+    @include mixins.centerItems(flex-end, center);
 
     &--text {
       text-align: end;
