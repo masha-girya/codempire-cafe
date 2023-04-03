@@ -1,29 +1,35 @@
 import React from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import { ProductCard } from 'components/product-card';
+import { ProductCard } from '../../screens/product-card';
 import { useProductPage } from '../product-page';
 import './product-page.scss';
 
 export const ProductPage = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const { recommended, product, isError, isLoading } = useProductPage({
+  const {
+    recommended,
+    product,
+    isError,
+    isLoading,
+    handleClick,
+    handleAdd,
+    handleRemove,
+    isItemInCart,
+  } = useProductPage({
     id: params.id,
     location: location.pathname,
   });
 
-  const handleClick = () => {
-    navigate(-1);
-  };
-
   return (
     <div>
       <Header />
+
+      <Outlet />
 
       {isLoading && <p>Loading...</p>}
 
@@ -84,15 +90,26 @@ export const ProductPage = () => {
               </div>
 
               <div className="product-page__buttons">
-                <MainButton
-                  type="button"
-                  text="Add to cart"
-                />
-
+              {isItemInCart
+                ? (
+                  <MainButton
+                    type="button"
+                    text="Remove"
+                    onHandleClick={handleRemove}
+                    isActive={true}
+                  />)
+                : (
+                  <MainButton
+                    type="button"
+                    text="Add to cart"
+                    onHandleClick={handleAdd}
+                  />)
+              }
                 <MainButton
                   type="button"
                   text="Skip"
                   isSecondary={true}
+                  onHandleClick={handleRemove}
                 />
               </div>
             </div>

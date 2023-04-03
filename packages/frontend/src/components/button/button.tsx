@@ -13,6 +13,7 @@ interface IProps {
   isSmall?: boolean,
   isSecondary?: boolean,
   isActive?: boolean,
+  isSuperSmall?: boolean,
 }
 
 export const MainButton = (props: IProps) => {
@@ -26,6 +27,7 @@ export const MainButton = (props: IProps) => {
     isSmall,
     isSecondary,
     isActive,
+    isSuperSmall,
   } = props;
 
   return (
@@ -35,6 +37,7 @@ export const MainButton = (props: IProps) => {
         onClick={onHandleClick}
         className={classnames('button', {
           'button--small': isSmall,
+          'button--super-small': isSuperSmall,
           'button--secondary': isSecondary,
           'button--active': isActive,
         })}

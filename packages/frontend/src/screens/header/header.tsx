@@ -34,9 +34,9 @@ export const Header = () => {
                   <Icon type="notifications" />
                 </button>
 
-                <button className="header__icon">
+                <Link to="cart" className="header__icon">
                   <Icon type="cart" />
-                </button>
+                </Link>
               </div>
             )}
 

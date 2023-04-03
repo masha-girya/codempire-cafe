@@ -64,5 +64,6 @@
 
   &__price, &__weight {
     @include mixins.fontH2();
+    color: var.$color-primary;
   }
 }

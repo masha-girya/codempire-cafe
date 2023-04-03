@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRequest } from 'utils/hooks';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -15,7 +15,12 @@ interface IProps {
 export const useEditUserModal = (props: IProps) => {
   const { setSuccess } = props;
   const dispatch = useAppDispatch();
-  const { sendUniqueRequest } = useRequest();
+  const {
+    sendUniqueRequest,
+    isError,
+    setIsError,
+  } = useRequest();
+
   const {
     id,
     email,
@@ -76,10 +81,16 @@ export const useEditUserModal = (props: IProps) => {
     return true;
   };
 
+  useEffect(() => {
+    setIsError(false);
+  }, [formik.values]);
+
   return {
     formik,
     avatar,
+    isError,
     avatarOnEdit,
+    setIsError,
     setAvatarOnEdit,
   };
 };

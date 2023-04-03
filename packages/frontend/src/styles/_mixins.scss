@@ -140,3 +140,8 @@
     color: var.$color-text-button;
   }
 }
+
+@mixin scrollBar {
+  scrollbar-color: var.$color-secondary var.$color-text-contrast;
+  scrollbar-width: thin;
+}

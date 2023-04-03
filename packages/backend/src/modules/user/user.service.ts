@@ -51,7 +51,6 @@ export class UserService {
   async registerUser(createUserDto: CreateUserDto) {
     const { email, password, role } = createUserDto;
     const createdUser = new UserEntity();
-
     createdUser.email = email;
     createdUser.password = password;
     createdUser.role = role ? role : 'authorizedUser';
@@ -65,7 +64,7 @@ export class UserService {
     }
 
     createdUser.password = await this.hashService.hashPassword(
-      createdUser.password
+      password
     );
 
     await this.usersRepository.save(createdUser);
@@ -73,11 +72,15 @@ export class UserService {
     return createdUser;
   }
 
-  async updateUser(id: string, createUserDto: CreateUserDto, bufferAvatar: Buffer) {
+  async updateUser(
+    id: string,
+    createUserDto: CreateUserDto,
+    bufferAvatar: Buffer,
+    ) {
     const { email } = createUserDto;
     const userExists = await this.usersRepository.findOneBy({ email });
 
-    if(userExists && userExists.email !== email) {
+    if(userExists && userExists.id !== id) {
       throw new ConflictException('Email is already exists');
     }
 

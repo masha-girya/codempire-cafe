@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductCard } from 'components/product-card';
+import { ProductCard } from '../../../screens/product-card';
 import { IDish, IMenu } from 'utils/types';
 import { useProductState } from '../product-list';
 import './product-list.scss';
@@ -20,15 +20,16 @@ export const ProductList = (props: IProps) => {
     <div className="product-list__container">
       <div className="product-list">
         {isLoading && <p>Loading...</p>}
-          {isError
-            ? <p>Something went wrong</p>
-            : products.map((prod: IDish | IMenu) => (
-              <ProductCard
-                key={prod.id}
-                card={prod}
-              />
-            ))
-          }
+
+        {isError
+          ? <p>Something went wrong</p>
+          : products.map((prod: IDish | IMenu) => (
+            <ProductCard
+              key={prod.id}
+              card={prod}
+            />
+          ))
+        }
       </div>
     </div>
     

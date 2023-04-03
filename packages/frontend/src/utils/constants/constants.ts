@@ -34,6 +34,8 @@ export const ROUTE_CONSTANTS = {
 
 export const STORAGE_CONSTANTS = {
   ACCESS_TOKEN: 'access_token',
+  CART_PRODUCTS: 'products',
+  CART_PRICE: 'totalPrice',
 };
 
 export const API_HEADERS_CONSTANTS = {

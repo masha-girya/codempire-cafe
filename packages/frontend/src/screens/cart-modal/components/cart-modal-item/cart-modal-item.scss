@@ -1,0 +1,60 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.item {
+  &__box {
+    @include mixins.centerItems(space-between, center);
+  }
+
+  &__info {
+    @include mixins.centerItems(flex-start, center);
+    column-gap: 16px;
+  }
+
+  &__info-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+  }
+
+  &__info-title {
+    @include mixins.fontSubtitle1();
+    font-weight: var.$font-weight-medium;
+  }
+
+  &__info-description {
+    margin-top: 8px;
+
+    @include mixins.fontSubtitle1();
+    letter-spacing: 0.15px;
+  }
+
+  &__main-text {
+    @include mixins.fontH3();
+    letter-spacing: 0.15px;
+  }
+
+  &__info-amount {
+    @include mixins.centerItems(flex-start, center);
+    column-gap: 5px;
+  }
+
+  &__remove {
+    display: grid;
+    place-items: center;
+  }
+
+  &__add svg{
+    width: 10px;
+  }
+
+  &__add path, &__remove path {
+    &:hover {
+      fill: var.$color-text-button;
+    }
+  }
+
+  &__amount {
+    @include mixins.fontSubtitle2Bold();
+  }
+}
