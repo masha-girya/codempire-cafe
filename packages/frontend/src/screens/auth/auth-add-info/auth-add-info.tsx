@@ -5,7 +5,7 @@ import { useAuthAddInfo } from '../../../screens/auth';
 import './auth-add-info.scss';
 
 export const AuthAddInfo = () => {
-  const { formik } = useAuthAddInfo();
+  const { formik, isButtonDisabled } = useAuthAddInfo();
 
   const {
     touched,
@@ -64,6 +64,7 @@ export const AuthAddInfo = () => {
           <MainButton
             text="Next"
             type="submit"
+            isDisabled={isButtonDisabled}
           />
         </div>
       </form>

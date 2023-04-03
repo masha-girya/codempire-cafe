@@ -22,7 +22,6 @@ export const EditAddressModal = (props: IProps) => {
     totalAddresses,
     checkedAddresses,
     handleClose,
-    handleChange,
     handleCheckChange,
     handleSubmitAddress,
   } = useEditAddress({ setSuccess });
@@ -30,6 +29,7 @@ export const EditAddressModal = (props: IProps) => {
   const {
     values,
     handleSubmit,
+    handleChange,
   } = formik;
 
   return (

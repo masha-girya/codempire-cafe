@@ -1,8 +1,8 @@
 import React from 'react';
 import { FilterBar } from 'components/filter-bar';
 import { Icon } from 'components/icon';
+import { useSidebar } from '../../main';
 import './sidebar.scss';
-import { useSidebar } from './sidebar.state';
 
 export const Sidebar = () => {
   const { foodCategories, drinkCategories } = useSidebar();

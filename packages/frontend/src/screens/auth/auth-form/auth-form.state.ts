@@ -40,7 +40,7 @@ export const useAuthForm = (props: IProps) => {
           await sendAuthRequest(async() => {
             const res = await signUp(email, password);
             if(res) {
-              dispatch(userActions.setId(res.id));
+              dispatch(userActions.setUser(res));
               await login(email, password);
               navigate(ROUTE.REGISTRATION_ADD_INFO);
             }

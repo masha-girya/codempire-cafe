@@ -45,6 +45,13 @@
     padding: 10px;
   }
 
+  &--super-small {
+    width: max-content;
+    padding: 10px;
+
+    font-size: var.$font-size-xxs;
+  }
+
   &--active {
     background-color: transparent;
     color: var.$color-primary;

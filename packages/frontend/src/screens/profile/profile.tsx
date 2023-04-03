@@ -1,79 +1,34 @@
-import React, { useCallback } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import {
-  Modal,
-  AddressList,
-  deleteUser,
-  useProfile,
-} from '../profile';
-import { useAppSelector } from 'store';
-import { removeLocalItem } from 'utils/helpers';
-import { validateToken } from '../../screens/auth';
-import {
-  ROUTE_CONSTANTS as ROUTE,
-  STORAGE_CONSTANTS as STORAGE,
-} from 'utils/constants';
+import { AddressList, useProfile } from '../profile';
+import {  ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './profile.scss';
 
-interface IProps {
-  isModal?: boolean,
-}
-
-export const Profile = (props: IProps) => {
-  const { isModal } = props;
-
+export const Profile = () => {
   const {
-    isUser,
-    navigate,
-    removeUser,
-    sendUniqueRequest,
-  } = useProfile();
-
-  const {
-    id,
     name,
     phone,
     role,
     avatar,
     surname,
-  } = useAppSelector(state => state.user);
-
-  const handleModalOpen = useCallback(() => {
-    navigate(ROUTE.PROFILE_EDIT_USER);
-  }, []);
-
-  const handleLogOut = useCallback(() => {
-    removeLocalItem(STORAGE.ACCESS_TOKEN);
-    navigate(ROUTE.PROFILE_LOGOUT);
-    removeUser();
-  }, []);
-
-  const handleDeleteAccount = async() => {
-    const localToken = await validateToken();
-
-    await sendUniqueRequest(async() => {
-      deleteUser(id, localToken?.token || '');
-    });
-
-    removeLocalItem(STORAGE.ACCESS_TOKEN);
-    navigate(ROUTE.PROFILE_LOGOUT);
-  };
-
-  const handleOpenAddress = useCallback(() => {
-    navigate(ROUTE.PROFILE_CHANGE_ADDRESS);
-  }, []);
+    isUser,
+    handleOpenAddress,
+    handleDeleteAccount,
+    handleLogOut,
+    handleModalOpen,
+  } = useProfile();
 
   return (
     <>
-      {isModal && <Modal /> }
-
       {isUser
         ? (
           <div>
+            <Outlet />
+            
             <Header />
 
             <div className="profile">

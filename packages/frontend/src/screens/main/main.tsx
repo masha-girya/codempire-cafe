@@ -7,12 +7,16 @@ import {
   Sidebar,
   Selection,
   FilterContextProvider,
+  ProductList,
 } from '../main';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 import './main.scss';
 
 export const Main = () => {
   const location = useLocation();
+
+  const locationMenu = location.pathname.includes('menus');
+  const locationDish = location.pathname.includes('dishes');
 
   return (
     <div className="main">
@@ -27,7 +31,7 @@ export const Main = () => {
                   type="button"
                   text="dish"
                   isSmall={true}
-                  isActive={location.pathname === ROUTE.MAIN_PAGE_DISH}
+                  isActive={locationDish}
                 />
               </Link>
 
@@ -36,7 +40,7 @@ export const Main = () => {
                   type="button"
                   text="menu"
                   isSmall={true}
-                  isActive={location.pathname === ROUTE.MAIN_PAGE_MENU}
+                  isActive={locationMenu}
                 />
               </Link>
             </div>
@@ -48,6 +52,11 @@ export const Main = () => {
 
           <div className="main__grid-container">
             <Sidebar />
+
+            {locationMenu && <ProductList productOnLoad="menus" />}
+
+            {locationDish && <ProductList productOnLoad="dishes" />}
+            
             <Outlet />
           </div>
         </FilterContextProvider>

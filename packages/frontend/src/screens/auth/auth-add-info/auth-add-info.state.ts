@@ -6,16 +6,16 @@ import {
   useAuthRequest,
   updateUser,
 } from '../../../screens/auth';
-import { useAppDispatch, useAppSelector } from 'store';
+import { useAppSelector } from 'store';
 import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
 
 export const useAuthAddInfo = () => {
-  const {
-    sendAuthRequest,
-    isError,
-  } = useAuthRequest();
-  const { id, email } = useAppSelector(state => state.user);
+  const { sendAuthRequest } = useAuthRequest();
   const navigate = useNavigate();
+
+  const { id, email } = useAppSelector(state => state.user);
+
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -45,9 +45,18 @@ export const useAuthAddInfo = () => {
       },
   });
 
+  const { values } = formik;
+
+  useEffect(() => {
+    if (values.name.length && values.phone.length) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [values.name, values.phone]);
+
   return {
     formik,
-    navigate,
-    isError,
+    isButtonDisabled,
   };
 };

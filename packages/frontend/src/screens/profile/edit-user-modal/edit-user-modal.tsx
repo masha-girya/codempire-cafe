@@ -20,6 +20,7 @@ export const EditUserModal = (props: IProps) => {
   const {
     formik,
     avatar,
+    isError,
     avatarOnEdit,
     setAvatarOnEdit,
   } = useEditUserModal({ setSuccess });
@@ -117,6 +118,9 @@ export const EditUserModal = (props: IProps) => {
                 helperText={touched.phone && errors.phone}
               />
             </label>
+
+            {isError && <p>User with this email is already exists</p>}
+
           </div>
         </div>
 

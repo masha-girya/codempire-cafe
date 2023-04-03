@@ -1,0 +1,44 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.cart {
+  &__box {
+    @include mixins.centerItems(space-between, center);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+    max-height: 240px;
+    padding-right: 5px;
+    overflow: auto;
+
+    @include mixins.scrollBar();
+  }
+
+  &__main-text {
+    @include mixins.fontH3();
+    letter-spacing: 0.15px;
+  }
+
+  &__total {
+    position: relative;
+    left: -3.5%;
+    top: 24px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+
+    width: 100%;
+    padding: 24px;
+
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.14), 0px 1px 10px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__total-price {
+    @include mixins.fontH1();
+  }
+}

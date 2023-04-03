@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { IDish, IMenu } from 'utils/types';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { useProductCard } from '../product-card';
 import './product-card.scss';
 
 interface IProps {
@@ -10,6 +10,7 @@ interface IProps {
 }
 
 export const ProductCard = (props: IProps) => {
+  const { card } = props;
   const {
     id,
     title,
@@ -18,19 +19,22 @@ export const ProductCard = (props: IProps) => {
     weight,
     price,
     image,
-   } = props.card;
+   } = card;
 
-   const link = 'dishesId' in props.card
-    ? ROUTE.MAIN_PAGE_MENU
-    : ROUTE.MAIN_PAGE_DISH;
+   const {
+    link,
+    isItemInCart,
+    handleAdd,
+    handleRemove,
+  } = useProductCard({ id, card });
 
   return (
-    <div className="container-card">
-      <Link
-        to={`${link}/${id}`}
-        className="card"
-      >
-        <div className="card__content">
+    <div className="card">
+      <div className="card__content">
+        <Link
+          to={`${link}/${id}`}
+          className="card__content"
+        >
           <img src={`data:image/png;base64,${image}`} className="card__image" />
 
           <div className="card__main-info">
@@ -47,14 +51,26 @@ export const ProductCard = (props: IProps) => {
               <h3 className="card__weight">{`${weight}g`}</h3>
             </div>
           </div>
+        </Link>
 
-          <MainButton
-            type="button"
-            text="To cart"
-            isSmall={true}
-          />
+          {isItemInCart
+            ? (
+              <MainButton
+                type="button"
+                text="Remove"
+                isSmall={true}
+                onHandleClick={handleRemove}
+                isActive={true}
+              />)
+            : (
+              <MainButton
+                type="button"
+                text="To cart"
+                isSmall={true}
+                onHandleClick={handleAdd}
+              />)
+          }
         </div>
-      </Link>
     </div>
   );
 };

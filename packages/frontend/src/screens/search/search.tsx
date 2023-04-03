@@ -50,11 +50,12 @@ export const Search = () => {
                   const { title, description, id, type } = product;
 
                   return (
-                    <>
-                      <li className="search-form__list--column" key={title}>
+                    <div key={id}>
+                      <li className="search-form__list--column">
                         <Link
                           className="search-form__list--link"
                           to={`${ROUTE.MAIN_PAGE}/${type}/${id}`}
+                          onClick={handleOpenSearch}
                         >
                           <p className="search-form__list--title">{title}</p>
                           <p className="search-form__list--desc">{description}</p>
@@ -62,13 +63,13 @@ export const Search = () => {
                       </li>
 
                       <hr className="search-form__list--line" />
-                    </>
+                    </div>
                   );
                 })}
-              </ul>
-            ) : (
-              <p className="search-form__menu-text">Type to search</p>
-          )}
+              </ul>)
+            : (
+              <p className="search-form__menu-text">Type to search</p>)
+          }
 
           {isLoading && <p className="search-form__menu-text">Searching...</p>}
 

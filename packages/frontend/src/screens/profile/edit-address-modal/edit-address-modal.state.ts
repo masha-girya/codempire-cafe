@@ -3,6 +3,7 @@ import {
   useMemo,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -28,13 +29,18 @@ export const useEditAddress = (props: IProps) => {
   const [ checkedAddresses, setCheckedAddresses ] = useState(address);
   const [ error, setError ] = useState('');
 
+  const totalAddresses = useMemo(() => {
+    return [...address, ...addressesOnAdd];
+  }, [address, addressesOnAdd]);
+
   const formik = useFormik({
     initialValues: {
       enteredAddress: '',
     },
     onSubmit: async(values, { resetForm }) => {
       const { enteredAddress } = values;
-      if(address?.includes(values.enteredAddress)) {
+
+      if(totalAddresses.includes(enteredAddress)) {
         setError('This address is already on the list');
         return;
       }
@@ -65,19 +71,8 @@ export const useEditAddress = (props: IProps) => {
     return true;
   };
 
-  const totalAddresses = useMemo(() => {
-    return [...address, ...addressesOnAdd];
-  }, [address, addressesOnAdd]);
-
   const handleClose = () => {
     navigate(ROUTE.PROFILE);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {value, name} = event.target;
-
-    formik.setFieldValue(name, value);
-    setError('');
   };
 
   const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,13 +94,16 @@ export const useEditAddress = (props: IProps) => {
     }
   };
 
+  useEffect(() => {
+    setError('');
+  }, [formik.values]);
+
   return {
     error,
     formik,
     totalAddresses,
     checkedAddresses,
     handleClose,
-    handleChange,
     handleCheckChange,
     handleSubmitAddress,
   };
