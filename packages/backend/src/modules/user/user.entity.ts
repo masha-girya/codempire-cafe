@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany
 } from 'typeorm';
-import { ROLE } from 'utils/types';
+import { ROLE } from 'types';
 import { OrderEntity } from 'modules/order';
 import { MenuEntity } from 'modules/menu';
 import { DishEntity } from 'modules/dish';

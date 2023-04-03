@@ -15,8 +15,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatedDishDto, DishService } from '../dish';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { ROLE, SORT } from 'utils/types';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
+import { ROLE, SORT } from 'types';
+import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 
 @Controller(ROUTE.DISH)
 export class DishController {

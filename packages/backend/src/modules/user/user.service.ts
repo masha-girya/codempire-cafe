@@ -8,9 +8,10 @@ import {
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto, HashService, UserEntity } from '../user';
+import { CreateUserDto, UserEntity } from '../../modules/user';
+import { HashService } from '../../modules/hash';
 import { AuthService } from 'auth';
-import { IPassword } from 'utils/types';
+import { IPassword } from 'types';
 
 @Injectable()
 export class UserService {
@@ -28,18 +29,14 @@ export class UserService {
     return users;
   }
 
-  async getUserByEmail(email: string) {
-    const user = await this.usersRepository.findOneBy({ email });
+  async getUser(param: string, type: string) {
+    let user;
 
-    if (!user) {
-      throw new NotFoundException();
+    if(type === 'email') {
+      user = await this.usersRepository.findOneBy({ email: param });
+    } else {
+      user = await this.usersRepository.findOneBy({ id: param });
     }
-
-    return user;
-  }
-
-  async getUserById(id: string) {
-    const user = await this.usersRepository.findOneBy({ id });
 
     if (!user) {
       throw new NotFoundException();
@@ -84,7 +81,7 @@ export class UserService {
       throw new ConflictException('Email is already exists');
     }
 
-    const user = await this.getUserById(id);
+    const user = await this.getUser(id, 'id');
 
     Object.assign(user, createUserDto);
 

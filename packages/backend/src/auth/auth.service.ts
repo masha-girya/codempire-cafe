@@ -1,11 +1,11 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { HashService } from 'modules/hash';
 import {
   UserService,
-  HashService,
   CreateUserDto as UserDto,
 } from 'modules/user';
-import { IPayload } from 'utils/types';
+import { IPayload } from 'types';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
     email: string,
     password: string
   ): Promise<UserDto | null> {
-    const user = await this.userService.getUserByEmail(email);
+    const user = await this.userService.getUser(email, 'email');
     const isPasswordValid = await this.hashService
       .comparePassword(password, user.password);
 

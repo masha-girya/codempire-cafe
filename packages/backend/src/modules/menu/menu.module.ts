@@ -8,7 +8,7 @@ import {
   MenuController,
 } from '../menu';
 import { DishModule } from 'modules/dish';
-import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
+import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Module({
   imports: [

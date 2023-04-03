@@ -7,7 +7,7 @@ import { IUser } from 'utils/types';
 
 export const getUser = async(id: string, token: string) => {
   const response: AxiosResponse<IUser> = await axios.get(
-    API.BASE_URL + API.USER_ID + '/' + id,
+    API.BASE_URL + API.USER + '/' + id,
     {headers: {
       [API_HEADERS.AUTH]: `Bearer ${token}`,
     }}

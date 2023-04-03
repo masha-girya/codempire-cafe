@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { HashModule } from 'modules/hash';
 import { UserEntity, UserModule } from 'modules/user';
 import { OrderModule, OrderEntity } from 'modules/order';
 import { DishModule, DishEntity } from 'modules/dish';
 import { MenuModule, MenuEntity } from 'modules/menu';
-import { DB_CONSTANTS as DB } from 'constants/constants';
+import { DB_CONSTANTS as DB } from '@constants';
 import { AuthModule } from 'auth';
 
 @Module({
@@ -18,6 +19,7 @@ import { AuthModule } from 'auth';
       entities: [UserEntity, OrderEntity, DishEntity, MenuEntity],
       synchronize: true,
     }),
+    HashModule,
     AuthModule,
     UserModule,
     DishModule,

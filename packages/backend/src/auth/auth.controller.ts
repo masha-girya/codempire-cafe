@@ -8,8 +8,8 @@ import {
 import { LocalAuthGuard } from './local-strategy';
 import { JwtAuthGuard } from './jwt-strategy';
 import { AuthService } from '../auth';
-import { AuthenticatedRequest } from 'utils/types';
-import { ROUTE_CONSTANTS } from 'constants/constants';
+import { AuthenticatedRequest } from 'types';
+import { ROUTE_CONSTANTS } from '@constants';
 
 
 @Controller(ROUTE_CONSTANTS.AUTH)

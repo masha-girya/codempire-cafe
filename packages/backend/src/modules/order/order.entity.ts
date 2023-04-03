@@ -7,7 +7,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { STATUS } from 'utils/types';
+import { STATUS } from 'types';
 import { UserEntity } from 'modules/user';
 import { DishEntity } from 'modules/dish';
 import { MenuEntity } from 'modules/menu';

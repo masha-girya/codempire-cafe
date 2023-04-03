@@ -13,8 +13,8 @@ import {
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { UserService, CreateUserDto } from '../user';
-import { IPassword, ROLE } from 'utils/types';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
+import { IPassword, ROLE } from 'types';
+import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller(ROUTE.USER)
@@ -29,15 +29,9 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(ROUTE.USER_EMAIL)
-  getUserByEmail(@Param('email') email: string) {
-    return this.userService.getUserByEmail(email);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(ROUTE.USER_ID)
-  getUserById(@Param('id') id: string) {
-    return this.userService.getUserById(id);
+  @Get(ROUTE.ID)
+  getUser(@Param('id') id: string) {
+    return this.userService.getUser(id, 'id');
   }
 
   @Post(ROUTE.USER_REGISTER)

@@ -5,7 +5,7 @@ import {
   ManyToOne,
   CreateDateColumn
 } from 'typeorm';
-import { SORT } from 'utils/types';
+import { SORT } from 'types';
 import { UserEntity } from 'modules/user';
 
 @Entity('dish')
