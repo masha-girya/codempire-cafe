@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
+import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Injectable()
 export class HashService {

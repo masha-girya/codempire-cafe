@@ -1,8 +1,9 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
-import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
-import { UserEntity, HashService, UserModule } from 'modules/user';
+import { AUTH_CONSTANTS as AUTH } from '@constants';
+import { UserEntity, UserModule } from 'modules/user';
+import { HashModule } from 'modules/hash';
 import {  AuthService, AuthController } from '../auth';
 import { JwtStrategyModule } from './jwt-strategy';
 import { LocalStrategyModule } from './local-strategy';
@@ -14,15 +15,13 @@ import { LocalStrategyModule } from './local-strategy';
       secret: AUTH.JWT_SECRET,
       signOptions: { expiresIn: '120d' },
     }),
+    HashModule,
     JwtStrategyModule,
     LocalStrategyModule,
     forwardRef(() => UserModule),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    HashService,
-  ],
+  providers: [AuthService],
   exports: [AuthService],
 })
 export class AuthModule {}

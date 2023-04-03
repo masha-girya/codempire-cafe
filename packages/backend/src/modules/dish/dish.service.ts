@@ -16,7 +16,7 @@ import {
   CreatedDishDto,
   cutDescription,
 } from '../dish';
-import { SORT } from 'utils/types';
+import { SORT } from 'types';
 
 @Injectable()
 export class DishService {

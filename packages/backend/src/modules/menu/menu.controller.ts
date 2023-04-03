@@ -15,8 +15,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatedMenuDto, MenuService } from '../menu';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { ROLE } from 'utils/types';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants/constants';
+import { ROLE } from 'types';
+import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 
 @Controller(ROUTE.MENU)
 export class MenuController {

@@ -3,13 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategyModule } from 'auth/jwt-strategy';
 import { AuthModule } from 'auth';
+import { HashModule } from '../../modules/hash';
 import {
   UserEntity,
-  HashService,
   UserService,
   UserController,
 } from '../user';
-import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
+import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 
 @Module({
@@ -21,12 +21,10 @@ import { AUTH_CONSTANTS as AUTH } from 'constants/constants';
       signOptions: { expiresIn: '120d' },
     }),
     forwardRef(() => AuthModule),
+    HashModule,
   ],
-  providers: [
-    UserService,
-    HashService,
-  ],
+  providers: [UserService],
   controllers: [UserController],
-  exports: [UserService, HashService],
+  exports: [UserService],
 })
 export class UserModule {}
