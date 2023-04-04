@@ -37,33 +37,35 @@ const App: React.FC = () => {
           <Main />
         }
       >
-        <Route path="cart" element={<Modal />} />
+        <Route path={ROUTE.CART} element={<Modal />} />
       </Route>
 
       <Route path={ROUTE.MAIN_PAGE_MENU} element={
           <Main />
         }
       >
-        <Route path="cart" element={<Modal />} />
+        <Route path={ROUTE.CART} element={<Modal />} />
       </Route>
 
       {/* PRODUCT PAGE */}
 
-      <Route path={`${ROUTE.MAIN_PAGE_MENU}/menu/:id`} element={
+      <Route path={`${ROUTE.MAIN_PAGE_MENU}/:id`} element={
           <ProductPage />
         }
-      />
+      >
+        <Route path={ROUTE.CART} element={<Modal />} />
+      </Route>
 
       <Route path={`${ROUTE.MAIN_PAGE_DISH}/:id`} element={
           <ProductPage />
         }
       >
-        <Route path="cart" element={<Modal />} />
+        <Route path={ROUTE.CART} element={<Modal />} />
       </Route>
 
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>
-        <Route path="cart" element={<Modal />} />
+        <Route path={ROUTE.CART} element={<Modal />} />
 
         <Route path={ROUTE.PROFILE_EDIT_USER} element={<Modal />} />
 

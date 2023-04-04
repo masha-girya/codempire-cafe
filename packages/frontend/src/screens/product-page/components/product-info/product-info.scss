@@ -1,0 +1,30 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.info {
+  &__title {
+    @include mixins.fontH1();
+  }
+
+  &__description {
+    margin-top: 48px;
+
+    @include mixins.fontSubtitle1();
+    line-height: 24px;
+    letter-spacing: 0.15px;
+  }
+
+  &__subtitle {
+    margin-top: 17px;
+
+    @include mixins.fontSubtitle2Bold();
+    letter-spacing: 0.1px;
+  }
+
+  &__text {
+    margin-top: 8px;
+
+    @include mixins.fontBody();
+    letter-spacing: 0.25px;
+  }
+}
