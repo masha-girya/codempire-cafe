@@ -1,0 +1,30 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.header-user {
+  @include mixins.centerItems(flex-end, center);
+
+  &__menu {
+    @include mixins.centerItems(center, center);
+    column-gap: 10px;
+  }
+
+  &__info {
+    text-align: end;
+  }
+
+  &__status {
+    @include mixins.fontCaption();
+    color: var.$color-text-secondary;
+  }
+
+  &__name {
+    @include mixins.fontSubtitle2Bold();
+    color: var.$color-text-secondary;
+  }
+
+  &__photo {
+    @include mixins.userPhoto(48px);
+    @include mixins.fontCaption();
+  }
+}
