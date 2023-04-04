@@ -6,7 +6,7 @@ import { Main } from 'screens/main';
 import { ProductPage } from 'screens/product-page';
 import { Modal, Profile } from 'screens/profile';
 import { Logout } from 'screens/logout';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 const App: React.FC = () => {
   return (

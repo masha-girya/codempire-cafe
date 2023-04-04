@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ISearchProduct } from 'utils/types';
-import { useRequest } from 'utils/hooks/api.hook';
+import { ISearchProduct } from 'types';
+import { useRequest } from 'utils/hooks';
 import { getSearchProducts } from '.';
 
 export const useSearch = () => {

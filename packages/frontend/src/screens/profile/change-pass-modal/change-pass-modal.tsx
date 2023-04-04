@@ -3,25 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
 import { useChangePass } from '../../profile';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './change-pass-modal.scss';
 
-
 interface IProps {
-  setSuccess: Dispatch<SetStateAction<boolean>>,
+  setSuccess: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ChangePassModal = (props: IProps) => {
   const { setSuccess } = props;
   const navigate = useNavigate();
   const { formik, isError } = useChangePass({ setSuccess });
-  const {
-    touched,
-    errors,
-    values,
-    handleChange,
-    handleSubmit,
-  } = formik;
+  const { touched, errors, values, handleChange, handleSubmit } = formik;
 
   const handleClose = () => {
     navigate(ROUTE.PROFILE);
@@ -33,7 +26,6 @@ export const ChangePassModal = (props: IProps) => {
         <div className="change-pass__fields">
           <label className="change-pass__form-label">
             Input your old password
-
             <Input
               id="oldPass"
               name="oldPass"
@@ -53,7 +45,6 @@ export const ChangePassModal = (props: IProps) => {
 
           <label className="change-pass__form-label">
             Make up a new password
-
             <Input
               id="newPass"
               name="newPass"
@@ -71,8 +62,8 @@ export const ChangePassModal = (props: IProps) => {
         {isError && (
           <p className="change-pass__error">
             You have entered a wrong password
-          </p>)
-        }
+          </p>
+        )}
 
         <div className="change-pass__form-submit">
           <MainButton

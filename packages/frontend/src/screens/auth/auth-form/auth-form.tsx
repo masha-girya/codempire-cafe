@@ -2,31 +2,22 @@ import React, { useMemo } from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
 import { AuthLinks } from '../../../screens/auth';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import { useAuthForm } from '../../../screens/auth';
 import './auth-form.scss';
 
 interface IProps {
-  isSignUp: boolean,
+  isSignUp: boolean;
 }
 
 export const AuthForm = (props: IProps) => {
   const { isSignUp } = props;
 
-  const {
-    formik,
-    isError,
-    isButtonDisabled,
-    navigate,
-  } = useAuthForm({ isSignUp });
+  const { formik, isError, isButtonDisabled, navigate } = useAuthForm({
+    isSignUp,
+  });
 
-  const {
-    touched,
-    errors,
-    values,
-    handleChange,
-    handleSubmit,
-  } = formik;
+  const { touched, errors, values, handleChange, handleSubmit } = formik;
 
   const buttonText = useMemo(() => {
     return isSignUp ? 'Create' : 'Log in';
@@ -37,10 +28,7 @@ export const AuthForm = (props: IProps) => {
   };
 
   return (
-    <form
-      className="auth-form__form-field"
-      onSubmit={handleSubmit}
-    >
+    <form className="auth-form__form-field" onSubmit={handleSubmit}>
       <div className="auth-form__input">
         <Input
           id="email"
@@ -73,13 +61,13 @@ export const AuthForm = (props: IProps) => {
         <AuthLinks isSignUp={isSignUp} />
       </div>
 
-      {(isError && isSignUp) && (
+      {isError && isSignUp && (
         <p className="auth-form__error">
           User with this email is already exists
         </p>
       )}
 
-      {(isError && !isSignUp) && (
+      {isError && !isSignUp && (
         <p className="auth-form__error">
           You have entered wrong password or email
         </p>

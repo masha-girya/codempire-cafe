@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './auth-links.scss';
 
 interface IProps {
@@ -12,14 +12,17 @@ export const AuthLinks = (props: IProps) => {
 
   return (
     <>
-      {isSignUp ? <Link to={ROUTE.HOME} className="link" >Log In</Link>
-      : (
+      {isSignUp ? (
+        <Link to={ROUTE.HOME} className="link">
+          Log In
+        </Link>
+      ) : (
         <>
-          <Link to={ROUTE.HOME} className="link" >
+          <Link to={ROUTE.HOME} className="link">
             Forgot password?
           </Link>
 
-          <Link to={ROUTE.REGISTRATION} className="link" >
+          <Link to={ROUTE.REGISTRATION} className="link">
             Sign up
           </Link>
         </>

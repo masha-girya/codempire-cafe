@@ -9,7 +9,7 @@ import {
   FilterContextProvider,
   ProductList,
 } from '../main';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './main.scss';
 
 export const Main = () => {
@@ -56,7 +56,7 @@ export const Main = () => {
             {locationMenu && <ProductList productOnLoad="menus" />}
 
             {locationDish && <ProductList productOnLoad="dishes" />}
-            
+
             <Outlet />
           </div>
         </FilterContextProvider>

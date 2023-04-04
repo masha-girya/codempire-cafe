@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRequest } from 'utils/hooks';
-import { validateToken } from '../auth';
+import { validateToken } from 'utils/api';
 
 export const useAuth = () => {
   const { sendUniqueRequest } = useRequest();

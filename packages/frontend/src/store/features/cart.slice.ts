@@ -1,20 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IDish, IMenu, IProduct } from 'utils/types';
+import { IDish, IMenu, IProduct } from 'types';
 import { setLocalCart, getLocalItem } from 'utils/helpers';
-import { STORAGE_CONSTANTS as STORAGE } from 'utils/constants';
+import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
 
-const products = JSON.parse(
-  getLocalItem(STORAGE.CART_PRODUCTS) || '[]'
-);
+const products = JSON.parse(getLocalItem(STORAGE.CART_PRODUCTS) || '[]');
 
-const totalPrice = JSON.parse(
-  getLocalItem(STORAGE.CART_PRICE) || '0'
-);
+const totalPrice = JSON.parse(getLocalItem(STORAGE.CART_PRICE) || '0');
 
 interface IInitialState {
-  products: IProduct[],
-  totalPrice: number,
+  products: IProduct[];
+  totalPrice: number;
 }
 
 const initialState: IInitialState = {
@@ -29,10 +25,13 @@ export const cartSlice = createSlice({
     addProduct: (state, action: PayloadAction<IDish | IMenu>) => {
       const { products } = state;
 
-      const newProducts = [...products, {
-        product: action.payload,
-        amount: 1,
-      }];
+      const newProducts = [
+        ...products,
+        {
+          product: action.payload,
+          amount: 1,
+        },
+      ];
 
       state.totalPrice += action.payload.price;
       state.products = newProducts;
@@ -43,18 +42,20 @@ export const cartSlice = createSlice({
       const { products } = state;
       const { product, amount } = action.payload;
 
-      const newProducts = products.filter(item => item.product.id !== product.id);
+      const newProducts = products.filter(
+        (item) => item.product.id !== product.id
+      );
 
       state.products = newProducts;
-      state.totalPrice -= (amount * product.price);
+      state.totalPrice -= amount * product.price;
 
       setLocalCart(newProducts, state.totalPrice);
     },
     increaseAmount: (state, action: PayloadAction<IDish | IMenu>) => {
       const { products } = state;
 
-      const index = products.findIndex(item => (
-        item.product.id === action.payload.id)
+      const index = products.findIndex(
+        (item) => item.product.id === action.payload.id
       );
 
       state.products[index].amount += 1;
@@ -65,8 +66,8 @@ export const cartSlice = createSlice({
     decreaseAmount: (state, action: PayloadAction<IDish | IMenu>) => {
       const { products } = state;
 
-      const index = products.findIndex(item => (
-        item.product.id === action.payload.id)
+      const index = products.findIndex(
+        (item) => item.product.id === action.payload.id
       );
 
       state.products[index].amount -= 1;

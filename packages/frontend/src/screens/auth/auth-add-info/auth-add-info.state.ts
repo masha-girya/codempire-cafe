@@ -2,20 +2,18 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { validationSingUp } from 'utils/helpers';
-import {
-  useAuthRequest,
-  updateUser,
-} from '../../../screens/auth';
+import { useRequest } from 'utils/hooks';
+import { updateUser } from 'utils/api';
 import { useAppSelector } from 'store';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 export const useAuthAddInfo = () => {
-  const { sendAuthRequest } = useAuthRequest();
+  const { sendAuthRequest } = useRequest();
   const navigate = useNavigate();
 
-  const { id, email } = useAppSelector(state => state.user);
+  const { id, email } = useAppSelector((state) => state.user);
 
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -23,26 +21,26 @@ export const useAuthAddInfo = () => {
       phone: '',
     },
     validationSchema: validationSingUp,
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       const { name, phone } = values;
       const validName = name.trim().split(' ');
 
-      await sendAuthRequest(async() => {
+      await sendAuthRequest(async () => {
         const { user } = await updateUser(id, {
           email,
           name: validName[0],
           surname: validName[1],
           phone,
         });
-  
-        if(user) {
+
+        if (user) {
           navigate(ROUTE.MAIN_PAGE_DISH);
           return;
         }
-  
+
         navigate(ROUTE.ERROR);
       });
-      },
+    },
   });
 
   const { values } = formik;

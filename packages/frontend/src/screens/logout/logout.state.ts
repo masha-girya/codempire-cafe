@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { validateToken } from 'screens/auth';
+import { validateToken } from 'utils/api';
 import { useRequest } from 'utils/hooks';
 
 export const useLogout = () => {

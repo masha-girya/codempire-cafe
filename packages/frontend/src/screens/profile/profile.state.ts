@@ -2,32 +2,26 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRequest, useUser } from 'utils/hooks';
 import { removeLocalItems } from 'utils/helpers';
-import { validateToken } from '../../screens/auth';
-import { deleteUser } from '../profile';
+import { deleteUser, validateToken } from 'utils/api';
 import { useAppSelector } from 'store';
 import {
   ROUTE_CONSTANTS as ROUTE,
   STORAGE_CONSTANTS as STORAGE,
-} from 'utils/constants';
+} from 'constants-app';
 
 export const useProfile = () => {
   const navigate = useNavigate();
-  const {
-    id,
-    name,
-    phone,
-    role,
-    avatar,
-    surname,
-  } = useAppSelector(state => state.user);
-  const [ isUser, setIsUser ] = useState(true);
+  const { id, name, phone, role, avatar, surname } = useAppSelector(
+    (state) => state.user
+  );
+  const [isUser, setIsUser] = useState(true);
   const { sendUniqueRequest } = useRequest();
   const { checkUser, removeUser } = useUser();
 
-  const loadUser = useCallback(async() => {
+  const loadUser = useCallback(async () => {
     const user = await sendUniqueRequest(checkUser);
 
-    if(!user) {
+    if (!user) {
       setIsUser(false);
     }
   }, [isUser]);
@@ -36,7 +30,7 @@ export const useProfile = () => {
     loadUser();
   }, [isUser]);
 
-    const handleModalOpen = useCallback(() => {
+  const handleModalOpen = useCallback(() => {
     navigate(ROUTE.PROFILE_EDIT_USER);
   }, []);
 
@@ -51,10 +45,10 @@ export const useProfile = () => {
     removeUser();
   }, []);
 
-  const handleDeleteAccount = async() => {
+  const handleDeleteAccount = async () => {
     const localToken = await validateToken();
 
-    await sendUniqueRequest(async() => {
+    await sendUniqueRequest(async () => {
       deleteUser(id, localToken?.token || '');
     });
 

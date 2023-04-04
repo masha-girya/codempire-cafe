@@ -2,29 +2,22 @@ import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { validationLogin } from 'utils/helpers';
-import {
-  useAuthRequest,
-  login,
-  signUp,
-} from '../../../screens/auth';
+import { useRequest } from 'utils/hooks';
+import { login, signUp } from 'utils/api';
 import { useAppDispatch } from 'store';
 import { userActions } from 'store/features';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 interface IProps {
-  isSignUp: boolean,
+  isSignUp: boolean;
 }
 
 export const useAuthForm = (props: IProps) => {
-  const {
-    sendAuthRequest,
-    isError,
-    setIsError,
-  } = useAuthRequest();
+  const { sendAuthRequest, isError, setIsError } = useRequest();
   const { isSignUp } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -32,30 +25,30 @@ export const useAuthForm = (props: IProps) => {
       password: '',
     },
     validationSchema: validationLogin,
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       const { email, password } = values;
 
-      switch(isSignUp) {
+      switch (isSignUp) {
         case true:
-          await sendAuthRequest(async() => {
+          await sendAuthRequest(async () => {
             const res = await signUp(email, password);
-            if(res) {
+            if (res) {
               dispatch(userActions.setUser(res));
               await login(email, password);
               navigate(ROUTE.REGISTRATION_ADD_INFO);
             }
           });
           break;
-  
+
         case false:
-          await sendAuthRequest(async() => {
+          await sendAuthRequest(async () => {
             const res = await login(email, password);
             if (res) {
               navigate(ROUTE.MAIN_PAGE_DISH);
             }
           });
           break;
-  
+
         default:
           break;
       }
