@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Icon } from 'components/icon';
 import { NAVIGATION_CONSTANTS as navigation } from 'constants-app';
 import './bottom-bar.scss';
 
-export const BottomBar = () => {
+export const BottomBar = memo(() => {
   const location = useLocation();
 
   return (
@@ -26,4 +26,6 @@ export const BottomBar = () => {
       </nav>
     </div>
   );
-};
+});
+
+BottomBar.displayName = 'BottomBar';
