@@ -1,5 +1,5 @@
-import { STORAGE_CONSTANTS as STORAGE } from 'utils/constants';
-import { IProduct } from 'utils/types';
+import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
+import { IProduct } from 'types';
 
 export function setLocalItem(key: string, value: string) {
   localStorage.setItem(key, value);
@@ -12,7 +12,7 @@ export function getLocalItem(key: string) {
 }
 
 export function removeLocalItems(keys: string[]) {
-  keys.forEach(key => localStorage.removeItem(key));
+  keys.forEach((key) => localStorage.removeItem(key));
 }
 
 export function setLocalCart(products: IProduct[], price: number) {

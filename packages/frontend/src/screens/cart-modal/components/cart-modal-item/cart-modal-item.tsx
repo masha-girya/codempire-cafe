@@ -1,7 +1,7 @@
 import React from 'react';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import { IProduct } from 'utils/types';
+import { IProduct } from 'types';
 import { useCartItem } from '../cart-modal-item';
 import './cart-modal-item.scss';
 

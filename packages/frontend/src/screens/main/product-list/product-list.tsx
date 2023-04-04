@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductCard } from '../../../screens/product-card';
-import { IDish, IMenu } from 'utils/types';
+import { IDish, IMenu } from 'types';
 import { useProductState } from '../product-list';
 import './product-list.scss';
 

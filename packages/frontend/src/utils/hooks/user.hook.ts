@@ -1,6 +1,5 @@
-import { getUser } from 'screens/profile';
 import { useAppDispatch } from 'store';
-import { validateToken } from 'screens/auth';
+import { getUser, validateToken } from 'utils/api';
 import { userActions } from 'store/features';
 
 export const useUser = () => {

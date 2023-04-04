@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import { API_CONSTANTS as API } from 'utils/constants';
-import { IDish, IMenu } from 'utils/types';
+import { API_CONSTANTS as API } from 'constants-app';
+import { IDish, IMenu } from 'types';
 
-export const getDish = async(id: string) => {
+export const getDish = async (id: string) => {
   const response: AxiosResponse<IDish> = await axios.get(
     API.BASE_URL + API.DISH + '/' + id
   );
@@ -10,7 +10,7 @@ export const getDish = async(id: string) => {
   return response.data;
 };
 
-export const getRecommendedDishes = async(id: string) => {
+export const getRecommendedDishes = async (id: string) => {
   const response: AxiosResponse<IDish[]> = await axios.get(
     API.BASE_URL + API.DISH + API.RECOMMENDED + '/' + id
   );
@@ -18,7 +18,7 @@ export const getRecommendedDishes = async(id: string) => {
   return response.data;
 };
 
-export const getMenu = async(id: string) => {
+export const getMenu = async (id: string) => {
   const response: AxiosResponse<IMenu> = await axios.get(
     API.BASE_URL + API.MENU + '/' + id
   );
@@ -26,7 +26,7 @@ export const getMenu = async(id: string) => {
   return response.data;
 };
 
-export const getRecommendedMenus = async(id: string) => {
+export const getRecommendedMenus = async (id: string) => {
   const response: AxiosResponse<IDish[]> = await axios.get(
     API.BASE_URL + API.MENU + API.RECOMMENDED + '/' + id
   );

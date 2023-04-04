@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useRequest } from 'utils/hooks';
-import { useUser } from 'utils/hooks';
+import { useRequest, useUser } from 'utils/hooks';
 
 export const useHeader = () => {
   const [ isUser, setIsUser ] = useState(true);

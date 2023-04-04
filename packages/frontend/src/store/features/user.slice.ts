@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from 'utils/types';
+import { IUser } from 'types';
 
 interface IInitialState {
   id: string,

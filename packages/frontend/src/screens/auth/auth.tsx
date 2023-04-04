@@ -3,12 +3,12 @@ import { Navigate } from 'react-router-dom';
 import { AuthForm, AuthAddInfo, useAuth } from '../../screens/auth';
 import { HeaderAuth } from 'components/header-auth';
 import { Icon } from 'components/icon';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './auth.scss';
 
 interface IProps {
-  isSignUp: boolean,
-  isStart: boolean,
+  isSignUp: boolean;
+  isStart: boolean;
 }
 
 export const Auth = (props: IProps) => {
@@ -23,20 +23,20 @@ export const Auth = (props: IProps) => {
     <>
       <HeaderAuth text={headerText} />
 
-      {isUser
-        ? <Navigate to={ROUTE.MAIN_PAGE_DISH} />
-        : (
-          <div className="auth">
-            {isStart
-              ? (
-                <>
-                  <Icon type="logo" />
-                  <AuthForm isSignUp={isSignUp} />
-                </>
-              )
-              : <AuthAddInfo />}
-          </div>)
-      }
+      {isUser ? (
+        <Navigate to={ROUTE.MAIN_PAGE_DISH} />
+      ) : (
+        <div className="auth">
+          {isStart ? (
+            <>
+              <Icon type="logo" />
+              <AuthForm isSignUp={isSignUp} />
+            </>
+          ) : (
+            <AuthAddInfo />
+          )}
+        </div>
+      )}
     </>
   );
 };

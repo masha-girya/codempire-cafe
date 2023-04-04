@@ -5,17 +5,12 @@ import { MainButton } from 'components/button';
 import { Search } from 'screens/search';
 import { useHeader } from '../header';
 import { useAppSelector } from 'store';
-import { ROUTE_CONSTANTS as ROUTE } from 'utils/constants';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './header.scss';
 
 export const Header = () => {
   const { isUser } = useHeader();
-  const {
-    name,
-    surname,
-    role,
-    avatar,
-  } = useAppSelector(state => state.user);
+  const { name, surname, role, avatar } = useAppSelector((state) => state.user);
 
   return (
     <div className="header">
@@ -43,31 +38,30 @@ export const Header = () => {
             <Search />
           </div>
 
-          {isUser
-            ? (
-              <div className="header__user-info">
-                <Link to={ROUTE.PROFILE} className="header__right-menu">
-                  <div className="header__user-info--text">
-                    <p className="header__user-status">{role}</p>
-                    <p className="header__user-name">
-                      {name ? `${name} ${surname}` : 'Name Surname'}
-                    </p>
-                  </div>
+          {isUser ? (
+            <div className="header__user-info">
+              <Link to={ROUTE.PROFILE} className="header__right-menu">
+                <div className="header__user-info--text">
+                  <p className="header__user-status">{role}</p>
+                  <p className="header__user-name">
+                    {name ? `${name} ${surname}` : 'Name Surname'}
+                  </p>
+                </div>
 
-                  <div>
-                    <img src={`data:image/png;base64,${avatar}`} alt="photo" className="header__user-info--photo" />
-                  </div>
-                </Link>
-              </div>)
-              : (
-                <Link to={ROUTE.HOME} className="header__right-menu">
-                  <MainButton
-                    type="button"
-                    text="log in"
-                    isSmall={true}
+                <div>
+                  <img
+                    src={`data:image/png;base64,${avatar}`}
+                    alt="photo"
+                    className="header__user-info--photo"
                   />
-                </Link>
-              )}
+                </div>
+              </Link>
+            </div>
+          ) : (
+            <Link to={ROUTE.HOME} className="header__right-menu">
+              <MainButton type="button" text="log in" isSmall={true} />
+            </Link>
+          )}
         </div>
       </div>
     </div>

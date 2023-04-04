@@ -5,7 +5,7 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IDish, IMenu } from 'utils/types';
+import { IDish, IMenu } from 'types';
 import { useRequest } from 'utils/hooks';
 import { useAppDispatch, useAppSelector } from 'store';
 import { cartActions } from 'store/features';
@@ -14,7 +14,7 @@ import {
   getMenu,
   getRecommendedDishes,
   getRecommendedMenus,
-} from '../product-page';
+} from 'utils/api';
 
 interface IProps {
   id: string | undefined,

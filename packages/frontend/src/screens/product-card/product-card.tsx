@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MainButton } from 'components/button';
-import { IDish, IMenu } from 'utils/types';
+import { IDish, IMenu } from 'types';
 import { useProductCard } from '../product-card';
 import './product-card.scss';
 

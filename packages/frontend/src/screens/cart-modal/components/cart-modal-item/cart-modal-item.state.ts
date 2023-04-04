@@ -1,4 +1,4 @@
-import { IDish, IMenu } from 'utils/types';
+import { IDish, IMenu } from 'types';
 import { useAppDispatch } from 'store';
 import { cartActions } from 'store/features/cart.slice';
 
