@@ -151,12 +151,19 @@ export class DishService {
     await this.dishRepository.delete(id);
   }
 
-  async getCategories(sort: SORT) {
-    const dishes = await this.dishRepository.findBy({ sort });
+  async getCategories() {
+    const [ food, drink ] = await Promise.all([
+      await this.dishRepository.findBy({ sort: SORT.food }),
+      await this.dishRepository.findBy({ sort: SORT.drink }),
+    ]);
 
-    const categories = dishes.map(dish => dish.categories).flat();
+    const foodCategories = food.map(dish => dish.categories).flat();
+    const drinkCategories = drink.map(dish => dish.categories).flat();
 
-    const uniqueCategories = [...new Set(categories)];
+    const uniqueCategories = {
+      food: [...new Set(foodCategories)],
+      drinks: [...new Set(drinkCategories)],
+    };
 
     return uniqueCategories;
   }

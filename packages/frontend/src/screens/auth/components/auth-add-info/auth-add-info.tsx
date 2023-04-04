@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
-import { useAuthAddInfo } from '../../../screens/auth';
+import { useAuthAddInfo } from './auth-add-info.state';
 import './auth-add-info.scss';
 
 export const AuthAddInfo = () => {

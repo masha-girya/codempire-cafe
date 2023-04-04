@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
-import { useEditAddress } from '../../profile';
+import { useEditAddress } from './edit-address-modal.state';
 import './edit-address-modal.scss';
 
 interface IProps {

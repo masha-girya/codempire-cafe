@@ -6,9 +6,9 @@ import { MainButton } from 'components/button';
 import {
   Sidebar,
   Selection,
-  FilterContextProvider,
   ProductList,
-} from '../main';
+} from './components';
+import { FilterContextProvider } from '../main';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './main.scss';
 

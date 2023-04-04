@@ -30,9 +30,9 @@ export class DishController {
     return this.dishService.getDishes(filter, sortBy);
   }
 
-  @Get(ROUTE.DISH_SORT)
-  getCategories(@Query('sort') sort: SORT) {
-    return this.dishService.getCategories(sort);
+  @Get(ROUTE.CATEGORIES)
+  getCategories() {
+    return this.dishService.getCategories();
   }
 
   @Get(ROUTE.ID)

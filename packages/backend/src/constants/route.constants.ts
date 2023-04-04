@@ -13,7 +13,7 @@ export const ROUTE_CONSTANTS = {
   AUTH_LOGIN: 'login',
   AUTH_PROFILE: 'profile',
   DISH: 'dish',
-  DISH_SORT: 'sort',
+  CATEGORIES: 'categories',
   DISH_FILTER: 'filter',
   MENU: 'menu',
   RECOMMENDED: 'recommended/:id',

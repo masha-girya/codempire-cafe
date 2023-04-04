@@ -4,7 +4,7 @@ import {
   useCallback,
   useContext,
 } from 'react';
-import { FilterContext } from '../../main';
+import { FilterContext } from '../../../main';
 import { useRequest } from 'utils/hooks';
 import { getDishes, getMenus } from 'utils/api';
 import { IDish, IMenu } from 'types';

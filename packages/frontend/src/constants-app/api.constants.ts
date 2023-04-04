@@ -13,4 +13,5 @@ export const API_CONSTANTS = {
   FILTER: 'filter=',
   RECOMMENDED: '/recommended',
   SEARCH: '/query?query=',
+  CATEGORIES: '/dish/categories',
 } as const;
