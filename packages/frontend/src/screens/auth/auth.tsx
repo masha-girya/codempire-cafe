@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthForm, AuthAddInfo, useAuth } from '../../screens/auth';
+import { AuthForm, AuthAddInfo } from './components';
 import { HeaderAuth } from 'components/header-auth';
 import { Icon } from 'components/icon';
+import { useAuth } from '../../screens/auth';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './auth.scss';
 

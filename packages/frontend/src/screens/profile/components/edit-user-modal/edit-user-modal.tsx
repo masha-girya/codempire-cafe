@@ -6,7 +6,7 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
-import { useEditUserModal } from '../../profile';
+import { useEditUserModal } from './edit-user-modal.state';
 import './edit-user-modal.scss';
 
 interface IProps {

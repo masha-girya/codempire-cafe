@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductCard } from '../../../screens/product-card';
+import { ProductCard } from 'screens/product-card';
 import { IDish, IMenu } from 'types';
 import { useProductState } from '../product-list';
 import './product-list.scss';

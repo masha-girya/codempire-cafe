@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ISearchProduct } from 'types';
 import { useRequest } from 'utils/hooks';
-import { getSearchProducts } from '.';
+import { getSearchProducts } from 'utils/api';
 
 export const useSearch = () => {
   const [query, setQuery] = useState('');
@@ -21,9 +21,7 @@ export const useSearch = () => {
         setIsSearching(false);
         setQuery('');
       }
-    },
-    [isSearching]
-  );
+    }, [isSearching]);
 
   useEffect(() => {
     document.addEventListener('mousedown', checkIfClickedOutside);

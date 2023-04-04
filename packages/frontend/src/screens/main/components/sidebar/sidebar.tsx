@@ -1,11 +1,12 @@
 import React from 'react';
 import { FilterBar } from 'components/filter-bar';
 import { Icon } from 'components/icon';
-import { useSidebar } from '../../main';
+import { useSidebar } from './sidebar.state';
 import './sidebar.scss';
 
 export const Sidebar = () => {
-  const { foodCategories, drinkCategories } = useSidebar();
+  const { category } = useSidebar();
+  const { drinks, food } = category;
 
   return (
     <div className="sidebar">
@@ -16,11 +17,11 @@ export const Sidebar = () => {
       <hr className="sidebar__line" />
 
       <div className="sidebar__category-box">
-        <FilterBar categories={drinkCategories} title="Drinks" />
+        <FilterBar categories={drinks} title="Drinks" />
       </div>
 
       <div className="sidebar__category-box">
-        <FilterBar categories={foodCategories} title="Food" />
+        <FilterBar categories={food} title="Food" />
       </div>
     </div>
   );

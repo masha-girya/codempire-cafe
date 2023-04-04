@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link, Navigate, Outlet } from 'react-router-dom';
-import { Header } from '../../screens/header';
+import { Header } from 'screens/header';
 import { BottomBar } from 'components/bottom-bar';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
-import { AddressList, useProfile } from '../profile';
+import { AddressList } from './components';
+import { useProfile } from '../profile';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './profile.scss';
 

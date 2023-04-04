@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
-import { AuthLinks } from '../../../screens/auth';
+import { AuthLinks } from '../../components';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
-import { useAuthForm } from '../../../screens/auth';
+import { useAuthForm } from './auth-form.state';
 import './auth-form.scss';
 
 interface IProps {

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { IDish, IMenu } from 'types';
+import { ICategories, IDish, IMenu } from 'types';
 
 export const useRequest = () => {
   const [ isError, setIsError ] = useState(false);
@@ -27,7 +27,9 @@ export const useRequest = () => {
     }
   }, []);
 
-  const sendCategoryRequest = useCallback(async (callback: () => Promise<string[]>) => {
+  const sendCategoryRequest = useCallback(async(
+    callback: () => Promise<ICategories>,
+  ) => {
     try{
       return await callback();
     } catch (error) {

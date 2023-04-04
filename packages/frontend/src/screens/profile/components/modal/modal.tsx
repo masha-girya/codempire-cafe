@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SuccessModal } from 'components/success-modal';
 import { Icon } from 'components/icon';
+import { CartModal } from 'screens/cart-modal';
 import {
   EditUserModal,
   ChangePassModal,
   EditAddressModal,
   useModal,
-} from '../../profile';
-import { CartModal } from '../../../screens/cart-modal';
+} from '../../components';
 import './modal.scss';
 
 export const Modal = () => {
