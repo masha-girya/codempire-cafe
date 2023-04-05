@@ -17,6 +17,7 @@ export const ROUTE_CONSTANTS = {
   DISH_FILTER: 'filter',
   MENU: 'menu',
   RECOMMENDED: 'recommended/:id',
+  ORDER: 'order',
   QUERY: 'query',
   ID: ':id',
 } as const;

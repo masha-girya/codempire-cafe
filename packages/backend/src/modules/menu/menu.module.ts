@@ -20,9 +20,8 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
       signOptions: { expiresIn: '120d' },
     }),
   ],
-  providers: [
-    MenuService,
-  ],
+  providers: [MenuService],
   controllers: [MenuController],
+  exports: [MenuService]
 })
 export class MenuModule {}

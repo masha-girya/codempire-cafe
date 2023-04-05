@@ -3,14 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { CartItem } from './components';
 import { useAppSelector } from 'store';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import './cart-modal.scss';
 
-export const CartModal = () => {
+interface IProps {
+  pathname: string,
+}
+
+export const CartModal = ({ pathname }: IProps) => {
   const navigate = useNavigate();
   const { products, totalPrice } = useAppSelector(state => state.cart);
 
   const handleSkipClick = () => {
     navigate(-1);
+  };
+
+  const handleCreate = () => {
+    const index = pathname.indexOf('/cart');
+    const newPath = pathname.slice(0, index);
+
+    navigate(`${newPath}/${ROUTE.ORDER}`);
   };
 
   return (
@@ -41,6 +53,7 @@ export const CartModal = () => {
           <MainButton
             type="button"
             text="Create"
+            onHandleClick={handleCreate}
           />
         </div>
       </div>

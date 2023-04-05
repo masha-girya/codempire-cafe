@@ -4,7 +4,8 @@ import { Auth } from 'screens/auth';
 import { Error } from 'components/error';
 import { Main } from 'screens/main';
 import { ProductPage } from 'screens/product-page';
-import { Modal, Profile } from 'screens/profile';
+import { Profile } from 'screens/profile';
+import { Modal } from 'screens/modal';
 import { Logout } from 'screens/logout';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
@@ -33,27 +34,23 @@ const App: React.FC = () => {
         }
       />
 
-      <Route path={ROUTE.MAIN_PAGE_DISH} element={
-          <Main />
-        }
-      >
+      <Route path={ROUTE.MAIN_PAGE_DISH} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
       </Route>
 
-      <Route path={ROUTE.MAIN_PAGE_MENU} element={
-          <Main />
-        }
-      >
+      <Route path={ROUTE.MAIN_PAGE_MENU} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
       </Route>
 
       {/* PRODUCT PAGE */}
-
       <Route path={`${ROUTE.MAIN_PAGE_MENU}/:id`} element={
           <ProductPage />
         }
       >
         <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
       </Route>
 
       <Route path={`${ROUTE.MAIN_PAGE_DISH}/:id`} element={
@@ -61,11 +58,14 @@ const App: React.FC = () => {
         }
       >
         <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
       </Route>
 
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>
         <Route path={ROUTE.CART} element={<Modal />} />
+
+        <Route path={ROUTE.ORDER} element={<Modal />} />
 
         <Route path={ROUTE.PROFILE_EDIT_USER} element={<Modal />} />
 
