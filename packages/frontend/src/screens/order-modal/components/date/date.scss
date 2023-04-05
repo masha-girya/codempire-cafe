@@ -1,0 +1,29 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.date {
+  margin-top: 10px;
+
+  & .MuiTypography-root {
+    @include mixins.fontBody();
+  }
+
+  @include mixins.orderSelection();
+
+  & .MuiInputBase-input {
+    @include mixins.fontBody();
+    font-weight: var.$font-weight-medium;
+    letter-spacing: 0.1px;
+  }
+
+  &__choose-date {
+    display: flex;
+    column-gap: 20px;
+
+    margin-top: 5px;
+
+    & .MuiTypography-root {
+      @include mixins.fontCaption();
+    }
+  }
+}

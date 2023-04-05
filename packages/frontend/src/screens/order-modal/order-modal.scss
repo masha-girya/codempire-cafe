@@ -1,0 +1,30 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.order {
+  &__actions {
+    @include mixins.centerItems(space-between, center);
+
+    margin-top: 30px;
+  }
+
+  & .MuiFormLabel-root, & .MuiFormLabel-root.Mui-focused {
+    @include mixins.fontSubtitle1();
+    font-weight: var.$font-weight-medium;
+    color: var.$color-primary;
+  }
+
+  & .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+  & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var.$color-text-secondary;
+  }
+}
+
+#comment-label.MuiFormLabel-root {
+  @include mixins.fontSubtitle1();
+  color: var.$color-secondary;
+}
+
+#comment {
+  margin-bottom: 10px;
+}

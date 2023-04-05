@@ -1,39 +1,30 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { SuccessModal } from 'components/success-modal';
+import { SuccessModal } from './components';
 import { Icon } from 'components/icon';
 import { CartModal } from 'screens/cart-modal';
+import { OrderModal } from 'screens/order-modal';
 import {
   EditUserModal,
   ChangePassModal,
   EditAddressModal,
-  useModal,
-} from '../../components';
+} from '../../screens/profile';
+  import { useModal } from './modal.state';
 import './modal.scss';
 
 export const Modal = () => {
   const { pathname } = useLocation();
   const {
+    isUser,
+    isPass,
+    isAddress,
+    isCart,
+    isOrder,
     isEditOnSuccess,
     setIsEditOnSuccess,
-    navigate,
-  } = useModal();
-
-  const isUser = pathname.includes('user');
-  const isPass = pathname.includes('pass');
-  const isAddress = pathname.includes('address');
-  const isCart = pathname.includes('cart');
-
-  const handleModalClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if(event.target === event.currentTarget) {
-      navigate(-1);
-      setIsEditOnSuccess(false);
-    }
-  };
-
-  const handleClose = useCallback(() => {
-    navigate(-1);
-  }, []);
+    handleModalClose,
+    handleClose,
+  } = useModal({ pathname });
 
   return (
     <div className="modal" onClick={handleModalClose}>
@@ -47,6 +38,7 @@ export const Modal = () => {
                 {isUser && 'Change Profile'}
                 {isAddress && 'Add a new address'}
                 {isCart && 'Cart'}
+                {isOrder && 'Order'}
               </h1>
 
               <button
@@ -63,7 +55,9 @@ export const Modal = () => {
 
             {isAddress && <EditAddressModal setSuccess={setIsEditOnSuccess} />}
 
-            {isCart && <CartModal />}
+            {isCart && <CartModal pathname={pathname} />}
+
+            {isOrder && <OrderModal />}
           </div>)
       }
     </div>

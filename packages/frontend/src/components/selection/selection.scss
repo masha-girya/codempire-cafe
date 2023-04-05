@@ -6,6 +6,10 @@
     min-width: 200px;
   }
 
+  &--small .MuiFormControl-root {
+    min-width: 120px;
+  }
+
   &__label.MuiFormLabel-root.MuiInputLabel-root {
     @include mixins.fontButton();
     color: var.$color-text-button;

@@ -43,8 +43,25 @@ export class OrderEntity {
   })
   mark: number;
 
-  @Column()
+  @Column('character varying')
   address: string;
+
+  @Column('uuid')
+  userId: string;
+
+  @Column('uuid', {
+    nullable: true,
+    default: [],
+    array: true,
+  })
+  dishId: string[];
+
+  @Column('uuid', {
+    nullable: true,
+    default: [],
+    array: true,
+  })
+  menuId: string[];
 
   @ManyToOne(() => UserEntity, (user) => user.orders)
   user: UserEntity;

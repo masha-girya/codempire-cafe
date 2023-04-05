@@ -1,5 +1,3 @@
-@use 'styles/mixins';
-
 .main {
   &__container {
     height: 100vh;
@@ -13,16 +11,5 @@
     column-gap: 20px;
 
     margin-top: 42px;
-  }
-
-  &__top-menu {
-    @include mixins.centerItems(space-between, flex-end);
-
-    width: 100%;
-  }
-
-  &__buttons {
-    display: flex;
-    column-gap: 16px;
   }
 }

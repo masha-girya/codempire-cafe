@@ -15,11 +15,16 @@
   background-color: var.$color-modal-background;
 
   &__block {
+    max-height: 80vh;
+    overflow: auto;
+
     @include mixins.modalSize();
     padding: 24px;
 
     background-color: var.$color-text-contrast;
     opacity: 1;
+
+    @include mixins.scrollBar();
   }
 
   &__header {

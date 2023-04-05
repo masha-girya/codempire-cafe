@@ -1,20 +1,30 @@
-import React, { useContext } from 'react';
+import React, { ReactNode } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { FilterContext } from '../../../main';
 import './selection.scss';
 
-export const Selection = () => {
-  const { sortBy, setSortBy } = useContext(FilterContext);
+interface IProps {
+  sortBy: string,
+  handleChange: (event: SelectChangeEvent<string>, child: ReactNode) => void,
+  sortingProps: readonly string[],
+  isSmall?: boolean,
+}
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setSortBy(event.target.value);
-  };
+export const Selection = (props: IProps) => {
+  const {
+    sortBy,
+    sortingProps,
+    handleChange,
+    isSmall,
+  } = props;
 
   return (
-    <div className="selection">
+    <div className={isSmall
+      ? 'selection selection--small'
+      : 'selection'}
+    >
       <FormControl variant="standard" className="selection__form">
         <InputLabel id="sort-label" className="selection__label">
           Sorting by
@@ -29,11 +39,14 @@ export const Selection = () => {
           label="Sorting by"
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>none</em>
           </MenuItem>
-          <MenuItem value="price">Price</MenuItem>
-          <MenuItem value="weight">Weight</MenuItem>
-          <MenuItem value="createdDate">Newest</MenuItem>
+
+          {sortingProps.map(item => (
+            <MenuItem key={item} value={item}>
+              {item === 'createdDate' ? 'newest' : item}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </div>

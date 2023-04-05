@@ -1,0 +1,12 @@
+@use 'styles/mixins';
+
+.top-menu {
+  @include mixins.centerItems(space-between, flex-end);
+
+  width: 100%;
+
+  &__buttons {
+    display: flex;
+    column-gap: 16px;
+  }
+}

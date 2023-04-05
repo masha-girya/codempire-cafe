@@ -9,8 +9,4 @@
   &__line {
     @include mixins.line();
   }
-
-  &__checkbox.MuiCheckbox-root.Mui-checked {
-    color: var.$color-text-primary;
-  }
 }

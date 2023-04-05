@@ -29,8 +29,4 @@
   &__checkbox {
     @include mixins.centerItems(flex-start, center);
   }
-
-  &__checkbox.MuiCheckbox-root.Mui-checked {
-    color: var.$color-text-primary;
-  }
 }

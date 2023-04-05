@@ -12,4 +12,5 @@ export const ROUTE_CONSTANTS = {
   PROFILE_CHANGE_PASS: '/profile/change-password',
   PROFILE_CHANGE_ADDRESS: '/profile/change-address',
   CART: 'cart',
+  ORDER: 'order',
 } as const;

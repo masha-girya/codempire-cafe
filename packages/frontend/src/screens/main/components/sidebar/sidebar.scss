@@ -23,8 +23,4 @@
     @include mixins.line();
     margin-top: 10px;
   }
-
-  &__checkbox.MuiCheckbox-root.Mui-checked {
-    color: var.$color-text-primary;
-  }
 }
