@@ -2,6 +2,8 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import {
   ArrayContains,
@@ -24,6 +26,7 @@ export class MenuService {
   constructor(
     @InjectRepository(MenuEntity)
     private menuRepository: Repository<MenuEntity>,
+    @Inject(forwardRef(() => DishService))
     private dishService: DishService,
   ) {}
 

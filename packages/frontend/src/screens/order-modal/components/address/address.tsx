@@ -12,7 +12,7 @@ import { SORT_CONSTANTS as SORT } from 'constants-app';
 import './address.scss';
 
 interface IProps {
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+  setFieldValue: (field: string, value: string, shouldValidate?: boolean) => void,
   currentAddress: string,
   handleChange: (event: SelectChangeEvent<string>, child: ReactNode) => void,
 }
@@ -43,7 +43,7 @@ export const OrderAddress = (props: IProps) => {
           value={currentAddress}
           onChange={handleChange}
         >
-          {address.map(addressItem => (
+          {address.map((addressItem: string) => (
             <MenuItem
               key={addressItem}
               value={addressItem}

@@ -15,8 +15,8 @@ interface IProps {
   handleChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void,
   deliveryDate: Dayjs,
   deliveryTime: Dayjs,
-  handleDeliveryDateChange: (newDate: Dayjs | null) => void,
-  handleDeliveryTimeChange: (newDate: Dayjs | null) => void,
+  setDeliveryDate: (value: React.SetStateAction<Dayjs>) => void,
+  setDeliveryTime: (value: React.SetStateAction<Dayjs>) => void,
 }
 
 export const OrderDate = (props: IProps) => {
@@ -25,8 +25,8 @@ export const OrderDate = (props: IProps) => {
     handleChange,
     deliveryDate,
     deliveryTime,
-    handleDeliveryDateChange,
-    handleDeliveryTimeChange,
+    setDeliveryDate,
+    setDeliveryTime,
   } = props;
 
   return (
@@ -61,12 +61,12 @@ export const OrderDate = (props: IProps) => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <OrderDatePicker
                 deliveryDate={deliveryDate}
-                handleDeliveryDateChange={handleDeliveryDateChange}
+                setDeliveryDate={setDeliveryDate}
               />
 
               <OrderTimePicker
                 deliveryTime={deliveryTime}
-                handleDeliveryTimeChange={handleDeliveryTimeChange}
+                setDeliveryTime={setDeliveryTime}
               />
             </LocalizationProvider>
           </div>

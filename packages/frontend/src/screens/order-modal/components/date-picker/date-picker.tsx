@@ -1,19 +1,27 @@
-import React, { memo } from 'react';
-import { Dayjs } from 'dayjs';
+import React, { memo, useCallback } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DatePickerIcon } from '../../components';
 import './date-picker.scss';
 
 interface IProps {
   deliveryDate: Dayjs,
-  handleDeliveryDateChange: (newDate: Dayjs | null) => void,
+  setDeliveryDate: (value: React.SetStateAction<Dayjs>) => void,
 }
 
 export const OrderDatePicker = memo((props: IProps) => {
   const {
     deliveryDate,
-    handleDeliveryDateChange,
+    setDeliveryDate,
   } = props;
+
+  const handleDeliveryDateChange = useCallback((newDate: Dayjs | null) => {
+    if(newDate) {
+      setDeliveryDate(newDate);
+    } else {
+      setDeliveryDate(dayjs());
+    }
+  }, [deliveryDate]);
 
   return (
     <DatePicker

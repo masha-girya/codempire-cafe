@@ -1,7 +1,20 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
 .comment {
   margin-top: 30px;
 
   & .MuiFormControl-root {
     width: 100%;
   }
+}
+
+
+#comment-label.MuiFormLabel-root {
+  @include mixins.fontSubtitle1();
+  color: var.$color-secondary;
+}
+
+#comment {
+  margin-bottom: 10px;
 }

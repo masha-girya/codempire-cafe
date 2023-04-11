@@ -11,4 +11,7 @@ export interface IOrder {
   user: IUser,
   dishes: IDish[],
   menus: IMenu[],
+  dishId: string[],
+  menuId: string[],
+  userId: string,
 }

@@ -1,52 +1,23 @@
-import { useCallback, useState } from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from 'store';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 export const useOrderModal = () => {
   const navigate = useNavigate();
-  const { address } = useAppSelector(state => state.user);
-  const [ deliveryDate, setDeliveryDate ] = useState(dayjs());
-  const [ deliveryTime, setDeliveryTime ] = useState(dayjs());
 
-    const formik = useFormik({
-    initialValues: {
-      date: 'now',
-      comment: '',
-      currentAddress: address[0],
-    },
-    onSubmit: async (values) => {
-      console.log('submitting...');
-    },
-  });
+  const [ isOrderOnSuccess, setIsOrderOnSuccess ] = useState(false);
 
-  const handleDeliveryDateChange = useCallback((newDate: Dayjs | null) => {
-    if(newDate) {
-      setDeliveryDate(newDate);
-    } else {
-      setDeliveryDate(dayjs());
-    }
-  }, [deliveryDate]);
+  const handleClick = () => {
+    navigate(ROUTE.MAIN_PAGE_DISH);
+  };
 
-  const handleDeliveryTimeChange = useCallback((newTime: Dayjs | null) => {
-    if(newTime) {
-      setDeliveryTime(newTime);
-    } else {
-      setDeliveryTime(dayjs());
-    }
-  }, [deliveryTime]);
-
-  const handleSkip = useCallback(() => {
-    navigate(-1);
+  useEffect(() => {
+    return setIsOrderOnSuccess(false);
   }, []);
 
   return {
-    formik,
-    handleSkip,
-    deliveryDate,
-    deliveryTime,
-    handleDeliveryDateChange,
-    handleDeliveryTimeChange,
+    isOrderOnSuccess,
+    setIsOrderOnSuccess,
+    handleClick,
   };
 };

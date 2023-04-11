@@ -3,10 +3,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  CreateDateColumn
+  CreateDateColumn,
+  OneToMany
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { SORT } from 'types';
 import { UserEntity } from 'modules/user';
+import { OrderDishEntity } from 'modules/order-dish/order-dish.entity';
 
 @Entity('dish')
 export class DishEntity {
@@ -58,4 +61,8 @@ export class DishEntity {
 
   @ManyToOne(() => UserEntity, (user) => user.editedDishes, { nullable: true })
   editedBy: UserEntity;
+
+  @OneToMany(() => OrderDishEntity, (orderDish) => orderDish.dish)
+  @Exclude()
+  orderDishes: OrderDishEntity[];
 }

@@ -4,13 +4,13 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   Generated,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { STATUS } from 'types';
 import { UserEntity } from 'modules/user';
-import { DishEntity } from 'modules/dish';
-import { MenuEntity } from 'modules/menu';
+import { OrderDishEntity } from 'modules/order-dish';
+import { OrderMenuEntity } from 'modules/order-menu';
 
 @Entity('order')
 export class OrderEntity {
@@ -49,14 +49,14 @@ export class OrderEntity {
   @Column('uuid')
   userId: string;
 
-  @Column('uuid', {
+  @Column('character varying', {
     nullable: true,
     default: [],
     array: true,
   })
   dishId: string[];
 
-  @Column('uuid', {
+  @Column('character varying', {
     nullable: true,
     default: [],
     array: true,
@@ -66,11 +66,11 @@ export class OrderEntity {
   @ManyToOne(() => UserEntity, (user) => user.orders)
   user: UserEntity;
 
-  @ManyToMany(() => DishEntity)
-  @JoinTable()
-  dishes: DishEntity[];
+  @OneToMany(() => OrderDishEntity, (orderDishes) => orderDishes.order)
+  @Exclude()
+  orderDishes: OrderDishEntity[];
 
-  @ManyToMany(() => MenuEntity)
-  @JoinTable()
-  menus: MenuEntity[];
+  @OneToMany(() => OrderMenuEntity, (orderMenus) => orderMenus.order)
+  @Exclude()
+  orderMenus: OrderMenuEntity[];
 }

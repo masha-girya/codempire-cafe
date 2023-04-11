@@ -7,6 +7,8 @@ import { DishModule, DishEntity } from 'modules/dish';
 import { MenuModule, MenuEntity } from 'modules/menu';
 import { DB_CONSTANTS as DB } from '@constants';
 import { AuthModule } from 'auth';
+import { OrderDishEntity, OrderDishModule } from 'modules/order-dish';
+import { OrderMenuEntity, OrderMenuModule } from 'modules/order-menu';
 
 @Module({
   imports: [
@@ -16,7 +18,14 @@ import { AuthModule } from 'auth';
       username: DB.USERNAME,
       password: DB.PASSWORD,
       database: DB.NAME,
-      entities: [UserEntity, OrderEntity, DishEntity, MenuEntity],
+      entities: [
+        UserEntity,
+        OrderEntity,
+        DishEntity,
+        MenuEntity,
+        OrderDishEntity,
+        OrderMenuEntity,
+      ],
       synchronize: true,
     }),
     HashModule,
@@ -25,6 +34,8 @@ import { AuthModule } from 'auth';
     DishModule,
     OrderModule,
     MenuModule,
+    OrderDishModule,
+    OrderMenuModule,
   ],
 })
 export class AppModule {}

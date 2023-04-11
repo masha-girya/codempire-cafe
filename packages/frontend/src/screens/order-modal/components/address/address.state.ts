@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { userActions } from 'store/features';
 
 interface IProps {
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+  setFieldValue: (field: string, value: string, shouldValidate?: boolean) => void,
 }
 
 export const useOrderAddress = ({ setFieldValue }: IProps) => {

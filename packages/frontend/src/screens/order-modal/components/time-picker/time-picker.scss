@@ -1,7 +1,27 @@
-.time-picker {
-  width: 156px;
+@use 'styles/variables' as var;
+@use 'styles/mixins';
 
-  & .MuiInputBase-input  {
-    text-align: center;
+.time-picker {
+  position: relative;
+
+  &__decrease {
+    @include mixins.timePickerArrows();
+    left: 10px;
+
+    transform: rotate(180deg);
+  }
+
+  &__increase {
+    @include mixins.timePickerArrows();
+    right: 10px;
+  }
+
+  &__picker {
+    width: 156px;
+
+    & .MuiInputBase-input {
+      text-align: center;
+      padding-right: 0;
+    }
   }
 }
