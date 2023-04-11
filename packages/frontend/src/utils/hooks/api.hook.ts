@@ -3,11 +3,12 @@ import { ICategories, IDish, IMenu } from 'types';
 
 export const useRequest = () => {
   const [ isError, setIsError ] = useState(false);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const sendUniqueRequest = useCallback(async (callback: () => Promise<any>) => {
     try{
       setIsError(false);
+      setIsLoading(true);
       return await callback();
     } catch (error) {
       console.error('error in request', error);

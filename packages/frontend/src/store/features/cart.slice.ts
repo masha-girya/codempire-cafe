@@ -75,6 +75,10 @@ export const cartSlice = createSlice({
 
       setLocalCart(state.products, state.totalPrice);
     },
+    clearCart: (state) => {
+      state.products = [];
+      state.totalPrice = 0;
+    }
   },
 });
 

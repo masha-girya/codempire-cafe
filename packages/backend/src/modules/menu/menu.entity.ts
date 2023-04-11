@@ -6,9 +6,12 @@ import {
   JoinTable,
   ManyToOne,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { DishEntity } from 'modules/dish';
 import { UserEntity } from 'modules/user';
+import { OrderMenuEntity } from 'modules/order-menu';
 
 @Entity('menu')
 export class MenuEntity {
@@ -68,4 +71,8 @@ export class MenuEntity {
   @ManyToMany(() => DishEntity)
   @JoinTable()
   dishes: DishEntity[];
+
+  @OneToMany(() => OrderMenuEntity, (orderMenus) => orderMenus.menu)
+  @Exclude()
+  orderMenus: OrderMenuEntity[];
 }

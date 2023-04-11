@@ -14,4 +14,5 @@ export const API_CONSTANTS = {
   RECOMMENDED: '/recommended',
   SEARCH: '/query?query=',
   CATEGORIES: '/dish/categories',
+  ORDER: '/order',
 } as const;

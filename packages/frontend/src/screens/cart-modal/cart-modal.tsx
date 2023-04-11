@@ -54,6 +54,7 @@ export const CartModal = ({ pathname }: IProps) => {
             type="button"
             text="Create"
             onHandleClick={handleCreate}
+            isDisabled={!products.length}
           />
         </div>
       </div>

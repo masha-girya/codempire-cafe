@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategyModule } from 'auth/jwt-strategy';
@@ -14,7 +14,7 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
   imports: [
     TypeOrmModule.forFeature([MenuEntity]),
     JwtStrategyModule,
-    DishModule,
+    forwardRef(() => DishModule),
     JwtModule.register({
       secret: AUTH.JWT_SECRET,
       signOptions: { expiresIn: '120d' },

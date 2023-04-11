@@ -1,11 +1,18 @@
 @use 'styles/variables' as var;
 @use 'styles/mixins';
 
-.order {
-  &__actions {
-    @include mixins.centerItems(space-between, center);
+.order-modal {
+  &__text {
+    margin-bottom: 48px;
 
-    margin-top: 30px;
+    @include mixins.fontH1();
+  }
+
+  &__box {
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 24px;
   }
 
   & .MuiFormLabel-root, & .MuiFormLabel-root.Mui-focused {
@@ -18,13 +25,4 @@
   & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: var.$color-text-secondary;
   }
-}
-
-#comment-label.MuiFormLabel-root {
-  @include mixins.fontSubtitle1();
-  color: var.$color-secondary;
-}
-
-#comment {
-  margin-bottom: 10px;
 }

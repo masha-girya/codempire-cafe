@@ -1,0 +1,10 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.order {
+  &__actions {
+    @include mixins.centerItems(space-between, center);
+
+    margin-top: 30px;
+  }
+}
