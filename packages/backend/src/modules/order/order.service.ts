@@ -3,9 +3,7 @@ import {
   forwardRef,
   Inject,
 } from '@nestjs/common';
-import {
-  Repository,
-} from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity, CreatedOrderDto } from '../order';
 import { UserService } from 'modules/user';
@@ -13,6 +11,7 @@ import { DishService } from 'modules/dish';
 import { MenuService } from 'modules/menu';
 import { OrderDishService } from 'modules/order-dish';
 import { OrderMenuService } from 'modules/order-menu';
+import { STATUS } from 'types';
 
 @Injectable()
 export class OrderService {
@@ -31,14 +30,36 @@ export class OrderService {
     private orderMenuService: OrderMenuService,
   ) {}
 
-  async getOrders() {
-    const orders = await this.orderRepository.find();
-    return orders;
+  async getOrders(status: STATUS[], sortBy: string) {
+    const arrayStatus = Array.isArray(status) ? status : [status];
+
+    const orders = await this.orderRepository.find({
+      where: {
+        status: In(arrayStatus),
+      },
+      order: {
+        date: sortBy === 'oldest' ? 'ASC' : 'DESC',
+      }
+    });
+
+    const response = await Promise.all(orders.map(async(order) => {
+      const [ dishesNames, menusNames ] = await Promise.all([
+        await this.dishService.getDishNamesById(order.dishId),
+        await this.menuService.getMenuNamesById(order.menuId),
+      ]);
+
+      order.dishId = dishesNames;
+      order.menuId = menusNames;
+
+      return order;
+    }));
+
+    return response;
   }
 
   async getOrderById(id: string) {
-    const orders = await this.orderRepository.findOneBy({ id });
-    return orders;
+    const order = await this.orderRepository.findOneBy({ id });
+    return order;
   }
 
   async addOrderDish(dishId: string[], createdOrder: CreatedOrderDto) {
@@ -48,12 +69,15 @@ export class OrderService {
       ))
     );
 
+    const dishesToAdd = [];
+
     for(const dish of dishes) {
       const dishToAdd = await this.orderDishService
         .createOrderDish(dish, createdOrder);
-
-      createdOrder.orderDishes.push(dishToAdd);
+      dishesToAdd.push(dishToAdd);
     }
+
+    return dishesToAdd;
   }
 
   async addOrderMenu(menuId: string[], createdOrder: CreatedOrderDto) {
@@ -63,12 +87,16 @@ export class OrderService {
       )),
     );
 
+    const menusToAdd = [];
+
     for(const menu of menus) {
       const menuToAdd = await this.orderMenuService
         .createOrderMenu(menu, createdOrder);
 
-      createdOrder.orderMenus.push(menuToAdd);
+      menusToAdd.push(menuToAdd);
     }
+
+    return menusToAdd;
   }
 
   async addOrder(createdOrderDto: CreatedOrderDto) {
@@ -85,8 +113,13 @@ export class OrderService {
 
     await this.orderRepository.save(createdOrder);
 
-    await this.addOrderDish(dishId, createdOrder);
-    await this.addOrderMenu(menuId, createdOrder);
+    const [ dishesToAdd, menusToAdd ] = await Promise.all([
+      this.addOrderDish(dishId, createdOrder),
+      this.addOrderMenu(menuId, createdOrder),
+    ]);
+
+    createdOrder.orderDishes = dishesToAdd;
+    createdOrder.orderMenus = menusToAdd;
 
     await this.orderRepository.save(createdOrder);
 

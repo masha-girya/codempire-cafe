@@ -2,6 +2,8 @@ import { useCallback, useMemo } from 'react';
 import { IDish, IMenu } from 'types';
 import { useAppDispatch, useAppSelector } from 'store';
 import { cartActions } from 'store/features';
+import { getLocalItem } from 'utils/helpers';
+import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
 
 interface IProps {
   product: IDish |IMenu,
@@ -11,6 +13,16 @@ export const useProductActions = (props: IProps) => {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector(state => state.cart);
   const { product } = props;
+
+  const isLoggedIn = useMemo(() => {
+    const token = getLocalItem(STORAGE.ACCESS_TOKEN);
+
+    if(token) {
+      return false;
+    }
+
+    return true;
+  }, []);
 
   const handleRemove = useCallback(() => {
     const index = products.findIndex(item => (
@@ -29,6 +41,7 @@ export const useProductActions = (props: IProps) => {
   }, [products, product]);
 
   return {
+    isLoggedIn,
     isItemInCart,
     handleRemove,
     handleAdd,

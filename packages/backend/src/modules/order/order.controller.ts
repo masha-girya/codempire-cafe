@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { ROLE } from 'types';
+import { ROLE, STATUS } from 'types';
 import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 import { CreatedOrderDto, OrderService } from '../order';
 
@@ -20,8 +20,11 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Get()
-  getOrders() {
-    return this.orderService.getOrders();
+  getOrders(
+    @Query('status') status: STATUS[],
+    @Query('sortBy') sortBy: string,
+  ) {
+    return this.orderService.getOrders(status, sortBy);
   }
 
   @Get(ROUTE.ID)
@@ -29,6 +32,7 @@ export class OrderController {
     return this.orderService.getOrderById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   addOrder(@Body() createdOderDto: CreatedOrderDto) {
     return this.orderService.addOrder(createdOderDto);

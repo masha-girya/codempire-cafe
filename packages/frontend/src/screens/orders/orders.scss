@@ -1,0 +1,22 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.orders {
+  @include mixins.centerItems(center, center);
+  flex-direction: column;
+
+  margin: 24px auto 110px;
+  max-width: 960px;
+
+  &__list {
+    display: grid;
+    place-items: center;
+
+    width: 680px;
+    max-height: 500px;
+    padding: 20px 0 24px;
+    overflow-y: auto;
+
+    @include mixins.scrollBar();
+  }
+}

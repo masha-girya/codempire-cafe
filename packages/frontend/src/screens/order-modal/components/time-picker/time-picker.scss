@@ -9,6 +9,10 @@
     left: 10px;
 
     transform: rotate(180deg);
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   &__increase {

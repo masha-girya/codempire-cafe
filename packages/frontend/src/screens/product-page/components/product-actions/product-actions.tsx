@@ -15,6 +15,7 @@ export const ProductActions = ({ product } : IProps) => {
   } = product;
 
   const {
+    isLoggedIn,
     isItemInCart,
     handleRemove,
     handleAdd,
@@ -33,21 +34,22 @@ export const ProductActions = ({ product } : IProps) => {
       </div>
 
       <div className="actions__buttons">
-      {isItemInCart
-        ? (
-          <MainButton
-            type="button"
-            text="Remove"
-            onHandleClick={handleRemove}
-            isActive={true}
-          />)
-        : (
-          <MainButton
-            type="button"
-            text="Add to cart"
-            onHandleClick={handleAdd}
-          />)
-      }
+        {isItemInCart
+          ? (
+            <MainButton
+              type="button"
+              text="Remove"
+              onHandleClick={handleRemove}
+              isActive={true}
+            />)
+          : (
+            <MainButton
+              type="button"
+              text="Add to cart"
+              onHandleClick={handleAdd}
+              isDisabled={isLoggedIn}
+            />)
+        }
         <MainButton
           type="button"
           text="Skip"

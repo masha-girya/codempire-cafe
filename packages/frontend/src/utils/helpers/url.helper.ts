@@ -15,3 +15,13 @@ export const detectURL = (filter: string[], sortBy: string) => {
     return '?' + API.SORT + sortBy;
   }
 };
+
+export const detectOrderURL = (status: string[], sortBy: string) => {
+  let URL = '?' + API.STATUS + status.join(`&${API.STATUS}`);
+
+  if(sortBy) {
+    URL += `&${API.SORT}${sortBy}`;
+  }
+
+  return URL;
+};

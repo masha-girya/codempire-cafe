@@ -15,4 +15,5 @@ export const API_CONSTANTS = {
   SEARCH: '/query?query=',
   CATEGORIES: '/dish/categories',
   ORDER: '/order',
+  STATUS: 'status=',
 } as const;

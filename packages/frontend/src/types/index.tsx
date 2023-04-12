@@ -7,3 +7,4 @@ export * from './Search.type';
 export * from './Password.type';
 export * from './Product.type';
 export * from './Categories.type';
+export * from './Status.type';
