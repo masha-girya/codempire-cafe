@@ -26,6 +26,7 @@ export const ProductCard = (props: IProps) => {
     isItemInCart,
     handleAdd,
     handleRemove,
+    isLoggedIn,
   } = useProductCard({ id, card });
 
   return (
@@ -68,6 +69,7 @@ export const ProductCard = (props: IProps) => {
                 text="To cart"
                 isSmall={true}
                 onHandleClick={handleAdd}
+                isDisabled={isLoggedIn}
               />)
           }
         </div>

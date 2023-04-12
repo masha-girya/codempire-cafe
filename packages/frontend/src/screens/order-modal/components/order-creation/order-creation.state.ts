@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -14,6 +15,8 @@ interface IProps {
 }
 
 export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
+  dayjs.extend(timezone);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { sendUniqueRequest, isLoading, isError } = useRequest();
@@ -24,8 +27,9 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
   const [ deliveryDate, setDeliveryDate ] = useState(dayjs());
   const [ deliveryTime, setDeliveryTime ] = useState(dayjs());
   const [ isOrderOnConfirm, setIsOrderOnConfirm ] = useState(false);
+  const [ error, setError ] = useState<string | null>(null);
 
-    const formik = useFormik({
+  const formik = useFormik({
     initialValues: {
       date: 'now',
       comment: '',
@@ -49,8 +53,8 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
         }
       });
 
-      const dateString = deliveryDate.format('YYYY-MM-DD');
-      const timeString = deliveryTime.format('HH:mm:ss.sss');
+      const dateString = deliveryDate.tz('Europe/Kyiv').format('YYYY-MM-DD');
+      const timeString = deliveryTime.tz('Europe/Kyiv').format('HH:mm:ss.sss');
       const fullDate = `${dateString}T${timeString}Z`;
       const date = new Date(fullDate);
 
@@ -93,6 +97,8 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
   return {
     formik,
     isError,
+    error,
+    setError,
     isLoading,
     deliveryDate,
     deliveryTime,

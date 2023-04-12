@@ -1,0 +1,13 @@
+@use 'styles/mixins';
+
+.top-switcher {
+  @include mixins.centerItems(space-between, flex-end);
+
+  width: 100%;
+  margin-bottom: 24px;
+
+  &__buttons {
+    display: flex;
+    column-gap: 16px;
+  }
+}

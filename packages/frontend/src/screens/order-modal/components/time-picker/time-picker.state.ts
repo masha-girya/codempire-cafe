@@ -1,13 +1,26 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 interface IProps {
   deliveryTime: Dayjs,
   setDeliveryTime: (value: React.SetStateAction<Dayjs>) => void,
+  error: string | null,
 }
 
 export const useTimePicker = (props: IProps) => {
-  const { deliveryTime, setDeliveryTime }= props;
+  const { deliveryTime, setDeliveryTime, error }= props;
+
+  const errorMessage = useMemo(() => {
+    switch (error) {
+      case 'minTime': {
+        return 'Select future time';
+      }
+
+      default: {
+        return '';
+      }
+    }
+  }, [error]);
 
   const handleDeliveryTimeChange = useCallback((newTime: Dayjs | null) => {
     if(newTime) {
@@ -47,5 +60,10 @@ export const useTimePicker = (props: IProps) => {
     handleDeliveryTimeChange(changedTime);
   };
 
-  return { handleIncrease, handleDecrease, handleDeliveryTimeChange };
+  return {
+    errorMessage,
+    handleIncrease,
+    handleDecrease,
+    handleDeliveryTimeChange,
+  };
 };

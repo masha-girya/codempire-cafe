@@ -1,0 +1,44 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.field {
+  padding-left: 32px;
+  padding-right: 28px;
+
+  @include mixins.profileField();
+
+  @include mixins.fontBody();
+
+  &__link {
+    @include mixins.centerItems(space-between, center);
+    width: 100%;
+
+    color: var.$color-text-main;
+
+    &:hover{
+      color: var.$color-text-button;
+    }
+  }
+
+  &__center {
+    @include mixins.fontBody();
+    letter-spacing: 0.25px;
+    line-height: 140%;
+  }
+
+  &__right {
+    &--number {
+      @include mixins.fontSubtitle1();
+      font-weight: var.$font-weight-medium;
+      line-height: 20px;
+    }
+
+    &--time {
+      display: block;
+
+      @include mixins.fontCaption();
+      color: var.$color-text-secondary;
+      line-height: 16px;
+    }
+  }
+}

@@ -6,3 +6,4 @@ export * from './date-picker';
 export * from './time-picker';
 export * from './order-info';
 export * from './order-creation';
+export * from './date-wrapper';

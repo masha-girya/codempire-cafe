@@ -5,9 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { OrderDatePicker, OrderTimePicker } from '../../components';
+import { DateWrapper } from '../../components';
 import './date.scss';
 
 interface IProps {
@@ -17,11 +15,15 @@ interface IProps {
   deliveryTime: Dayjs,
   setDeliveryDate: (value: React.SetStateAction<Dayjs>) => void,
   setDeliveryTime: (value: React.SetStateAction<Dayjs>) => void,
+  error: string | null,
+  setError: React.Dispatch<React.SetStateAction<string | null>>,
 }
 
 export const OrderDate = (props: IProps) => {
   const {
     date,
+    error,
+    setError,
     handleChange,
     deliveryDate,
     deliveryTime,
@@ -57,19 +59,14 @@ export const OrderDate = (props: IProps) => {
         </RadioGroup>
 
         {date === 'later' && (
-          <div className="date__choose-date">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <OrderDatePicker
-                deliveryDate={deliveryDate}
-                setDeliveryDate={setDeliveryDate}
-              />
-
-              <OrderTimePicker
-                deliveryTime={deliveryTime}
-                setDeliveryTime={setDeliveryTime}
-              />
-            </LocalizationProvider>
-          </div>
+          <DateWrapper
+            setError={setError}
+            deliveryDate={deliveryDate}
+            deliveryTime={deliveryTime}
+            setDeliveryDate={setDeliveryDate}
+            setDeliveryTime={setDeliveryTime}
+            error={error}
+          />
         )}
       </FormControl>
     </div>

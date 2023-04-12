@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DatePickerIcon } from '../../components';
@@ -7,12 +7,14 @@ import './date-picker.scss';
 interface IProps {
   deliveryDate: Dayjs,
   setDeliveryDate: (value: React.SetStateAction<Dayjs>) => void,
+  setError: React.Dispatch<React.SetStateAction<string | null>>,
 }
 
 export const OrderDatePicker = memo((props: IProps) => {
   const {
     deliveryDate,
     setDeliveryDate,
+    setError,
   } = props;
 
   const handleDeliveryDateChange = useCallback((newDate: Dayjs | null) => {
@@ -32,6 +34,9 @@ export const OrderDatePicker = memo((props: IProps) => {
       slots={{
         openPickerIcon: DatePickerIcon,
       }}
+      disablePast
+      minDate={dayjs()}
+      onError={(newError) => setError(newError)}
     />
   );
 });

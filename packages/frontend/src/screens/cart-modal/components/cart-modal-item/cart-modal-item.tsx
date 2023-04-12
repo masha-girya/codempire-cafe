@@ -3,6 +3,7 @@ import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
 import { IProduct } from 'types';
 import { useCartItem } from '../cart-modal-item';
+import { cutText } from 'utils/helpers';
 import './cart-modal-item.scss';
 
 interface IProps {
@@ -37,7 +38,7 @@ export const CartItem = (props: IProps) => {
           <div>
             <h4 className="item__info-title">{title}</h4>
             <p className="item__info-description">
-              {description}
+              {cutText(description)}
             </p>
           </div>
         </div>

@@ -66,6 +66,20 @@ export class DishService {
     return dish;
   }
 
+  async getDishNamesById(ids: string[]) {
+    const dishesNames = await Promise.all(ids.map(async(id) => {
+      const dish = await this.dishRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+      return dish.title;
+    }));
+
+    return dishesNames;
+  }
+
   async getRecommended(id: string) {
     const dish = await this.getDishById(id);
 

@@ -35,7 +35,8 @@ export class OrderEntity {
   })
   comment: string;
 
-  @Generated('increment')
+  @Column()
+  @Generated()
   number: number;
 
   @Column('int', {
@@ -66,11 +67,11 @@ export class OrderEntity {
   @ManyToOne(() => UserEntity, (user) => user.orders)
   user: UserEntity;
 
-  @OneToMany(() => OrderDishEntity, (orderDishes) => orderDishes.order)
+  @OneToMany(() => OrderDishEntity, (orderDishes) => orderDishes.order, { cascade: true })
   @Exclude()
   orderDishes: OrderDishEntity[];
 
-  @OneToMany(() => OrderMenuEntity, (orderMenus) => orderMenus.order)
+  @OneToMany(() => OrderMenuEntity, (orderMenus) => orderMenus.order, { cascade: true })
   @Exclude()
   orderMenus: OrderMenuEntity[];
 }

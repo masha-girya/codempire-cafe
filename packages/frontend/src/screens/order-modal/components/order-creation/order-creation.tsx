@@ -18,6 +18,8 @@ export const OrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
   const {
     formik,
     isError,
+    error,
+    setError,
     isLoading,
     deliveryDate,
     deliveryTime,
@@ -63,6 +65,8 @@ export const OrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
               deliveryTime={deliveryTime}
               setDeliveryDate={setDeliveryDate}
               setDeliveryTime={setDeliveryTime}
+              error={error}
+              setError={setError}
             />
 
             <OrderComment
@@ -84,7 +88,7 @@ export const OrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
           type="submit"
           text="Create"
           onHandleClick={isOrderOnConfirm ? handleSubmit : handleConfirmOrder}
-          isDisabled={isSubmitting}
+          isDisabled={isSubmitting || (error ? true : false)}
         />
       </div>
     </FormGroup>

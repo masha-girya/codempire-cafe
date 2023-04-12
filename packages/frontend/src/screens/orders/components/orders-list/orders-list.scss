@@ -1,0 +1,38 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.lists {
+  margin-top: 24px;
+  width: 636px;
+
+  box-shadow: var.$shadow-main;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__field {
+    padding-left: 32px;
+    padding-right: 28px;
+
+    @include mixins.profileField();
+
+    @include mixins.fontBody();
+
+    &--title {
+      padding-left: 0;
+      border-top: none;
+
+      @include mixins.fontSubtitle2Bold();
+
+      &:hover {
+        color: var.$color-text-main;
+      }
+    }
+  }
+}

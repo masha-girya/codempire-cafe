@@ -12,8 +12,8 @@ export const useModal = ({ pathname }: IProps) => {
   const isUser = pathname.includes('user');
   const isPass = pathname.includes('pass');
   const isAddress = pathname.includes('address');
-  const isOrder = pathname.includes('order');
-  const isCart = pathname.includes('cart') && !isOrder;
+  const isOrder = pathname.includes('order-creation');
+  const isCart = pathname.includes('cart');
 
   const navigateBack = () => {
     const index = pathname.lastIndexOf('/');

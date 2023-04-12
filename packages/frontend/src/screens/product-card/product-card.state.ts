@@ -1,8 +1,12 @@
 import { useCallback, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
+import {
+  ROUTE_CONSTANTS as ROUTE,
+  STORAGE_CONSTANTS as STORAGE,
+} from 'constants-app';
 import { cartActions } from 'store/features';
 import { IDish, IMenu } from 'types';
+import { getLocalItem } from 'utils/helpers';
 
 interface IProps {
   id: string;
@@ -15,6 +19,16 @@ export const useProductCard = (props: IProps) => {
   const { id, card } = props;
 
   const link = 'dishesId' in card ? ROUTE.MAIN_PAGE_MENU : ROUTE.MAIN_PAGE_DISH;
+
+  const isLoggedIn = useMemo(() => {
+    const token = getLocalItem(STORAGE.ACCESS_TOKEN);
+
+    if(token) {
+      return false;
+    }
+
+    return true;
+  }, []);
 
   const handleAdd = useCallback(() => {
     dispatch(cartActions.addProduct(card));
@@ -32,6 +46,7 @@ export const useProductCard = (props: IProps) => {
 
   return {
     link,
+    isLoggedIn,
     isItemInCart,
     handleAdd,
     handleRemove,

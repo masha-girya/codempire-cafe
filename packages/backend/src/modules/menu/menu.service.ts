@@ -9,6 +9,7 @@ import {
   ArrayContains,
   ArrayOverlap,
   ILike,
+  In,
   Not,
   Repository,
 } from 'typeorm';
@@ -61,6 +62,20 @@ export class MenuService {
     }
 
     return menu;
+  }
+
+  async getMenuNamesById(ids: string[]) {
+    const menusNames = await Promise.all(ids.map(async(id) => {
+      const menu = await this.menuRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+      return menu.title;
+    }));
+
+    return menusNames;
   }
 
   async getRecommended(id: string) {
