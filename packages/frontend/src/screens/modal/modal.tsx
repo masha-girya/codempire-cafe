@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { SuccessModal } from './components';
 import { Icon } from 'components/icon';
 import { CartModal } from 'screens/cart-modal';
@@ -9,10 +9,12 @@ import {
   ChangePassModal,
   EditAddressModal,
 } from '../../screens/profile';
-  import { useModal } from './modal.state';
+import { Order } from 'screens/orders';
+import { useModal } from './modal.state';
 import './modal.scss';
 
 export const Modal = () => {
+  const params = useParams();
   const { pathname } = useLocation();
   const {
     isUser,
@@ -21,10 +23,11 @@ export const Modal = () => {
     isCart,
     isOrder,
     isEditOnSuccess,
+    isOrderNumber,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,
-  } = useModal({ pathname });
+  } = useModal({ pathname, params });
 
   return (
     <div className="modal" onClick={handleModalClose}>
@@ -39,6 +42,7 @@ export const Modal = () => {
                 {isAddress && 'Add a new address'}
                 {isCart && 'Cart'}
                 {isOrder && 'Order'}
+                {isOrderNumber && `Order ${params.number}`}
               </h1>
 
               <button
@@ -58,6 +62,8 @@ export const Modal = () => {
             {isCart && <CartModal pathname={pathname} />}
 
             {isOrder && <OrderModal />}
+
+            {isOrderNumber && <Order setSuccess={setIsEditOnSuccess} />}
           </div>)
       }
     </div>

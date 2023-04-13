@@ -1,13 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from 'components/icon';
 import './success-modal.scss';
 
 export const SuccessModal = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const navigateBack = () => {
+    const index = pathname.lastIndexOf('/');
+    const link = pathname.slice(0, index);
+    navigate(link);
+  };
 
   const handleClose = () => {
-    navigate('/profile');
+    navigateBack();
   };
 
   return (

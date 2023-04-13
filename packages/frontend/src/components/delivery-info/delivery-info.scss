@@ -1,0 +1,28 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.delivery-info {
+  &__title {
+    margin-top: 16px;
+
+    @include mixins.fontH2();
+  }
+
+  &__subtitle {
+    margin-top: 24px;
+
+    @include mixins.fontSubtitle2Bold();
+  }
+
+  &__info {
+    margin-top: 6px;
+
+    @include mixins.fontBody();
+  }
+
+  &__line {
+    margin-top: 16px;
+
+    @include mixins.line();
+  }
+}

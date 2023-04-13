@@ -1,0 +1,88 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.status {
+  position: relative;
+  top: 10px;
+
+  display: flex;
+  column-gap: 32px;
+
+  padding-top: 16px;
+
+  @include mixins.fontCaption();
+
+  &__created {
+    position: relative;
+
+    &::after {
+      @include mixins.statusCircleDone(30%);
+    }
+  }
+
+  &__ready {
+    position: relative;
+
+    &::before {
+      @include mixins.statusLine(70px);
+    }
+
+    &::after {
+      @include mixins.statusCircle(25%);
+    }
+
+    &--done {
+      &::after {
+        @include mixins.statusCircleDone(25%);
+      }
+
+      &:before {
+        background-color: var.$color-text-primary;
+      }
+    }
+  }
+
+  &__on-way {
+    position: relative;
+
+    &::before {
+      @include mixins.statusLine(75px);
+    }
+
+    &::after {
+      @include mixins.statusCircle(30%);
+    }
+
+    &--done {
+      &::after {
+        @include mixins.statusCircleDone(30%);
+      }
+
+      &:before {
+        background-color: var.$color-text-primary;
+      }
+    }
+  }
+
+  &__delivered {
+    position: relative;
+
+    &::before {
+      @include mixins.statusLine(75px);
+    }
+
+    &::after {
+      @include mixins.statusCircle(35%);
+    }
+
+    &--done {
+      &::after {
+        @include mixins.statusCircleDone(35%);
+      }
+
+      &:before {
+        background-color: var.$color-text-primary;
+      }
+    }
+  }
+}

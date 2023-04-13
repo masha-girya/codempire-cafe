@@ -174,3 +174,52 @@
     background-color: aliceblue;
   }
 }
+
+@mixin statusCircle($left) {
+  content: '';
+  box-sizing: content-box;
+
+  position: absolute;
+  top: -17px;
+  left: $left;
+  z-index: var.$index-status-circle;
+
+  @include square(12px);
+
+  background-color: var.$color-text-contrast;
+
+  border: 1px solid var.$color-text-primary;
+  border-radius: 50%;
+}
+
+@mixin statusLine($width) {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: -52px;
+
+  height: 4px;
+  width: $width;
+
+  border: 1px solid var.$color-text-primary;
+}
+
+@mixin statusCircleDone($left) {
+  content: "";
+
+  position: absolute;
+  top: -19px;
+  left: $left;
+  z-index: 1;
+
+  @include square(14px);
+
+  background-color: var.$color-text-primary;
+  background-image: url(../assets/icons/check-mark.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10px;
+
+  border: 2px solid var.$color-text-contrast;
+  border-radius: 50%;
+}

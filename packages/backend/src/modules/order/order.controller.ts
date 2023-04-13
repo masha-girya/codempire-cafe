@@ -24,17 +24,28 @@ export class OrderController {
     @Query('status') status: STATUS[],
     @Query('sortBy') sortBy: string,
   ) {
-    return this.orderService.getOrders(status, sortBy);
+    const arrayStatus = Array.isArray(status) ? status : [status];
+
+    return this.orderService.getOrders(arrayStatus, sortBy);
   }
 
-  @Get(ROUTE.ID)
-  getOrderById(@Param('id') id: string) {
-    return this.orderService.getOrderById(id);
+  @Get(ROUTE.NUMBER)
+  getOrderByNumber(@Param('number') number: string) {
+    return this.orderService.getOrder(number, 'number');
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   addOrder(@Body() createdOderDto: CreatedOrderDto) {
     return this.orderService.addOrder(createdOderDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(ROUTE.ORDER_UPDATE)
+  updateOrder(
+    @Param('number') number: string,
+    @Body() createdOderDto: CreatedOrderDto,
+  ) {
+    return this.orderService.updateOrder(number, createdOderDto);
   }
 }
