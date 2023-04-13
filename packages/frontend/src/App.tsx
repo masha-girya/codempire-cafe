@@ -82,14 +82,14 @@ const App: React.FC = () => {
 
       <Route path={ROUTE.ORDERS_COMPLETED} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
-
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path=":number" element={<Modal />} />
       </Route>
 
       <Route path={ROUTE.ORDERS_WAITING} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
-
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path=":number" element={<Modal />} />
       </Route>
 
       {/* LOGOUT */}

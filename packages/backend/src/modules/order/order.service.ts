@@ -6,7 +6,7 @@ import {
 import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity, CreatedOrderDto } from '../order';
-import { UserService } from 'modules/user';
+import { CreateUserDto, UserService } from 'modules/user';
 import { DishService } from 'modules/dish';
 import { MenuService } from 'modules/menu';
 import { OrderDishService } from 'modules/order-dish';
@@ -31,11 +31,9 @@ export class OrderService {
   ) {}
 
   async getOrders(status: STATUS[], sortBy: string) {
-    const arrayStatus = Array.isArray(status) ? status : [status];
-
     const orders = await this.orderRepository.find({
       where: {
-        status: In(arrayStatus),
+        status: In(status),
       },
       order: {
         date: sortBy === 'oldest' ? 'ASC' : 'DESC',
@@ -57,9 +55,32 @@ export class OrderService {
     return response;
   }
 
-  async getOrderById(id: string) {
-    const order = await this.orderRepository.findOneBy({ id });
-    return order;
+  async getOrder(key: string, keyName: string) {
+    switch(keyName) {
+      case 'id':
+      default:
+        return await this.orderRepository.findOneBy({ id: key });
+
+      case 'number': {
+        const order = await this.orderRepository.findOneBy({ number: Number(key) });
+        const user: CreateUserDto = await this.userService.getUser(order.userId, 'id');
+
+        const { name, surname, phone } = user;
+        const { id, address, date, status, mark } = order;
+
+        return {
+          number: key,
+          id,
+          name,
+          surname,
+          address,
+          phone,
+          date,
+          status,
+          mark,
+        };
+      }
+    }
   }
 
   async addOrderDish(dishId: string[], createdOrder: CreatedOrderDto) {
@@ -124,5 +145,18 @@ export class OrderService {
     await this.orderRepository.save(createdOrder);
 
     return createdOrder.id;
+  }
+
+  async updateOrder(
+    number: string,
+    createdOrderDto: CreatedOrderDto,
+  ) {
+    const order = await this.orderRepository.findOneBy({ number: Number(number) });
+
+    Object.assign(order, createdOrderDto);
+
+    await this.orderRepository.save(order);
+
+    return order;
   }
 }

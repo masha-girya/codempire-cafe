@@ -18,6 +18,8 @@ export const ROUTE_CONSTANTS = {
   MENU: 'menu',
   RECOMMENDED: 'recommended/:id',
   ORDER: 'order',
+  ORDER_UPDATE: 'edit/:number',
   QUERY: 'query',
   ID: ':id',
+  NUMBER: ':number',
 } as const;

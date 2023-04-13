@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Params, useNavigate } from 'react-router-dom';
 
 interface IProps {
   pathname: string,
+  params: Readonly<Params<string>>,
 }
 
-export const useModal = ({ pathname }: IProps) => {
+export const useModal = ({ pathname, params }: IProps) => {
   const navigate = useNavigate();
   const [ isEditOnSuccess, setIsEditOnSuccess ] = useState(false);
 
@@ -14,6 +15,7 @@ export const useModal = ({ pathname }: IProps) => {
   const isAddress = pathname.includes('address');
   const isOrder = pathname.includes('order-creation');
   const isCart = pathname.includes('cart');
+  const isOrderNumber = params.number;
 
   const navigateBack = () => {
     const index = pathname.lastIndexOf('/');
@@ -39,6 +41,7 @@ export const useModal = ({ pathname }: IProps) => {
     isCart,
     isOrder,
     isEditOnSuccess,
+    isOrderNumber,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,

@@ -17,7 +17,7 @@ export const OrdersField = ({ order }: IProps) => {
 
   return (
     <li className="field">
-      <Link to='/' className="field__link">
+      <Link to={`${number}`} className="field__link">
         <div className="right">
           <h5 className="field__right--number">
             {number}

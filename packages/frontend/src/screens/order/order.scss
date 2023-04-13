@@ -1,0 +1,9 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.order {
+  &__loading{
+    @include mixins.fontH2();
+    text-align: center;
+  }
+}

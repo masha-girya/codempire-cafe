@@ -1,6 +1,7 @@
 export * from './Dish.type';
 export * from './Menu.type';
 export * from './Order.type';
+export * from './OrderInfo.type';
 export * from './User.type';
 export * from './Sort.type';
 export * from './Search.type';

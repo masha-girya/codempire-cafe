@@ -6,7 +6,7 @@ export interface IOrder {
   status: 'created' | 'ready' | 'on way' | 'delivered',
   comment: string,
   number: number,
-  mark: number,
+  mark: number | null,
   address: string,
   user: IUser,
   dishes: IDish[],
