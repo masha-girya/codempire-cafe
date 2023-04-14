@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { OrderMenuEntity, CreatedOrderMenuDto } from '../order-menu';
 import { CreatedMenuDto } from 'modules/menu';
 import { CreatedOrderDto } from 'modules/order';
+import { STATUS } from 'types';
 
 @Injectable()
 export class OrderMenuService {
@@ -65,5 +66,24 @@ export class OrderMenuService {
     }
 
     return menuToAdd;
+  }
+
+  async getOrderDishesStatus(menuId: string) {
+    const orders = await this.orderMenuRepository.find({
+      where: {
+        menuId,
+      },
+      relations: ['order'],
+    });
+
+    const status = orders
+      .filter(orderDish => orderDish.order.status !== STATUS.delivered)
+      .map(order => order.order.status);
+
+    return status;
+  }
+
+  async removeOrderDishes(id: string) {
+    await this.orderMenuRepository.delete(id);
   }
 }

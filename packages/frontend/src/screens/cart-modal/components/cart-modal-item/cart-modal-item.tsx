@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Icon } from 'components/icon';
 import { IProduct } from 'types';
@@ -13,6 +14,7 @@ interface IProps {
 export const CartItem = (props: IProps) => {
   const { product, amount } = props.product;
   const {
+    link,
     numPrice,
     handleRemove,
     handleIncrease,
@@ -35,12 +37,12 @@ export const CartItem = (props: IProps) => {
             className="item__info-image"
           />
 
-          <div>
+          <Link to={`${link}/${product.id}`} className="item__link">
             <h4 className="item__info-title">{title}</h4>
             <p className="item__info-description">
               {cutText(description)}
             </p>
-          </div>
+          </Link>
         </div>
 
         <div className="item__info-amount">

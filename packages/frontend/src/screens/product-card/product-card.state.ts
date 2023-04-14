@@ -9,13 +9,14 @@ import { IDish, IMenu } from 'types';
 import { getLocalItem } from 'utils/helpers';
 
 interface IProps {
-  id: string;
-  card: IMenu | IDish;
+  id: string,
+  card: IMenu | IDish,
 }
 
 export const useProductCard = (props: IProps) => {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.cart);
+  const { role } = useAppSelector((state) => state.user);
   const { id, card } = props;
 
   const link = 'dishesId' in card ? ROUTE.MAIN_PAGE_MENU : ROUTE.MAIN_PAGE_DISH;
@@ -46,6 +47,7 @@ export const useProductCard = (props: IProps) => {
 
   return {
     link,
+    role,
     isLoggedIn,
     isItemInCart,
     handleAdd,

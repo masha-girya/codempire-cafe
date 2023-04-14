@@ -9,6 +9,7 @@ interface IProps {
 export const OrdersListWrapper = ({ sortBy }: IProps) => {
   const {
     orders,
+    isNoORders,
     ordersDate,
     isLoading,
   } = useOrdersListWrapper({ sortBy });
@@ -25,6 +26,8 @@ export const OrdersListWrapper = ({ sortBy }: IProps) => {
           />
         ))
       }
+
+      {isNoORders && <h3>No orders yet...</h3>}
     </>
   );
 };

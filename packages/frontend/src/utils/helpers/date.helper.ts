@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
+import { TIME_CONSTANTS as TIME } from 'constants-app';
 
 export const getFormattedDate = (date: string) => {
-  const today = dayjs().format('DD/MM/YYYY');
-  const yesterday = dayjs().subtract(1, 'day').format('DD/MM/YYYY');
+  const today = dayjs().format(TIME.DATE);
+  const yesterday = dayjs().subtract(1, 'day').format(TIME.DATE);
 
-  let day = dayjs(date, 'DD/MM/YYYY').format('dddd');
+  let day = dayjs(date, TIME.DATE).format(TIME.WEEK);
 
   if(date === today) {
     day = 'Today';

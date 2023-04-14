@@ -18,6 +18,7 @@ export const ProductPage = () => {
     product,
     isError,
     isLoading,
+    handleReload,
   } = useProductPage({
     id: params.id,
     location: location.pathname,
@@ -36,7 +37,7 @@ export const ProductPage = () => {
       {product && (
         <div className="product-page">
           <Product product={product} />
-          <Recommended recommended={recommended} />
+          <Recommended handleReload={handleReload} recommended={recommended} />
         </div>
       )}
 

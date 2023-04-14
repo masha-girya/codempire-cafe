@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategyModule } from 'auth/jwt-strategy';
@@ -7,6 +7,8 @@ import {
   DishService,
   DishController,
 } from '../dish';
+import { OrderDishModule } from 'modules/order-dish';
+import { OrderModule } from 'modules/order';
 import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Module({
@@ -15,8 +17,10 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
     JwtStrategyModule,
     JwtModule.register({
       secret: AUTH.JWT_SECRET,
-      signOptions: { expiresIn: '120d' },
+      signOptions: { expiresIn: AUTH.JWT_EXPIRES },
     }),
+    forwardRef(() => OrderDishModule),
+    forwardRef(() => OrderModule),
   ],
   providers: [
     DishService,

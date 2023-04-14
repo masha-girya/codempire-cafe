@@ -1,16 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MainButton } from 'components/button';
-import { IDish, IMenu } from 'types';
+import { ManagerActions, UserActions } from './components';
+import { IDish, IMenu, ROLE } from 'types';
 import { useProductCard } from '../product-card';
 import './product-card.scss';
 
 interface IProps {
   card: IDish | IMenu,
+  handleReload: () => void,
 }
 
 export const ProductCard = (props: IProps) => {
-  const { card } = props;
+  const { card, handleReload } = props;
   const {
     id,
     title,
@@ -23,6 +24,7 @@ export const ProductCard = (props: IProps) => {
 
    const {
     link,
+    role,
     isItemInCart,
     handleAdd,
     handleRemove,
@@ -54,22 +56,19 @@ export const ProductCard = (props: IProps) => {
           </div>
         </Link>
 
-          {isItemInCart
+          {role === ROLE.user
             ? (
-              <MainButton
-                type="button"
-                text="Remove"
-                isSmall={true}
-                onHandleClick={handleRemove}
-                isActive={true}
+              <UserActions
+                handleRemove={handleRemove}
+                handleAdd={handleAdd}
+                isItemInCart={isItemInCart}
+                isLoggedIn={isLoggedIn}
               />)
             : (
-              <MainButton
-                type="button"
-                text="To cart"
-                isSmall={true}
-                onHandleClick={handleAdd}
-                isDisabled={isLoggedIn}
+              <ManagerActions
+                id={id}
+                isMenu={'dishesId' in props.card ? true : false}
+                handleReload={handleReload}
               />)
           }
         </div>

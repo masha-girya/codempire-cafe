@@ -2,6 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { OrdersField } from '../../components';
 import { IOrder } from 'types';
+import { TIME_CONSTANTS as TIME } from 'constants-app';
 import { getFormattedDate } from 'utils/helpers';
 import './orders-list.scss';
 
@@ -14,7 +15,7 @@ export const OrdersList = (props: IProps) => {
   const { orders, orderDate } = props;
 
   const ordersToMap = orders.filter(order => (
-    dayjs(order.date).format('DD/MM/YYYY') === orderDate
+    dayjs(order.date).format(TIME.DATE) === orderDate
   ));
 
   return (

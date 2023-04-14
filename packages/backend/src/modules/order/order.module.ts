@@ -20,7 +20,7 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
     TypeOrmModule.forFeature([OrderEntity]),
     JwtModule.register({
       secret: AUTH.JWT_SECRET,
-      signOptions: { expiresIn: '120d' },
+      signOptions: { expiresIn: AUTH.JWT_EXPIRES },
     }),
     JwtStrategyModule,
     HashModule,

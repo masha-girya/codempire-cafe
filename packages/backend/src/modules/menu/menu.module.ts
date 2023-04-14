@@ -8,6 +8,8 @@ import {
   MenuController,
 } from '../menu';
 import { DishModule } from 'modules/dish';
+import { OrderMenuModule } from 'modules/order-menu';
+import { OrderModule } from 'modules/order';
 import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Module({
@@ -17,8 +19,10 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
     forwardRef(() => DishModule),
     JwtModule.register({
       secret: AUTH.JWT_SECRET,
-      signOptions: { expiresIn: '120d' },
+      signOptions: { expiresIn: AUTH.JWT_EXPIRES },
     }),
+    forwardRef(() => OrderMenuModule),
+    forwardRef(() => OrderModule),
   ],
   providers: [MenuService],
   controllers: [MenuController],

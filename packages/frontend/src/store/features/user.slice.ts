@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from 'types';
+import { IUser, ROLE } from 'types';
 
 interface IInitialState {
   id: string,
@@ -9,7 +9,7 @@ interface IInitialState {
   name: string,
   surname: string,
   phone: string,
-  role: string,
+  role: ROLE,
   avatar: string,
   address: string[],
 }
@@ -21,7 +21,7 @@ const initialState: IInitialState = {
   name: '',
   surname: '',
   phone: '',
-  role: '',
+  role: ROLE.user,
   avatar: '',
   address: [],
 };
@@ -42,7 +42,7 @@ export const userSlice = createSlice({
     setPhone: (state, action: PayloadAction<string>) => {
       state.phone = action.payload;
     },
-    setStatus: (state, action: PayloadAction<string>) => {
+    setStatus: (state, action: PayloadAction<ROLE>) => {
       state.role = action.payload;
     },
     setAddress: (state, action: PayloadAction<string[]>) => {

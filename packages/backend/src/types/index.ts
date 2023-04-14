@@ -4,3 +4,4 @@ export * from './role.type';
 export * from './sort.type';
 export * from './status.type';
 export * from './password.type';
+export * from './order-key.type';

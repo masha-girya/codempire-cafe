@@ -1,4 +1,4 @@
-import { IMenu, IDish, IOrder } from '../types';
+import { IMenu, IDish, IOrder, ROLE } from '../types';
 
 export interface IUser {
   id: string,
@@ -10,7 +10,7 @@ export interface IUser {
   avatar: string,
   phone: string,
   address: string[],
-  role: 'authorizedUser' | 'manager',
+  role: ROLE,
   orders: IOrder[],
   createdMenus: IMenu[],
   editedMenus: IMenu[],

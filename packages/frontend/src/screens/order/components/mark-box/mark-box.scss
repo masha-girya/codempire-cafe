@@ -1,0 +1,19 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.mark-box {
+  @include mixins.centerItems(space-between, center);
+  column-gap: 40px;
+
+  &__subtitle {
+    margin-top: 6px;
+
+    @include mixins.fontSubtitle2Bold();
+  }
+
+  &__info {
+    margin-top: 6px;
+
+    @include mixins.fontBody();
+  }
+}

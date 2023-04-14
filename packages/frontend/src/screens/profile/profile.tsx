@@ -82,7 +82,7 @@ export const Profile = () => {
                 </li>
 
                 <li>
-                  <Link to="/" className="profile__link">
+                  <Link to={ROUTE.ORDERS_WAITING} className="profile__link">
                     <p>Orders</p>
                     <Icon type="rightArrow" />
                   </Link>

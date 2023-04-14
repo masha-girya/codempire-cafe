@@ -2,6 +2,7 @@ import React from 'react';
 import { Dayjs } from 'dayjs';
 import { DeliveryInfo } from 'components/delivery-info';
 import { useAppSelector } from 'store';
+import { TIME_CONSTANTS as TIME } from 'constants-app';
 import './order-info.scss';
 
 interface IProps {
@@ -39,8 +40,8 @@ export const OrderInfo = (props: IProps) => {
           name={`${name} ${surname}`}
           phone={phone}
           address={currentAddress}
-          date={date.format('DD/MM/YY')}
-          time={time.format('HH:mm')}
+          date={date.format(TIME.DATE)}
+          time={time.format(TIME.TIME)}
           comment={comment}
         />)
       }

@@ -1,11 +1,9 @@
 import React, { ReactNode } from 'react';
-import {
-  FormLabel,
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import FormHelperText from '@mui/material/FormHelperText';
 import { Selection } from 'components/selection';
 import { useOrderAddress } from './address.state';
 import { SORT_CONSTANTS as SORT } from 'constants-app';
@@ -15,6 +13,7 @@ interface IProps {
   setFieldValue: (field: string, value: string, shouldValidate?: boolean) => void,
   currentAddress: string,
   handleChange: (event: SelectChangeEvent<string>, child: ReactNode) => void,
+  addressError: string,
 }
 
 export const OrderAddress = (props: IProps) => {
@@ -22,6 +21,7 @@ export const OrderAddress = (props: IProps) => {
     currentAddress,
     handleChange,
     setFieldValue,
+    addressError,
   } = props;
 
   const {
@@ -40,7 +40,7 @@ export const OrderAddress = (props: IProps) => {
         <Select
           id="currentAddress"
           name="currentAddress"
-          value={currentAddress}
+          value={currentAddress || ''}
           onChange={handleChange}
         >
           {address.map((addressItem: string) => (
@@ -52,6 +52,10 @@ export const OrderAddress = (props: IProps) => {
             </MenuItem>
           ))}
         </Select>
+
+        {!currentAddress && (
+          <FormHelperText className="address__error">{addressError}</FormHelperText>
+        )}
       </FormControl>
 
       <Selection

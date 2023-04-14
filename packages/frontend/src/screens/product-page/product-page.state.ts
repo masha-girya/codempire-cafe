@@ -4,7 +4,7 @@ import {
   useState,
 } from 'react';
 import { IDish, IMenu } from 'types';
-import { useRequest } from 'utils/hooks';
+import { useReload, useRequest } from 'utils/hooks';
 import {
   getDish,
   getMenu,
@@ -22,6 +22,7 @@ export const useProductPage = (props: IProps) => {
 
   const [ product, setProduct ] = useState<IDish | IMenu | null>(null);
   const [ recommended, setRecommended ] = useState<IDish[] | IMenu[] | []>([]);
+  const { isReload, handleReload } = useReload();
 
   const {
     sendUniqueRequest,
@@ -46,7 +47,7 @@ export const useProductPage = (props: IProps) => {
     const requestMenu = () => getMenu(id || '');
     const requestRecommended = () => getRecommendedMenus(id || '');
 
-    const [menu, recommended] = await Promise.all([
+  const [menu, recommended] = await Promise.all([
       await sendUniqueRequest(requestMenu),
       await sendUniqueRequest(requestRecommended),
     ]);
@@ -65,12 +66,13 @@ export const useProductPage = (props: IProps) => {
     }
 
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, isReload]);
 
   return {
     recommended,
     product,
     isError,
     isLoading,
+    handleReload,
   };
 };
