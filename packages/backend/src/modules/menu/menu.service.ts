@@ -9,7 +9,6 @@ import {
   ArrayContains,
   ArrayOverlap,
   ILike,
-  In,
   Not,
   Repository,
 } from 'typeorm';
@@ -21,6 +20,9 @@ import {
   getDishesProperties,
   getTotalWeight,
 } from '../menu';
+import { OrderMenuService } from 'modules/order-menu';
+import { OrderService } from 'modules/order';
+import { ERROR_CONSTANTS as ERROR } from '@constants';
 
 @Injectable()
 export class MenuService {
@@ -29,6 +31,10 @@ export class MenuService {
     private menuRepository: Repository<MenuEntity>,
     @Inject(forwardRef(() => DishService))
     private dishService: DishService,
+    @Inject(forwardRef(() => OrderMenuService))
+    private orderMenuService: OrderMenuService,
+    @Inject(forwardRef(() => OrderService))
+    private orderService: OrderService,
   ) {}
 
   async getMenus(categories: string[] | string = [], sortBy: string) {
@@ -123,9 +129,7 @@ export class MenuService {
     const menu = await this.menuRepository.findOneBy({ title });
 
     if (menu) {
-      throw new BadRequestException({
-        message: 'Menu is already exists',
-      });
+      throw new BadRequestException(ERROR.MENU_EXISTS);
     }
 
     const createdMenu = new MenuEntity();
@@ -170,6 +174,36 @@ export class MenuService {
   }
 
   async removeMenu(id: string) {
+    const menu = await this.menuRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['orderMenus'],
+    });
+
+    if(menu.orderMenus.length > 0) {
+      await this.removeMenuOrder(menu);
+    }
+
     await this.menuRepository.delete(id);
+
+    return true;
+  }
+
+  async removeMenuOrder(menu: CreatedMenuDto) {
+    const orderActual = await this.orderMenuService
+      .getOrderDishesStatus(menu.orderMenus[0].menuId);
+
+    if(orderActual.length > 0) {
+      throw new BadRequestException(ERROR.MENU_IN_ORDER);
+    }
+
+    const orderDishIds = menu.orderMenus.map(orderMenu => orderMenu.id);
+
+    for(const orderDishId of orderDishIds) {
+      await this.orderMenuService.removeOrderDishes(orderDishId);
+    }
+
+    await this.orderService.removeOrderProduct(menu.id, 'menuId');
   }
 }

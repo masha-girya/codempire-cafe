@@ -12,9 +12,9 @@ export const useUser = () => {
       return null;
     }
 
-    const { user: validUser, token } = localToken;
+    const { user: validUser } = localToken;
 
-    const user = await getUser(validUser.id, token);
+    const user = await getUser(validUser.id);
 
     dispatch(userActions.setUser(user));
 

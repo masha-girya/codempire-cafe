@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRequest, useUser } from 'utils/hooks';
 import { removeLocalItems } from 'utils/helpers';
 import { deleteUser, validateToken } from 'utils/api';
-import { useAppSelector } from 'store';
+import { useAppSelector, useAppDispatch } from 'store';
+import { cartActions } from 'store/features';
 import {
   ROUTE_CONSTANTS as ROUTE,
   STORAGE_CONSTANTS as STORAGE,
@@ -11,6 +12,7 @@ import {
 
 export const useProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { id, name, phone, role, avatar, surname } = useAppSelector(
     (state) => state.user
   );
@@ -40,16 +42,17 @@ export const useProfile = () => {
       STORAGE.CART_PRICE,
       STORAGE.CART_PRODUCTS,
     ]);
+    dispatch(cartActions.clearCart());
 
     navigate(ROUTE.PROFILE_LOGOUT);
     removeUser();
   }, []);
 
   const handleDeleteAccount = async () => {
-    const localToken = await validateToken();
+    await validateToken();
 
     await sendUniqueRequest(async () => {
-      deleteUser(id, localToken?.token || '');
+      deleteUser(id);
     });
 
     removeLocalItems([

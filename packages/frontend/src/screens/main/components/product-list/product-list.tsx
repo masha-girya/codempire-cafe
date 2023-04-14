@@ -14,6 +14,7 @@ export const ProductList = (props: IProps) => {
     products,
     isLoading,
     isError,
+    handleReload,
   } = useProductState({ productOnLoad });
 
   return (
@@ -27,6 +28,7 @@ export const ProductList = (props: IProps) => {
             <ProductCard
               key={prod.id}
               card={prod}
+              handleReload={handleReload}
             />
           ))
         }

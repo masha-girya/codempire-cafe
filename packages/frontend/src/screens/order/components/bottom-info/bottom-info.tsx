@@ -1,14 +1,14 @@
 import React from 'react';
-import dayjs from 'dayjs';
 import { MainButton } from 'components/button';
-import { Mark, Status } from '../../components';
+import { Status } from '../../components';
 import { useBottomInfo } from './bottom-info.state';
 import { STATUS } from 'types';
 import './bottom-info.scss';
+import { MarkBox } from '../mark-box';
 
 interface IProps {
   mark: number| null,
-  date: Date,
+  date: string,
   status: STATUS,
   handleClose: () => void,
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
@@ -25,12 +25,13 @@ export const BottomInfo = (props: IProps) => {
 
   const {
     rate,
+    role,
     hover,
     isError,
     rateArray,
     buttonText,
     isLoading,
-    handleClick,
+    handleCreate,
     handleRate,
     handleHoverOn,
     handleHoverOut,
@@ -40,7 +41,8 @@ export const BottomInfo = (props: IProps) => {
     <div className="bottom-info">
       {status === STATUS.delivered
         ? (
-          <Mark
+          <MarkBox
+            role={role}
             rateArray={rateArray}
             rating={rate}
             hover={hover}
@@ -56,7 +58,7 @@ export const BottomInfo = (props: IProps) => {
               </p>
 
               <h4 className="bottom-info__subtitle">
-                {dayjs(date).format('HH:mm')}
+                {date}
               </h4>
             </div>
 
@@ -74,7 +76,7 @@ export const BottomInfo = (props: IProps) => {
         <MainButton
           text={buttonText}
           type="button"
-          onHandleClick={status !== STATUS.delivered ? handleClick : handleClose}
+          onHandleClick={buttonText === 'create' ? handleCreate : handleClose}
           isDisabled={isLoading}
         />
       </div>

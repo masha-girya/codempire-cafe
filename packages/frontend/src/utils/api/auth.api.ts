@@ -2,10 +2,10 @@ import axios, { AxiosResponse } from 'axios';
 import {
   API_CONSTANTS as API,
   STORAGE_CONSTANTS as STORAGE,
-  API_HEADERS_CONSTANTS as API_HEADERS,
 } from 'constants-app';
-import { getLocalItem, setLocalItem } from 'utils/helpers';
-import { IPassword, IUser } from 'types';
+import { setLocalItem } from 'utils/helpers';
+import { IContentType, IPassword, IUser } from 'types';
+import { useRequestHeader } from 'utils/hooks';
 
 export async function signUp(email: string, password: string) {
   const user = await axios.post(API.BASE_URL + API.REGISTRATION_URL, {
@@ -28,7 +28,8 @@ export async function login(email: string, password: string) {
 }
 
 export async function validateToken() {
-  const token = getLocalItem(STORAGE.ACCESS_TOKEN);
+  const { requestHeader, token } = useRequestHeader();
+
 
   if (!token) {
     return null;
@@ -36,50 +37,37 @@ export async function validateToken() {
 
   const response: AxiosResponse<IUser> = await axios.get(
     API.BASE_URL + API.VALIDATE_TOKEN_URL,
-    {
-      headers: {
-        [API_HEADERS.AUTH]: `Bearer ${token}`,
-      },
-    }
+    requestHeader,
   );
 
   return { user: response.data, token };
 }
 
 export async function updateUser(id: string, data: Partial<IUser> | FormData) {
-  const token = getLocalItem(STORAGE.ACCESS_TOKEN) || '';
-
-  let headerFormData = {};
+  let headerFormData: IContentType | null = null;
 
   if (data instanceof FormData) {
     headerFormData = { 'Content-Type': 'multipart/form-data' };
   }
 
+  const { requestHeader } = useRequestHeader({ headerFormData });
+
   const user = await axios.patch(
     API.BASE_URL + API.USER_EDIT + '/' + id,
     data,
-    {
-      headers: {
-        [API_HEADERS.AUTH]: `Bearer ${token}`,
-        ...headerFormData,
-      },
-    }
+    requestHeader,
   );
 
   return user.data;
 }
 
 export async function changePassword(id: string, passwords: IPassword) {
-  const token = getLocalItem(STORAGE.ACCESS_TOKEN) || '';
+  const { requestHeader } = useRequestHeader();
 
   const user = await axios.patch(
     API.BASE_URL + API.USER_CHANGE_PASS + '/' + id,
     passwords,
-    {
-      headers: {
-        [API_HEADERS.AUTH]: `Bearer ${token}`,
-      },
-    }
+    requestHeader,
   );
 
   return user.data;

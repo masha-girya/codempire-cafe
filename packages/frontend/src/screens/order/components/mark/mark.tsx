@@ -1,17 +1,20 @@
 import React from 'react';
+import { ROLE } from 'types';
 import './mark.scss';
 
 interface IProps {
-  rating: number,
-  hover: number,
-  rateArray: number[],
-  handleRate: (num: number) => void,
-  handleHoverOn: (num: number) => void,
-  handleHoverOut: () => void,
+  role: ROLE;
+  rating: number;
+  hover: number;
+  rateArray: number[];
+  handleRate: (num: number) => void;
+  handleHoverOn: (num: number) => void;
+  handleHoverOut: () => void;
 }
 
 export const Mark = (props: IProps) => {
   const {
+    role,
     rating,
     hover,
     rateArray,
@@ -20,41 +23,33 @@ export const Mark = (props: IProps) => {
     handleHoverOut,
   } = props;
 
+  const className = role === ROLE.user ? 'mark__button' : 'mark__button-disabled';
+
   return (
     <div className="mark">
-      <div>
-        <p className="mark__info">Your mark:</p>
+      {rateArray.map((star, index) => {
+        index += 1;
+        const handleRateChange = () => handleRate(index);
+        const handleHover = () => handleHoverOn(index);
 
-        <div className="mark__rating">
-          {rateArray.map((star, index) => {
-            index += 1;
-            const handleRateChange = () => handleRate(index);
-            const handleHover = () => handleHoverOn(index);
-
-            return (
-              <button
-                type="button"
-                key={index}
-                className={
-                  index <= (hover || rating)
-                    ? 'mark__button mark__rating--on'
-                    : 'mark__button mark__rating--off'
-                }
-                onClick={handleRateChange}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHoverOut}
-              >
-                <span className="mark__rating" />
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div>
-        <p className="mark__info">Status:</p>
-        <p className="mark__subtitle">Delivered</p>
-      </div>
+        return (
+          <button
+            type="button"
+            key={index}
+            className={
+              index <= (hover || rating)
+                ? `${className} mark__rating--on`
+                : `${className} mark__rating--off`
+            }
+              onClick={handleRateChange}
+              onMouseEnter={handleHover}
+              onMouseLeave={handleHoverOut}
+              disabled={role === ROLE.manager}
+          >
+            <span />
+          </button>
+        );
+      })}
     </div>
   );
 };

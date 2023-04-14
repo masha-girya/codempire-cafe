@@ -52,6 +52,19 @@
     font-size: var.$font-size-xxs;
   }
 
+  &--middle {
+    width: 93px;
+    padding: 10px;
+
+    font-size: var.$font-size-xxs;
+  }
+
+  &--danger {
+    background-color: transparent;
+    border-color: transparent;
+    color: var.$color-error;
+  }
+
   &--active {
     background-color: transparent;
     color: var.$color-primary;

@@ -2,21 +2,6 @@
 @use 'styles/mixins';
 
 .mark {
-  @include mixins.centerItems(space-between, center);
-  column-gap: 40px;
-
-  &__subtitle {
-    margin-top: 6px;
-
-    @include mixins.fontSubtitle2Bold();
-  }
-
-  &__info {
-    margin-top: 6px;
-
-    @include mixins.fontBody();
-  }
-
   &__rating {
     &--on {
       background-image: url(../../../../assets/icons/star.svg);
@@ -35,11 +20,21 @@
     background-size: contain;
   
     @include mixins.square(16px);
-  
-    cursor: pointer;
 
     &:hover {
       background-image: url(../../../../assets/icons/start-half.svg);
     }
+  }
+
+  &__button-disabled {
+    padding: 0;
+    margin-right: 4px;
+  
+    background-repeat: no-repeat;
+    background-size: contain;
+  
+    @include mixins.square(16px);
+
+    cursor: auto;
   }
 }

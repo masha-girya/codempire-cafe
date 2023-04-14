@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
-import { STATUS } from 'types';
+import { useParams } from 'react-router-dom';
+import { ROLE, STATUS } from 'types';
 import { useRequest } from 'utils/hooks';
 import { changeOrder } from 'utils/api';
-import { useParams } from 'react-router-dom';
+import { useAppSelector } from 'store';
 
 interface IProps {
   mark: number | null,
@@ -12,6 +13,7 @@ interface IProps {
 
 export const useBottomInfo = (props: IProps) => {
   const { mark, status, setSuccess } = props;
+  const { role } = useAppSelector(state => state.user);
   const { number } = useParams();
   const [ rate, setRate ] = useState(mark || 0);
   const [ hover, setHover ] = useState(0);
@@ -30,7 +32,7 @@ export const useBottomInfo = (props: IProps) => {
     setHover(rate);
   }, [rate]);
 
-  const handleClick = async() => {
+  const handleCreate = useCallback(async() => {
     if(rate !== mark && number) {
       const success = await sendUniqueRequest(() => (
         changeOrder(number, { mark: rate })
@@ -42,16 +44,14 @@ export const useBottomInfo = (props: IProps) => {
         setIsError(true);
       }
     }
-  };
+  }, [rate]);
 
   const buttonText = useMemo(() => {
-    switch(status) {
-      case STATUS.delivered:
-        return 'create';
-
-      default:
-        return 'close';
+    if(role === ROLE.user && status === STATUS.delivered) {
+      return 'create';
     }
+
+    return 'close';
   }, [status]);
 
   const rateArray = useMemo(() => {
@@ -60,12 +60,13 @@ export const useBottomInfo = (props: IProps) => {
 
   return {
     rate,
+    role,
     hover,
     isError,
     rateArray,
     buttonText,
     isLoading,
-    handleClick,
+    handleCreate,
     handleRate,
     handleHoverOn,
     handleHoverOut,

@@ -5,7 +5,7 @@ import {
   useContext,
 } from 'react';
 import { FilterContext } from '../../../main';
-import { useRequest } from 'utils/hooks';
+import { useReload, useRequest } from 'utils/hooks';
 import { getDishes, getMenus } from 'utils/api';
 import { IDish, IMenu } from 'types';
 
@@ -16,6 +16,7 @@ interface IProps {
 export const useProductState = (props: IProps) => {
   const { productOnLoad } = props;
   const [ products, setProducts ] = useState<IMenu[] | IDish[]>([]);
+  const { isReload, handleReload } = useReload();
   const { filter, sortBy, setSortBy, setFilter } = useContext(FilterContext);
 
   const {
@@ -46,12 +47,12 @@ export const useProductState = (props: IProps) => {
     if(productOnLoad === 'menus') {
       loadMenus();
     }
-  }, [productOnLoad, filter, sortBy]);
+  }, [productOnLoad, filter, sortBy, isReload]);
 
   useEffect(() => {
     setFilter([]);
     setSortBy('');
   }, [productOnLoad]);
 
-  return { products, isLoading, isError };
+  return { products, isLoading, isError, handleReload };
 };

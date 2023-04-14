@@ -1,7 +1,9 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { BottomInfo } from './components';
 import { DeliveryInfo } from 'components/delivery-info';
+import { TIME_CONSTANTS as TIME } from 'constants-app';
 import { useOrder } from './order.state';
 import './order.scss';
 
@@ -10,6 +12,8 @@ interface IProps {
 }
 
 export const Order = ({ setSuccess }: IProps) => {
+  dayjs.extend(utc);
+
   const {
     order,
     isLoading,
@@ -26,14 +30,14 @@ export const Order = ({ setSuccess }: IProps) => {
             name={`${order.name} ${order.surname}`}
             phone={order.phone}
             address={order.address}
-            date={dayjs(order.date).format('DD/MM/YY')}
+            date={dayjs(order.date).utc().format(TIME.DATE)}
           />
 
           <BottomInfo
             setSuccess={setSuccess}
             handleClose={handleClose}
             status={order.status}
-            date={order.date}
+            date={dayjs(order.date).utc().format(TIME.TIME)}
             mark={order.mark}
           />
         </>)

@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { IDish, IMenu } from 'types';
 import { useAppDispatch } from 'store';
 import { cartActions } from 'store/features/cart.slice';
+import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 interface IProps {
   product: IDish | IMenu,
@@ -27,9 +29,18 @@ export const useCartItem = (props: IProps) => {
     }
   };
 
+  const link = useMemo(() => {
+    if('dishesId' in product) {
+      return ROUTE.MAIN_PAGE_MENU;
+    }
+
+    return ROUTE.MAIN_PAGE_DISH;
+  }, [product]);
+
   const numPrice = Number(product.price);
 
   return {
+    link,
     numPrice,
     handleRemove,
     handleIncrease,

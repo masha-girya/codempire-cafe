@@ -12,6 +12,7 @@ import { CreateUserDto, UserEntity } from '../../modules/user';
 import { HashService } from '../../modules/hash';
 import { AuthService } from 'auth';
 import { IPassword } from 'types';
+import { ERROR_CONSTANTS as ERROR } from '@constants';
 
 @Injectable()
 export class UserService {
@@ -55,9 +56,7 @@ export class UserService {
     const user = await this.usersRepository.findOneBy({ email });
 
     if (user) {
-      throw new BadRequestException({
-        message: 'User have already been registered',
-      });
+      throw new BadRequestException(ERROR.REGISTRATION);
     }
 
     createdUser.password = await this.hashService.hashPassword(
@@ -78,7 +77,7 @@ export class UserService {
     const userExists = await this.usersRepository.findOneBy({ email });
 
     if(userExists && userExists.id !== id) {
-      throw new ConflictException('Email is already exists');
+      throw new ConflictException(ERROR.EMAIL_EXISTS);
     }
 
     const user = await this.getUser(id, 'id');
@@ -104,9 +103,7 @@ export class UserService {
     const isOldPassValid = await this.hashService.comparePassword(oldPass, user.password);
 
     if(!isOldPassValid) {
-      throw new BadRequestException({
-        message: 'You have entered a wrong password',
-      });
+      throw new BadRequestException(ERROR.LOGIN_PASSWORD);
     }
 
     user.password = await this.hashService.hashPassword(newPass);

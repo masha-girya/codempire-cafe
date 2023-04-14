@@ -9,4 +9,8 @@
   &__selection {
     @include mixins.orderSelection();
   }
+
+  &__error.MuiFormHelperText-root {
+    color: var.$color-error;
+  }
 }

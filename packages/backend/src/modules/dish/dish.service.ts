@@ -2,6 +2,8 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  forwardRef,
+  Inject,
 } from '@nestjs/common';
 import {
   ArrayContains,
@@ -16,13 +18,20 @@ import {
   CreatedDishDto,
   cutDescription,
 } from '../dish';
+import { OrderDishService } from 'modules/order-dish';
+import { OrderService } from 'modules/order';
 import { SORT } from 'types';
+import { ERROR_CONSTANTS as ERROR } from '@constants';
 
 @Injectable()
 export class DishService {
   constructor(
     @InjectRepository(DishEntity)
     private dishRepository: Repository<DishEntity>,
+    @Inject(forwardRef(() => OrderDishService))
+    private orderDishService: OrderDishService,
+    @Inject(forwardRef(() => OrderService))
+    private orderService: OrderService,
   ) {}
 
   async getDishes(categories: string[] | string = [], sortBy: string) {
@@ -129,9 +138,7 @@ export class DishService {
     const dish = await this.dishRepository.findOneBy({ title });
 
     if (dish) {
-      throw new BadRequestException({
-        message: 'Dish is already exists',
-      });
+      throw new BadRequestException(ERROR.DISH_EXISTS);
     }
 
     const createdDish = new DishEntity();
@@ -162,7 +169,37 @@ export class DishService {
   }
 
   async removeDish(id: string) {
+    const dish = await this.dishRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['orderDishes'],
+    });
+
+    if(dish.orderDishes.length > 0) {
+      await this.removeDishOrder(dish);
+    }
+
     await this.dishRepository.delete(id);
+
+    return true;
+  }
+
+  async removeDishOrder(dish: CreatedDishDto) {
+    const orderActual = await this.orderDishService
+      .getOrderDishesStatus(dish.orderDishes[0].dishId);
+
+    if(orderActual.length > 0) {
+      throw new BadRequestException(ERROR.DISH_IN_ORDER);
+    }
+
+    const orderDishIds = dish.orderDishes.map(orderDish => orderDish.id);
+
+    for(const orderDishId of orderDishIds) {
+      await this.orderDishService.removeOrderDishes(orderDishId);
+    }
+
+    await this.orderService.removeOrderProduct(dish.id, 'dishId');
   }
 
   async getCategories() {

@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { useRequest } from 'utils/hooks';
 import { getOrders } from 'utils/api';
 import { IOrder, STATUS } from 'types';
-import dayjs from 'dayjs';
 
 interface IProps {
   sortBy: string,
@@ -18,6 +18,10 @@ export const useOrdersListWrapper = ({ sortBy }: IProps) => {
 
   const locationWaiting = location.pathname.includes('waiting');
   const locationCompleted = location.pathname.includes('completed');
+
+  const isNoORders = useMemo(() => {
+    return ordersDate.length === 0 && !isLoading;
+  }, [isLoading, location]);
 
   const loadOrders = useCallback(async(status: string []) => {
     const orders = await sendUniqueRequest(() => (
@@ -45,9 +49,8 @@ export const useOrdersListWrapper = ({ sortBy }: IProps) => {
 
   return {
     orders,
+    isNoORders,
     ordersDate,
     isLoading,
-    locationWaiting,
-    locationCompleted,
   };
 };

@@ -3,7 +3,7 @@ import {
   forwardRef,
   Inject,
 } from '@nestjs/common';
-import { In, Repository } from 'typeorm';
+import { ArrayContains, In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity, CreatedOrderDto } from '../order';
 import { CreateUserDto, UserService } from 'modules/user';
@@ -11,7 +11,7 @@ import { DishService } from 'modules/dish';
 import { MenuService } from 'modules/menu';
 import { OrderDishService } from 'modules/order-dish';
 import { OrderMenuService } from 'modules/order-menu';
-import { STATUS } from 'types';
+import { ROLE, STATUS, TOrderKey } from 'types';
 
 @Injectable()
 export class OrderService {
@@ -30,10 +30,14 @@ export class OrderService {
     private orderMenuService: OrderMenuService,
   ) {}
 
-  async getOrders(status: STATUS[], sortBy: string) {
+  async getOrders(status: STATUS[], sortBy: string, user: CreateUserDto) {
+    const isUser = user.role === ROLE.manager 
+      ? { status: In(status) }
+      : { status: In(status), userId: user.id };
+
     const orders = await this.orderRepository.find({
       where: {
-        status: In(status),
+        ...isUser,
       },
       order: {
         date: sortBy === 'oldest' ? 'ASC' : 'DESC',
@@ -42,8 +46,8 @@ export class OrderService {
 
     const response = await Promise.all(orders.map(async(order) => {
       const [ dishesNames, menusNames ] = await Promise.all([
-        await this.dishService.getDishNamesById(order.dishId),
-        await this.menuService.getMenuNamesById(order.menuId),
+        this.dishService.getDishNamesById(order.dishId),
+        this.menuService.getMenuNamesById(order.menuId),
       ]);
 
       order.dishId = dishesNames;
@@ -158,5 +162,19 @@ export class OrderService {
     await this.orderRepository.save(order);
 
     return order;
+  }
+
+  async removeOrderProduct(key: string, keyName: TOrderKey) {
+    const orderKey = keyName === 'menuId' ? 'menuId' : 'dishId';
+
+    const ordersWithKey = await this.orderRepository.find({
+      where: {
+        [orderKey]: ArrayContains([key]),
+      }
+    });
+
+    for(const order of ordersWithKey) {
+      await this.orderRepository.delete(order.id);
+    }
   }
 }

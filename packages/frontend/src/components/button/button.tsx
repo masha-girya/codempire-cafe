@@ -14,6 +14,8 @@ interface IProps {
   isSecondary?: boolean,
   isActive?: boolean,
   isSuperSmall?: boolean,
+  isMiddleSize?: boolean,
+  isDanger?: boolean,
 }
 
 export const MainButton = (props: IProps) => {
@@ -28,6 +30,8 @@ export const MainButton = (props: IProps) => {
     isSecondary,
     isActive,
     isSuperSmall,
+    isMiddleSize,
+    isDanger,
   } = props;
 
   return (
@@ -40,6 +44,8 @@ export const MainButton = (props: IProps) => {
           'button--super-small': isSuperSmall,
           'button--secondary': isSecondary,
           'button--active': isActive,
+          'button--middle': isMiddleSize,
+          'button--danger': isDanger,
         })}
       >
         {iconStart}

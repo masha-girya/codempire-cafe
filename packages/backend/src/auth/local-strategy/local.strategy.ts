@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from 'auth';
 import { CreateUserDto as UserDto } from 'modules/user';
+import { ERROR_CONSTANTS as ERROR } from '@constants';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -25,9 +26,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const user = await this.authService.validateUser(email, password);
 
     if (!user) {
-      throw new UnauthorizedException({
-        message: 'You have entered a wrong username or password',
-      });
+      throw new UnauthorizedException(ERROR.LOGIN);
     }
 
     return user;

@@ -57,4 +57,12 @@
   &__amount {
     @include mixins.fontSubtitle2Bold();
   }
+
+  &__link {
+    color: var.$color-text-main;
+
+    &:hover {
+      color: var.$color-text-button;
+    }
+  }
 }

@@ -5,10 +5,11 @@ import './recommended.scss';
 
 interface IProps {
   recommended: IDish[] | IMenu[],
+  handleReload: () => void,
 }
 
 export const Recommended = memo((props: IProps) => {
-  const { recommended } = props;
+  const { recommended, handleReload } = props;
 
   return (
     <div className="recommended">
@@ -18,7 +19,11 @@ export const Recommended = memo((props: IProps) => {
 
         <div className="recommended__block">
           {recommended.map((card) => (
-            <ProductCard key={card.id} card={card} />
+            <ProductCard
+              key={card.id}
+              card={card}
+              handleReload={handleReload}
+            />
           ))}
         </div>
       </div>
