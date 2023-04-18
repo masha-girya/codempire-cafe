@@ -1,8 +1,9 @@
 import { useCallback, useMemo } from 'react';
-import { IDish, IMenu } from 'types';
+import { IDish, IMenu, ROLE } from 'types';
 import { useAppDispatch, useAppSelector } from 'store';
 import { cartActions } from 'store/features';
 import { getLocalItem } from 'utils/helpers';
+import { useReload } from 'utils/hooks';
 import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
 
 interface IProps {
@@ -11,7 +12,9 @@ interface IProps {
 
 export const useProductActions = (props: IProps) => {
   const dispatch = useAppDispatch();
+  const { isReload, handleReload } = useReload();
   const { products } = useAppSelector(state => state.cart);
+  const { role } = useAppSelector(state => state.user);
   const { product } = props;
 
   const isLoggedIn = useMemo(() => {
@@ -36,13 +39,20 @@ export const useProductActions = (props: IProps) => {
     dispatch(cartActions.addProduct(product));
   }, [product]);
 
-  const isItemInCart = useMemo(() => {
+  const itemInCart = useMemo(() => {
     return products.find(item => item.product.id === product.id);
   }, [products, product]);
 
+  const isManager = useMemo(() => {
+    return role === ROLE.manager;
+  }, [role]);
+
   return {
+    isReload,
+    handleReload,
+    isManager,
     isLoggedIn,
-    isItemInCart,
+    itemInCart,
     handleRemove,
     handleAdd,
   };

@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { useManagerActions } from './manager-actions.state';
-import { DeleteProduct } from '../../components';
+import { DeleteProduct } from './components';
 import './manager-actions.scss';
 
 interface IProps {
   id: string,
   isMenu: boolean,
   handleReload: () => void,
+  isProductCard?: boolean,
 }
 
 export const ManagerActions = (props: IProps) => {
@@ -16,6 +17,7 @@ export const ManagerActions = (props: IProps) => {
     id,
     isMenu,
     handleReload,
+    isProductCard,
    } = props;
 
   const {
@@ -27,9 +29,10 @@ export const ManagerActions = (props: IProps) => {
   } = useManagerActions({ id, isMenu, handleReload });
 
   return (
-    <div className="manager-actions">
+    <div className={isProductCard ? 'manager-actions' : ''}>
       {isDeleteOnConfirm && (
         <DeleteProduct
+          isProductCard={isProductCard}
           isError={isError}
           handleDelete={handleDelete}
           handleConfirmDelete={handleConfirmDelete}
@@ -40,16 +43,17 @@ export const ManagerActions = (props: IProps) => {
         <MainButton
           type="button"
           text="edit"
-          isMiddleSize={true}
+          isMiddleSize={isProductCard}
         />
       </Link>
 
       <MainButton
         type="button"
         text="delete"
-        isMiddleSize={true}
+        isMiddleSize={isProductCard}
         isDanger={true}
         onHandleClick={handleConfirmDelete}
+        isDisabled={isDeleteOnConfirm}
       />
     </div>
   );

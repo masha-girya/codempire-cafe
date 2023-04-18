@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ManagerActions, UserActions } from './components';
+import { ManagerActions } from 'screens/manager-actions';
+import { UserActions } from './components';
 import { IDish, IMenu, ROLE } from 'types';
 import { useProductCard } from '../product-card';
 import './product-card.scss';
@@ -69,6 +70,7 @@ export const ProductCard = (props: IProps) => {
                 id={id}
                 isMenu={'dishesId' in props.card ? true : false}
                 handleReload={handleReload}
+                isProductCard={true}
               />)
           }
         </div>
