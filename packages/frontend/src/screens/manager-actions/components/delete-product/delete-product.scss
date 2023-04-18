@@ -3,14 +3,14 @@
 
 .delete-product {
   position: absolute;
-  top: -73px;
+  top: -46px;
   z-index: var.$index-modal;
 
   display: grid;
   place-items: center;
   padding: 16px;
   width: max-content;
-  max-width: 191px;
+  max-width: 277px;
 
   background-color: var.$color-text-contrast;
 
@@ -20,5 +20,10 @@
 
   &__text {
     @include mixins.fontSubtitle2Bold();
+  }
+
+  &--card {
+    top: -73px;
+    max-width: 191px;
   }
 }

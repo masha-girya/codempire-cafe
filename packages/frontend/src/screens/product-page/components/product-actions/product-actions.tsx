@@ -1,7 +1,10 @@
 import React from 'react';
-import { MainButton } from 'components/button';
+import { Navigate } from 'react-router-dom';
+import { ManagerActions } from 'screens/manager-actions';
+import { ProductUserActions } from '../product-user-actions';
 import { useProductActions } from './product-actions.state';
 import { IDish, IMenu } from 'types';
+import { ROUTE_CONSTANTS } from 'constants-app';
 import './product-actions.scss';
 
 interface IProps {
@@ -12,14 +15,22 @@ export const ProductActions = ({ product } : IProps) => {
   const {
     price,
     weight,
+    id,
   } = product;
 
   const {
+    isReload,
+    isManager,
     isLoggedIn,
-    isItemInCart,
+    itemInCart,
     handleRemove,
     handleAdd,
+    handleReload,
   } = useProductActions({ product });
+
+  if(isReload) {
+    return <Navigate to={ROUTE_CONSTANTS.MAIN_PAGE_DISH} replace />;
+  }
 
   return (
     <div className="actions">
@@ -34,28 +45,22 @@ export const ProductActions = ({ product } : IProps) => {
       </div>
 
       <div className="actions__buttons">
-        {isItemInCart
+        {isManager
           ? (
-            <MainButton
-              type="button"
-              text="Remove"
-              onHandleClick={handleRemove}
-              isActive={true}
-            />)
+            <ManagerActions
+              id={id}
+              isMenu={'dishesId' in product}
+              handleReload={handleReload}
+            />
+          )
           : (
-            <MainButton
-              type="button"
-              text="Add to cart"
-              onHandleClick={handleAdd}
-              isDisabled={isLoggedIn}
+            <ProductUserActions
+              handleRemove={handleRemove}
+              handleAdd={handleAdd}
+              itemInCart={itemInCart}
+              isLoggedIn={isLoggedIn}
             />)
         }
-        <MainButton
-          type="button"
-          text="Skip"
-          isSecondary={true}
-          onHandleClick={handleRemove}
-        />
       </div>
     </div>
   );

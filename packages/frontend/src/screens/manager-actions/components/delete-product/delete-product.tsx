@@ -4,6 +4,7 @@ import './delete-product.scss';
 
 interface IProps {
   isError: boolean,
+  isProductCard?: boolean,
   handleDelete: () => void,
   handleConfirmDelete: () => void,
 }
@@ -11,12 +12,16 @@ interface IProps {
 export const DeleteProduct = (props: IProps) => {
   const {
     isError,
+    isProductCard,
     handleDelete,
     handleConfirmDelete,
    } = props;
 
   return (
-    <div className="delete-product">
+    <div className={isProductCard
+      ? 'delete-product delete-product--card'
+      : 'delete-product'}
+    >
       {isError
         ? (
           <p className="delete-product__text">
