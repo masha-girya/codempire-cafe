@@ -1,9 +1,9 @@
-import { IUser, IDish, IMenu } from '../types';
+import { IUser, IDish, IMenu, STATUS } from '../types';
 
 export interface IOrder {
   id: string,
   date: Date,
-  status: 'created' | 'ready' | 'on way' | 'delivered',
+  status: STATUS,
   comment: string,
   number: number,
   mark: number | null,

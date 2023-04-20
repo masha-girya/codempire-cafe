@@ -1,15 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { IOrderInfo } from 'types';
+import { IOrderInfo, ROLE } from 'types';
 import { useRequest } from 'utils/hooks';
 import { getOrderByNumber } from 'utils/api';
+import { useAppSelector } from 'store';
 
 export const useOrder = () => {
   const navigate = useNavigate();
+  const { role } = useAppSelector(state=> state.user);
   const { number } = useParams();
   const { pathname } = useLocation();
   const { sendUniqueRequest, isLoading } = useRequest();
   const [ order, setOrder ] = useState<IOrderInfo | null>(null);
+
+  const isManager = role === ROLE.manager;
 
   const loadOrder = useCallback(async() => {
     const response: IOrderInfo = await sendUniqueRequest(() => (
@@ -32,5 +36,5 @@ export const useOrder = () => {
   }, []);
 
 
-  return { order, isLoading, handleClose };
+  return { order, isLoading, isManager, handleClose };
 };
