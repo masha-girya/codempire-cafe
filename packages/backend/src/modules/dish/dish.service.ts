@@ -151,11 +151,17 @@ export class DishService {
     return mappedProducts;
   }
 
-  async addDish(createdDishDto: CreatedDishDto, bufferImage: Buffer) {
-    const { title } = createdDishDto;
+  async addDish(createdDishDto: UpdatedDishDto, bufferImage: Buffer) {
+    const {
+      title,
+      userId,
+      allergensToAdd,
+      ingredientsToAdd,
+      categoriesToAdd,
+    } = createdDishDto;
     const dish = await this.dishRepository.findOneBy({ title });
 
-    if (dish) {
+    if(dish) {
       throw new BadRequestException(ERROR.DISH_EXISTS);
     }
 
@@ -165,6 +171,29 @@ export class DishService {
     Object.assign(createdDish, createdDishDto);
 
     createdDish.image = base64Image;
+
+    if(userId) {
+      const user = await this.userService.getUser(userId, 'id');
+      createdDish.createdBy = user;
+    }
+
+    if(allergensToAdd) {
+      createdDish.allergens = Array.isArray(allergensToAdd)
+        ? allergensToAdd
+        : [allergensToAdd];
+    }
+
+    if(ingredientsToAdd) {
+      createdDish.ingredients = Array.isArray(ingredientsToAdd)
+        ? ingredientsToAdd
+        : [ingredientsToAdd];
+    }
+
+    if(categoriesToAdd) {
+      createdDish.categories = Array.isArray(categoriesToAdd)
+        ? categoriesToAdd
+        : [categoriesToAdd];
+    }
 
     await this.dishRepository.save(createdDish);
 
@@ -176,7 +205,12 @@ export class DishService {
     updatedDishDto: UpdatedDishDto,
     bufferImage: Buffer,
   ) {
-    const { allergensToAdd, ingredientsToAdd, userId } = updatedDishDto;
+    const {
+      allergensToAdd,
+      ingredientsToAdd,
+      categoriesToAdd,
+      userId,
+    } = updatedDishDto;
     const dish = await this.getDish(id, 'id');
 
     Object.assign(dish, updatedDishDto);
@@ -189,13 +223,19 @@ export class DishService {
     if(allergensToAdd) {
       dish.allergens = Array.isArray(allergensToAdd)
         ? allergensToAdd
-        : [allergensToAdd];
+        : allergensToAdd === '[]' ? [] : [allergensToAdd];
     }
 
-    if(allergensToAdd) {
+    if(ingredientsToAdd) {
       dish.ingredients = Array.isArray(ingredientsToAdd)
         ? ingredientsToAdd
         : [ingredientsToAdd];
+    }
+
+    if(categoriesToAdd) {
+      dish.categories = Array.isArray(categoriesToAdd)
+        ? categoriesToAdd
+        : [categoriesToAdd];
     }
 
     if(bufferImage) {

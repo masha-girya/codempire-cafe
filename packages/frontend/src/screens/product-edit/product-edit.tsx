@@ -7,14 +7,16 @@ import './product-edit.scss';
 
 interface IProps {
   product: IDish | IMenu,
+  isOnAdd?: boolean,
 }
 
-export const ProductEdit = ({ product } : IProps) => {
+export const ProductEdit = ({ product, isOnAdd } : IProps) => {
   const {
     formik,
+    isSuccess,
     handleKeyDown,
     handleImageUpload,
-  } = useProductEdit({product});
+  } = useProductEdit({ product });
 
   return (
     <>
@@ -26,7 +28,7 @@ export const ProductEdit = ({ product } : IProps) => {
           handleChange={handleImageUpload}
         />
 
-        <EditLeftSection product={product} formik={formik} />
+        <EditLeftSection isOnAdd={isOnAdd} formik={formik} isSuccess={isSuccess} />
       </form>
     </>
   );

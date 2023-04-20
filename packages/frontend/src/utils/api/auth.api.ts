@@ -4,7 +4,7 @@ import {
   STORAGE_CONSTANTS as STORAGE,
 } from 'constants-app';
 import { setLocalItem } from 'utils/helpers';
-import { IContentType, IPassword, IUser } from 'types';
+import { IPassword, IUser } from 'types';
 import { useRequestHeader } from 'utils/hooks';
 
 export async function signUp(email: string, password: string) {
@@ -30,7 +30,6 @@ export async function login(email: string, password: string) {
 export async function validateToken() {
   const { requestHeader, token } = useRequestHeader();
 
-
   if (!token) {
     return null;
   }
@@ -41,24 +40,6 @@ export async function validateToken() {
   );
 
   return { user: response.data, token };
-}
-
-export async function updateUser(id: string, data: Partial<IUser> | FormData) {
-  let headerFormData: IContentType | null = null;
-
-  if (data instanceof FormData) {
-    headerFormData = { 'Content-Type': 'multipart/form-data' };
-  }
-
-  const { requestHeader } = useRequestHeader({ headerFormData });
-
-  const user = await axios.patch(
-    API.BASE_URL + API.USER_EDIT + '/' + id,
-    data,
-    requestHeader,
-  );
-
-  return user.data;
 }
 
 export async function changePassword(id: string, passwords: IPassword) {

@@ -8,6 +8,9 @@ import {
   SORT_CONSTANTS as SORT,
   ROUTE_CONSTANTS as ROUTE,
 } from 'constants-app';
+import { ROLE } from 'types';
+import { useAppSelector } from 'store';
+import { Icon } from 'components/icon';
 import './top-menu.scss';
 
 interface IProps {
@@ -18,6 +21,7 @@ interface IProps {
 export const TopMenu = (props: IProps) => {
   const { isLocationDish, isLocationMenu } = props;
   const { sortBy, setSortBy } = useContext(FilterContext);
+  const { role } = useAppSelector(state => state.user);
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     setSortBy(event.target.value);
@@ -44,6 +48,28 @@ export const TopMenu = (props: IProps) => {
           />
         </Link>
       </div>
+
+      {role === ROLE.manager && (
+        <div className="top-menu__buttons">
+          <Link to={ROUTE.DISH_ADD}>
+            <MainButton
+              type="button"
+              text="Add dish"
+              isSuperSmall={true}
+              iconEnd={<Icon type="plus" />}
+            />
+          </Link>
+
+          <Link to={ROUTE.MENU_ADD}>
+            <MainButton
+              type="button"
+              text="Add menu"
+              isSuperSmall={true}
+              iconEnd={<Icon type="plus" />}
+            />
+          </Link>
+        </div>
+      )}
 
       <div>
         <Selection

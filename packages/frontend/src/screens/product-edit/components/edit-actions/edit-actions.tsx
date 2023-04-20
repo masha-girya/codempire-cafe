@@ -1,12 +1,11 @@
 import React from 'react';
 import { FormikErrors } from 'formik';
 import { MainButton } from 'components/button';
-import { IFormikProduct } from 'types';
+import { IChangeProductFunctions, IFormikProduct } from 'types';
 import './edit-actions.scss';
 
 interface IProps {
-  handleSubmit: () => void,
-  handleResetForm: () => void,
+  changeFunctions: IChangeProductFunctions,
   errors: FormikErrors<IFormikProduct>,
   isSubmitting: boolean,
 }
@@ -15,16 +14,16 @@ export const EditActions = (props: IProps) => {
   const {
     errors,
     isSubmitting,
-    handleSubmit,
-    handleResetForm,
+    changeFunctions,
   } = props;
+  const { resetForm, handleSubmit } = changeFunctions;
 
   return (
     <div className="edit-actions">
       <MainButton
         text="Skip"
         type="reset"
-        onHandleClick={handleResetForm}
+        onHandleClick={resetForm}
         isSecondary={true}
       />
 

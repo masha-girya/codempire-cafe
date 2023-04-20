@@ -10,5 +10,5 @@ export * from './Product.type';
 export * from './Categories.type';
 export * from './Status.type';
 export * from './Role.type';
-export * from './ContentType.type';
 export * from './FormikProduct.type';
+export * from './ChangeProductFunctions.type';

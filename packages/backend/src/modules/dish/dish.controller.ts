@@ -12,7 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreatedDishDto, DishService, UpdatedDishDto } from '../dish';
+import { DishService, UpdatedDishDto } from '../dish';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { ROLE } from 'types';
@@ -52,7 +52,7 @@ export class DishController {
 
   @Post()
   @UseInterceptors(FileInterceptor('image'))
-  addDish(@Body() dishDto: CreatedDishDto, @UploadedFile() image: Express.Multer.File) {
+  addDish(@Body() dishDto: UpdatedDishDto, @UploadedFile() image: Express.Multer.File) {
     const bufferImage = Buffer.from(image.buffer);
 
     return this.dishService.addDish(dishDto, bufferImage);

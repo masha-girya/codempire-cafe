@@ -1,8 +1,6 @@
-import { IDish, IUser } from '../types';
+import { IDish } from '../types';
 
 export interface IMenu extends IDish {
-  createdBy: IUser,
-  editedBy: IUser,
   dishes: IDish[],
   dishesId: string[],
 }

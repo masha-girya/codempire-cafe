@@ -12,7 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreatedMenuDto, UpdatedMenuDto, MenuService } from '../menu';
+import { UpdatedMenuDto, MenuService } from '../menu';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { ROLE } from 'types';
@@ -49,7 +49,7 @@ export class MenuController {
   @Post()
   @UseInterceptors(FileInterceptor('image'))
   addMenu(
-    @Body() menuDto: CreatedMenuDto,
+    @Body() menuDto: UpdatedMenuDto,
     @UploadedFile() image: Express.Multer.File,
     ) {
     const bufferImage = Buffer.from(image.buffer);

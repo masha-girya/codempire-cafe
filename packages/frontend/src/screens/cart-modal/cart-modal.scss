@@ -13,7 +13,7 @@
 
     max-height: 240px;
     padding-right: 5px;
-    overflow: auto;
+    overflow-y: auto;
 
     @include mixins.scrollBar();
   }

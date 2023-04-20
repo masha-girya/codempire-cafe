@@ -1,10 +1,7 @@
-export interface IFormikProduct {
-  description: string,
-  ingredients: string[],
+import { IDish } from './Dish.type';
+
+export interface IFormikProduct extends IDish {
   ingredientOnAdd: string,
-  allergens: string[],
   allergenOnAdd: string,
-  weight: number,
-  price: number,
-  image: string,
+  categoryOnAdd: string,
 }

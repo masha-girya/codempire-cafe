@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  Outlet,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
-import { Product, ProductWrapper, Recommended } from './components';
+import { ProductWrapper } from './components';
+import { ProductEdit } from 'screens/product-edit';
 import { useProductPage } from '../product-page';
 import './product-page.scss';
 
 export const ProductPage = () => {
-  const location = useLocation();
   const params = useParams();
   const {
     recommended,
@@ -19,9 +15,11 @@ export const ProductPage = () => {
     isError,
     isLoading,
     handleReload,
+    isOnAdd,
+    productToAdd,
+    pathname,
   } = useProductPage({
     id: params.id,
-    location: location.pathname,
   });
 
   return (
@@ -34,11 +32,20 @@ export const ProductPage = () => {
 
       {isError && <p>Something went wrong</p>}
 
+      {isOnAdd && (
+        <div className="product-page">
+          <ProductEdit
+            product={productToAdd}
+            isOnAdd={isOnAdd}
+          />
+        </div>)
+      }
+
       {product && (
         <div className="product-page">
           <ProductWrapper
             product={product}
-            pathname={location.pathname}
+            pathname={pathname}
             recommended={recommended}
             handleReload={handleReload}
           />

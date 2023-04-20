@@ -6,9 +6,11 @@ import './bottom-manager.scss';
 interface IProps {
   orderStatus: STATUS,
   orderMark: number | null,
+  handleReload: () => void,
 }
 
-export const BottomManager = ({ orderStatus, orderMark }: IProps) => {
+export const BottomManager = (props: IProps) => {
+  const { orderStatus, orderMark , handleReload} = props;
   const isCreated = orderStatus === STATUS.created;
   const isDelivered = orderStatus === STATUS.delivered;
 
@@ -24,7 +26,7 @@ export const BottomManager = ({ orderStatus, orderMark }: IProps) => {
             <h4>{`mark: ${orderMark}`}</h4>
           </>)
         : (
-          <OrderAccepting isCreated={isCreated} />
+          <OrderAccepting isCreated={isCreated} handleReload={handleReload} />
         )
       }
     </div>

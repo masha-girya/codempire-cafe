@@ -1,31 +1,46 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useLocation } from 'react-router-dom';
 import { FormikProps } from 'formik';
 import {
   EditSingleValue,
+  EditCategories,
   EditMultipleValues,
   EditNumbers,
   EditActions,
+  EditSort,
 } from '../../components';
-import { IDish, IFormikProduct, IMenu } from 'types';
+import { useEditLeftSection } from './edit-left-section.state';
+import { IFormikProduct } from 'types';
+import './edit-left-section.scss';
 
 interface IProps {
   formik: FormikProps<IFormikProduct>,
-  product: IDish | IMenu,
+  isSuccess: boolean,
+  isOnAdd?: boolean,
 }
 
-export const EditLeftSection = ({ formik, product }: IProps) => {
-  const {
-    errors,
-    values,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    resetForm,
-    isSubmitting,
-  } = formik;
+export const EditLeftSection = memo((props: IProps) => {
+  const { pathname } = useLocation();
+  const { formik, isOnAdd, isSuccess } = props;
+  const { handleChange } = formik;
+  const { functionProps, errors, values, isSubmitting } = useEditLeftSection({
+    formik,
+  });
+  const isDish = pathname.includes('dish');
 
   return (
-    <div>
+    <div className="edit-left-section">
+      <EditSingleValue
+        name="title"
+        value={values.title}
+        handleChange={handleChange}
+        errorsValue={errors.title}
+      />
+
+      {isOnAdd && isDish && (
+        <EditSort sort={values.sort} handleChange={handleChange} />
+      )}
+
       <EditSingleValue
         name="description"
         isFullWidth={true}
@@ -34,18 +49,30 @@ export const EditLeftSection = ({ formik, product }: IProps) => {
         errorsValue={errors.description}
       />
 
+      {isDish && (
+        <EditCategories
+          categoryOnAdd={values.categoryOnAdd}
+          categoriesCurrent={values.categories}
+          changeFunctions={functionProps}
+          errorsCategories={errors.categories}
+          errorsCategoryOnAdd={errors.categoryOnAdd}
+        />
+      )}
+
       <EditMultipleValues
-        product={product}
         errorsIngredients={errors.ingredients}
+        errorsIngredientOnAdd={errors.ingredientOnAdd}
         ingredients={values.ingredients}
         ingredientOnAdd={values.ingredientOnAdd}
         allergens={values.allergens}
         allergenOnAdd={values.allergenOnAdd}
-        handleChange={handleChange}
-        setFieldValue={setFieldValue}
+        errorsAllergenOnAdd={errors.allergenOnAdd}
+        errorsAllergens={errors.allergens}
+        changeFunctions={functionProps}
       />
 
       <EditNumbers
+        isDish={isDish}
         price={values.price.toString()}
         weight={values.weight.toString()}
         handleChange={handleChange}
@@ -56,9 +83,12 @@ export const EditLeftSection = ({ formik, product }: IProps) => {
       <EditActions
         isSubmitting={isSubmitting}
         errors={errors}
-        handleSubmit={handleSubmit}
-        handleResetForm={resetForm}
+        changeFunctions={functionProps}
       />
+
+      {isSuccess && <h2 className="edit-left-section__success">Sent successfully!</h2>}
     </div>
   );
-};
+});
+
+EditLeftSection.displayName = 'EditLeftSection';

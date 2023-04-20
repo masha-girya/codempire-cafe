@@ -1,0 +1,26 @@
+@use 'styles/mixins';
+@use 'styles/variables' as var;
+
+.edit-left-section {
+  display: grid;
+  row-gap: 25px;
+
+  &__success {
+    margin: 0 auto;
+    color: var.$color-text-button;
+  }
+
+  & .MuiFormHelperText-root.Mui-error {
+    position: absolute;
+    bottom: -20px;
+    margin: 0;
+  }
+
+  & .MuiFormHelperText-root {
+    position: absolute;
+    bottom: -20px;
+    margin: 0;
+
+    color: var.$color-error;
+  }
+}

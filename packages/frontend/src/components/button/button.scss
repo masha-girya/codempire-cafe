@@ -22,9 +22,17 @@
 
   cursor: pointer;
 
+  & path {
+    fill: var.$color-text-contrast;
+  }
+
   &:hover {
     background-color: var.$color-text-contrast;
     color: var.$color-text-primary;
+
+    & path {
+      fill: var.$color-text-primary
+    }
   }
 
   &--secondary {
@@ -32,6 +40,10 @@
     border: 1px solid transparent;
 
     color: var.$color-text-button;
+
+    & path {
+      fill: var.$color-text-button;
+    }
 
     &:hover {
       background-color: transparent;
