@@ -1,0 +1,11 @@
+.bottom-manager {
+  display: flex;
+  justify-content: center;
+
+  margin: 40px 0 10px;
+  width: 100%;
+
+  &--delivered {
+    justify-content: space-between;
+  }
+}

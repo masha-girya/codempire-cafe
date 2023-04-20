@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { BottomInfo } from './components';
+import { BottomInfo, BottomManager } from './components';
 import { DeliveryInfo } from 'components/delivery-info';
 import { TIME_CONSTANTS as TIME } from 'constants-app';
 import { useOrder } from './order.state';
@@ -17,6 +17,7 @@ export const Order = ({ setSuccess }: IProps) => {
   const {
     order,
     isLoading,
+    isManager,
     handleClose,
   } = useOrder();
 
@@ -33,13 +34,18 @@ export const Order = ({ setSuccess }: IProps) => {
             date={dayjs(order.date).utc().format(TIME.DATE)}
           />
 
-          <BottomInfo
-            setSuccess={setSuccess}
-            handleClose={handleClose}
-            status={order.status}
-            date={dayjs(order.date).utc().format(TIME.TIME)}
-            mark={order.mark}
-          />
+          {isManager
+            ? <BottomManager orderStatus={order.status} orderMark={order.mark} />
+            : (
+              <BottomInfo
+                setSuccess={setSuccess}
+                handleClose={handleClose}
+                status={order.status}
+                date={dayjs(order.date).utc().format(TIME.TIME)}
+                mark={order.mark}
+              />
+            )
+          }
         </>)
       }
     </div>
