@@ -223,3 +223,17 @@
   border: 2px solid var.$color-text-contrast;
   border-radius: 50%;
 }
+
+@mixin inputButtonPosition {
+  position: absolute;
+  top: 18px;
+  left: 268px;
+}
+
+@mixin productEditLabel {
+  display: block;
+  margin-bottom: 9px;
+
+  @include fontSubtitle1();
+  font-weight: var.$font-weight-medium;
+}

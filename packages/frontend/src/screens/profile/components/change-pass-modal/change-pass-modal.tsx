@@ -31,7 +31,6 @@ export const ChangePassModal = (props: IProps) => {
               name="oldPass"
               type="password"
               placeholder="Password"
-              isPass={false}
               value={values.oldPass}
               onChange={handleChange}
               error={touched.oldPass && Boolean(errors.oldPass)}

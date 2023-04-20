@@ -30,14 +30,12 @@ export class UserService {
     return users;
   }
 
-  async getUser(param: string, type: string) {
-    let user;
-
-    if(type === 'email') {
-      user = await this.usersRepository.findOneBy({ email: param });
-    } else {
-      user = await this.usersRepository.findOneBy({ id: param });
-    }
+  async getUser(value: string, valueName: string) {
+    const user = await this.usersRepository.findOne({
+      where: {
+        [valueName]: value,
+      }
+    });
 
     if (!user) {
       throw new NotFoundException();
@@ -56,6 +54,7 @@ export class UserService {
     const user = await this.usersRepository.findOneBy({ email });
 
     if (user) {
+
       throw new BadRequestException(ERROR.REGISTRATION);
     }
 

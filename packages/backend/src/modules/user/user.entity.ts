@@ -2,7 +2,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany
+  OneToMany,
 } from 'typeorm';
 import { ROLE } from 'types';
 import { OrderEntity } from 'modules/order';
@@ -61,15 +61,15 @@ export class UserEntity {
   @OneToMany(() => OrderEntity, (order) => order.user)
   orders: OrderEntity[];
 
-  @OneToMany(() => MenuEntity, (menu) => menu.createdBy)
+  @OneToMany(() => MenuEntity, (menu) => menu.createdBy, { nullable: true })
   createdMenus: MenuEntity[];
 
-  @OneToMany(() => MenuEntity, (menu) => menu.editedBy)
+  @OneToMany(() => MenuEntity, (menu) => menu.editedBy, { nullable: true })
   editedMenus: MenuEntity[];
 
-  @OneToMany(() => DishEntity, (dish) => dish.editedBy)
+  @OneToMany(() => DishEntity, (dish) => dish.editedBy, { nullable: true })
   createdDishes: DishEntity[];
 
-  @OneToMany(() => DishEntity, (dish) => dish.editedBy)
+  @OneToMany(() => DishEntity, (dish) => dish.editedBy, { nullable: true })
   editedDishes: DishEntity[];
 }

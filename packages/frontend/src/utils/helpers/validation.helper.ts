@@ -61,3 +61,27 @@ export const validationSingUp = yup.object({
   name: nameValidation,
   phone: phoneValidation,
 });
+
+const validateDescription = yup
+  .string()
+  .min(40, 'Description must be at least 40 characters')
+  .max(200, 'Description must be at to 200 characters')
+  .required('Description is required');
+
+const validateNumeric = yup
+  .number()
+  .positive()
+  .integer()
+  .required('Must be a positive integer');
+
+const validateIngredients = yup
+  .array()
+  .min(1, 'Ingredients are required')
+  .required();
+
+export const validationProduct = yup.object({
+  price: validateNumeric,
+  weight: validateNumeric,
+  description: validateDescription,
+  ingredients: validateIngredients,
+});

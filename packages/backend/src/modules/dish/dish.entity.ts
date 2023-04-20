@@ -31,13 +31,15 @@ export class DishEntity {
   @Column('int')
   price: number;
 
-  @Column('char', { array: true, length: 255 })
+  @Column('character varying', {
+    array: true,
+    default: [],
+  })
   ingredients: string[];
 
-  @Column('char', {
+  @Column('character varying', {
     array: true,
-    length: 255,
-    nullable: true,
+    default: [],
   })
   allergens: string[];
 
@@ -49,17 +51,22 @@ export class DishEntity {
 
   @Column('character varying', {
     array: true,
-    nullable: true,
   })
   categories: string[];
 
-  @Column('character varying',{ nullable: true })
+  @Column('character varying', { nullable: true })
   image: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.createdDishes, { nullable: true })
+  @Column('uuid', { nullable: true })
+  userId: string;
+
+  @ManyToOne(
+    () => UserEntity, (user) => user.createdDishes,
+    { onDelete: 'SET NULL'},
+  )
   createdBy: UserEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.editedDishes, { nullable: true })
+  @ManyToOne(() => UserEntity, (user) => user.editedDishes)
   editedBy: UserEntity;
 
   @OneToMany(() => OrderDishEntity, (orderDish) => orderDish.dish)

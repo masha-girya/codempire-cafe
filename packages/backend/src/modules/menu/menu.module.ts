@@ -10,6 +10,7 @@ import {
 import { DishModule } from 'modules/dish';
 import { OrderMenuModule } from 'modules/order-menu';
 import { OrderModule } from 'modules/order';
+import { UserModule } from 'modules/user';
 import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Module({
@@ -23,6 +24,8 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
     }),
     forwardRef(() => OrderMenuModule),
     forwardRef(() => OrderModule),
+    forwardRef(() => UserModule),
+
   ],
   providers: [MenuService],
   controllers: [MenuController],

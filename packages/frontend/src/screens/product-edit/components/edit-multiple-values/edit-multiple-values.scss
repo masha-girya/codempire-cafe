@@ -1,0 +1,7 @@
+@use 'styles/mixins';
+
+.multiple {
+  @include mixins.centerItems(space-between, flex-end);
+
+  margin-top: 25px;
+}

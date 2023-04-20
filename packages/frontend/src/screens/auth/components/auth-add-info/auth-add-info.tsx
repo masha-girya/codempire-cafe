@@ -37,7 +37,6 @@ export const AuthAddInfo = () => {
           name="name"
           type="text"
           placeholder="Name Surname"
-          isPass={false}
           value={values.name}
           onChange={handleChange}
           error={touched.name && Boolean(errors.name)}
@@ -53,7 +52,6 @@ export const AuthAddInfo = () => {
           name="phone"
           type="phone"
           placeholder="Format +380 99 999 99 99"
-          isPass={false}
           value={values.phone}
           onChange={handleChange}
           error={touched.phone && Boolean(errors.phone)}

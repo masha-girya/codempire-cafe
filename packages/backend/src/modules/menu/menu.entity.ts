@@ -38,7 +38,6 @@ export class MenuEntity {
 
   @Column('character varying',{
     array: true,
-    nullable: true,
   })
   ingredients: string[];
 
@@ -51,7 +50,7 @@ export class MenuEntity {
   @Column('char', {
     array: true,
     length: 255,
-    nullable: true,
+    default: [],
   })
   allergens: string[];
 
@@ -62,10 +61,19 @@ export class MenuEntity {
   })
   dishesId: string[];
 
-  @ManyToOne(() => UserEntity, (user) => user.createdMenus)
+  @Column('uuid', { nullable: true })
+  userId: string;
+
+  @ManyToOne(
+    () => UserEntity, (user) => user.createdMenus,
+    { nullable: true, onDelete: 'SET NULL' },
+  )
   createdBy: UserEntity;
 
-  @ManyToOne(() => UserEntity, (user) => user.editedMenus)
+  @ManyToOne(
+    () => UserEntity, (user) => user.editedMenus,
+    { nullable: true, onDelete: 'SET NULL' },
+  )
   editedBy: UserEntity;
 
   @ManyToMany(() => DishEntity)

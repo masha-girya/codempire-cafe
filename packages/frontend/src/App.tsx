@@ -62,6 +62,9 @@ const App: React.FC = () => {
         <Route path={ROUTE.ORDER} element={<Modal />} />
       </Route>
 
+      <Route path={`${ROUTE.DISH_EDIT}/:id`} element={<ProductPage />} />
+      <Route path={`${ROUTE.MENU_EDIT}/:id`} element={<ProductPage />} />
+
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>
         <Route path={ROUTE.CART} element={<Modal />} />

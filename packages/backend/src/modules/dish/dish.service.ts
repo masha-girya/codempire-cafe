@@ -9,6 +9,7 @@ import {
   ArrayContains,
   ArrayOverlap,
   ILike,
+  In,
   Not,
   Repository,
 } from 'typeorm';
@@ -16,10 +17,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {
   DishEntity,
   CreatedDishDto,
+  UpdatedDishDto,
   cutDescription,
 } from '../dish';
 import { OrderDishService } from 'modules/order-dish';
 import { OrderService } from 'modules/order';
+import { MenuService } from 'modules/menu';
+import { UserService } from 'modules/user';
 import { SORT } from 'types';
 import { ERROR_CONSTANTS as ERROR } from '@constants';
 
@@ -32,6 +36,10 @@ export class DishService {
     private orderDishService: OrderDishService,
     @Inject(forwardRef(() => OrderService))
     private orderService: OrderService,
+    @Inject(forwardRef(() => MenuService))
+    private menuService: MenuService,
+    @Inject(forwardRef(() => UserService))
+    private userService: UserService,
   ) {}
 
   async getDishes(categories: string[] | string = [], sortBy: string) {
@@ -65,8 +73,22 @@ export class DishService {
     return updatedDishes;
   }
 
-  async getDishById(id: string) {
-    const dish = await this.dishRepository.findOneBy({ id });
+  async getDishesNames() {
+    const dishesNames = await this.dishRepository.find({
+      select: {
+        title: true,
+      }
+    });
+
+    return dishesNames;
+  }
+
+  async getDish(value: string, valueName: string) {
+    const dish = await this.dishRepository.findOne({ 
+      where: {
+        [valueName]: value,
+      }
+     });
 
     if (!dish) {
       throw new NotFoundException();
@@ -75,22 +97,18 @@ export class DishService {
     return dish;
   }
 
-  async getDishNamesById(ids: string[]) {
-    const dishesNames = await Promise.all(ids.map(async(id) => {
-      const dish = await this.dishRepository.findOne({
-        where: {
-          id,
-        },
-      });
+  async getDishesByValue(values: string[], valueName: string) {
+    const dishes = await this.dishRepository.find({
+      where: {
+        [valueName]: In(values),
+      }
+    });
 
-      return dish.title;
-    }));
-
-    return dishesNames;
+    return dishes;
   }
 
   async getRecommended(id: string) {
-    const dish = await this.getDishById(id);
+    const dish = await this.getDish(id, 'id');
 
     const { categories, ingredients } = dish;
 
@@ -153,10 +171,32 @@ export class DishService {
     return createdDish;
   }
 
-  async updateDish(id: string, updatedDishDto: CreatedDishDto, bufferImage: Buffer) {
-    const dish = await this.getDishById(id);
+  async updateDish(
+    id: string,
+    updatedDishDto: UpdatedDishDto,
+    bufferImage: Buffer,
+  ) {
+    const { allergensToAdd, ingredientsToAdd, userId } = updatedDishDto;
+    const dish = await this.getDish(id, 'id');
 
     Object.assign(dish, updatedDishDto);
+
+    if(userId) {
+      const user = await this.userService.getUser(userId, 'id');
+      dish.editedBy = user;
+    }
+
+    if(allergensToAdd) {
+      dish.allergens = Array.isArray(allergensToAdd)
+        ? allergensToAdd
+        : [allergensToAdd];
+    }
+
+    if(allergensToAdd) {
+      dish.ingredients = Array.isArray(ingredientsToAdd)
+        ? ingredientsToAdd
+        : [ingredientsToAdd];
+    }
 
     if(bufferImage) {
       const base64Image = bufferImage.toString('base64');
@@ -180,6 +220,7 @@ export class DishService {
       await this.removeDishOrder(dish);
     }
 
+    await this.menuService.removeDishFormMenu(id);
     await this.dishRepository.delete(id);
 
     return true;

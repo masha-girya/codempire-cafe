@@ -18,4 +18,5 @@ export const API_CONSTANTS = {
   ORDER_EDIT: '/order/edit',
   STATUS: 'status=',
   USER_ID_QUERY: 'userId=',
+  NAMES: '/names',
 } as const;

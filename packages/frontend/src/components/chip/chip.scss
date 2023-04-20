@@ -1,0 +1,29 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.chip {
+  @include mixins.centerItems(center, center);
+  column-gap: 9px;
+
+  width: max-content;
+  padding: 6px 12px;
+
+  background-color: var.$color-line;
+  border-radius: 16px;
+
+  @include mixins.fontBody();
+  color: var.$color-primary;
+
+  &__button {
+    padding: 0;
+    @include mixins.square(20px);
+
+    & path {
+      fill: var.$color-text-secondary;
+    }
+
+    &:hover path {
+      fill: var.$color-modal-background;
+    }
+  }
+}

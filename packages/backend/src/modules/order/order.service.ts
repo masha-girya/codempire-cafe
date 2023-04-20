@@ -45,12 +45,12 @@ export class OrderService {
     });
 
     const response = await Promise.all(orders.map(async(order) => {
-      const [ dishesNames, menusNames ] = await Promise.all([
-        this.dishService.getDishNamesById(order.dishId),
+      const [ dishes, menusNames ] = await Promise.all([
+        this.dishService.getDishesByValue(order.dishId, 'id'),
         this.menuService.getMenuNamesById(order.menuId),
       ]);
 
-      order.dishId = dishesNames;
+      order.dishId = dishes.map(dish => dish.title);
       order.menuId = menusNames;
 
       return order;
@@ -90,7 +90,7 @@ export class OrderService {
   async addOrderDish(dishId: string[], createdOrder: CreatedOrderDto) {
     const dishes = await Promise.all(
       dishId.map(id => (
-        this.dishService.getDishById(id)
+        this.dishService.getDish(id, 'id')
       ))
     );
 

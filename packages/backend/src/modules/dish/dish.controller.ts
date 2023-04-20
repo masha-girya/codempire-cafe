@@ -12,10 +12,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreatedDishDto, DishService } from '../dish';
+import { CreatedDishDto, DishService, UpdatedDishDto } from '../dish';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { ROLE, SORT } from 'types';
+import { ROLE } from 'types';
 import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 
 @Controller(ROUTE.DISH)
@@ -30,6 +30,11 @@ export class DishController {
     return this.dishService.getDishes(filter, sortBy);
   }
 
+  @Get(ROUTE.NAMES)
+  getDishesNames() {
+    return this.dishService.getDishesNames();
+  }
+
   @Get(ROUTE.CATEGORIES)
   getCategories() {
     return this.dishService.getCategories();
@@ -37,7 +42,7 @@ export class DishController {
 
   @Get(ROUTE.ID)
   getDishById(@Param('id') id: string) {
-    return this.dishService.getDishById(id);
+    return this.dishService.getDish(id, 'id');
   }
 
   @Get(ROUTE.RECOMMENDED)
@@ -53,11 +58,13 @@ export class DishController {
     return this.dishService.addDish(dishDto, bufferImage);
   }
 
+  @Role(ROLE.manager)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(ROUTE.ID)
   @UseInterceptors(FileInterceptor('image'))
   updateDish(
     @Param('id') id: string,
-    @Body() updatedDishDto: CreatedDishDto,
+    @Body() updatedDishDto: UpdatedDishDto,
     @UploadedFile() image?: Express.Multer.File) {
     let bufferImage = null;
 
