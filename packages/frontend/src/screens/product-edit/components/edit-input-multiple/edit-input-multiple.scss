@@ -1,7 +1,9 @@
 @use 'styles/variables' as var;
 @use 'styles/mixins';
 
-.edit-allergens {
+.edit-input-multiple {
+  position: relative;
+
   &__label {
     @include mixins.productEditLabel();
   }
@@ -11,6 +13,10 @@
     flex-wrap: wrap;
     gap: 8px;
 
-    margin-bottom: 9px;
+    margin: 9px 0;
+
+    &--empty {
+      margin-bottom: 0;
+    }
   }
 }

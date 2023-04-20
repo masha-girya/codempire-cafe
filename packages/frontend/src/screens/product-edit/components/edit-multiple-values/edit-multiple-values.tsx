@@ -1,65 +1,69 @@
-import React, { ChangeEventHandler } from 'react';
-import { EditIngredients, EditAllergens } from '../../components';
-import { EditMenuMultiple } from '../edit-menu-multiple';
-import { useEditMultiple } from './edit-multiple-values.state';
-import { IDish, IMenu } from 'types';
+import React, { memo } from 'react';
+import { useLocation } from 'react-router-dom';
+import { EditMenuMultiple, EditInputMultiple } from '../../components';
+import { IChangeProductFunctions } from 'types';
 import './edit-multiple-values.scss';
 
 interface IProps {
-  product: IDish | IMenu,
-  setFieldValue: (field: string, value: string[] | string, shouldValidate?: boolean) => void,
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  changeFunctions: IChangeProductFunctions,
   errorsIngredients: string | string[] | undefined,
+  errorsIngredientOnAdd: string | undefined,
   ingredients: string[],
   ingredientOnAdd: string,
   allergens: string[],
   allergenOnAdd: string,
+  errorsAllergens: string | string[] | undefined,
+  errorsAllergenOnAdd: string | undefined,
 }
 
-export const EditMultipleValues = (props: IProps) => {
+export const EditMultipleValues = memo((props: IProps) => {
+  const { pathname } = useLocation();
+  const isMenu = pathname.includes('menu');
   const {
-    setFieldValue,
-    handleChange,
+    changeFunctions,
     errorsIngredients,
+    errorsIngredientOnAdd,
+    errorsAllergens,
+    errorsAllergenOnAdd,
     ingredients,
     ingredientOnAdd,
     allergens,
     allergenOnAdd,
-    product,
   } = props;
-
-  const {
-    handleMultipleAdd,
-    handleMultipleRemove,
-  } = useEditMultiple({ setFieldValue });
 
   return (
     <div className="multiple">
-      {'dishesId' in product
-        ? (
-          <EditMenuMultiple
-            ingredients={ingredients}
-            setFieldValue={setFieldValue}
-            handleChipRemove={handleMultipleRemove}
-          />)
-        : (
-          <EditIngredients
-            errorsIngredients={errorsIngredients}
+      {isMenu ? (
+        <EditMenuMultiple
+          ingredients={ingredients}
+          changeFunctions={changeFunctions}
+          errorsIngredients={errorsIngredients}
+        />
+      ) : (
+        <>
+          <EditInputMultiple
+            name="ingredientsOnAdd"
+            chipName="ingredients"
+            errorsValue={errorsIngredients}
+            errorsChip={errorsIngredientOnAdd}
             chipValue={ingredients}
             inputValue={ingredientOnAdd}
-            handleChange={handleChange}
-            handleChipAdd={handleMultipleAdd}
-            handleChipRemove={handleMultipleRemove}
-          />)
-      }
+            changeFunctions={changeFunctions}
+          />
 
-      <EditAllergens
-        chipValue={allergens}
-        inputValue={allergenOnAdd}
-        handleChange={handleChange}
-        handleChipAdd={handleMultipleAdd}
-        handleChipRemove={handleMultipleRemove}
-      />
+          <EditInputMultiple
+            name="allergenOnAdd"
+            chipName="allergens"
+            chipValue={allergens}
+            inputValue={allergenOnAdd}
+            changeFunctions={changeFunctions}
+            errorsChip={errorsAllergenOnAdd}
+            errorsValue={errorsAllergens}
+          />
+        </>
+      )}
     </div>
   );
-};
+});
+
+EditMultipleValues.displayName = 'EditMultipleValues';

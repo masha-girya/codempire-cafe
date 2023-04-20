@@ -31,8 +31,7 @@ export const ProductWrapper = (props: IProps) => {
             <Product product={product} />
             <Recommended handleReload={handleReload} recommended={recommended} />
           </>
-        )
-      }
+      )}
     </>
   );
 };

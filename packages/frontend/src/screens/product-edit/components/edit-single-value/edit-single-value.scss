@@ -1,5 +1,13 @@
 @use 'styles/mixins';
 
-.label {
-  @include mixins.productEditLabel();
+.edit-single {
+  position: relative;
+
+  &__label {
+    @include mixins.productEditLabel();
+  }
+
+  &__field {
+    margin-top: 9px;
+  }
 }

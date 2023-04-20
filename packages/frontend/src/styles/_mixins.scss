@@ -232,7 +232,6 @@
 
 @mixin productEditLabel {
   display: block;
-  margin-bottom: 9px;
 
   @include fontSubtitle1();
   font-weight: var.$font-weight-medium;

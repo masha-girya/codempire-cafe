@@ -1,6 +1,8 @@
 import { CreatedDishDto } from '../dish';
 
 export class UpdatedDishDto extends CreatedDishDto {
-  allergensToAdd: string;
-  ingredientsToAdd: string;
+  userId: string;
+  allergensToAdd: string | string[];
+  ingredientsToAdd: string | string[];
+  categoriesToAdd: string | string[];
 }

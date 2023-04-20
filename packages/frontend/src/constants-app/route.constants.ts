@@ -7,6 +7,8 @@ export const ROUTE_CONSTANTS = {
   MAIN_PAGE_MENU: '/home/menus',
   DISH_EDIT: '/home/dishes/edit',
   MENU_EDIT: '/home/menus/edit',
+  MENU_ADD: '/home/add/add-menu',
+  DISH_ADD: '/home/add/add-dish',
   ERROR: '/error',
   PROFILE: '/profile',
   PROFILE_LOGOUT: '/profile/logout',

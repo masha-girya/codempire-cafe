@@ -74,14 +74,58 @@ const validateNumeric = yup
   .integer()
   .required('Must be a positive integer');
 
-const validateIngredients = yup
+const validateArray = yup
   .array()
-  .min(1, 'Ingredients are required')
+  .min(1, 'This field is required')
+  .required()
+;
+
+const validateTitle = yup
+  .string()
+  .min(2, 'Title has to be from 2 characters')
+  .max(20, 'Title has to be to 20 characters')
   .required();
+
+const validateImage = yup
+  .string()
+  .min(1, 'Image is required')
+  .required();
+
+const validateCategoryOnAdd = yup
+  .string()
+  .test('category-exists', 'This category is already added', function(value) {
+    return !this.parent.categories.includes(value);
+  });
+
+const validateAllergenOnAdd = yup
+  .string()
+  .test('allergen-exists', 'This allergen is already added', function(value) {
+    return !this.parent.allergens.includes(value);
+  });
+
+const validateIngredientOnAdd = yup
+  .string()
+  .test('ingredient-exists', 'This ingredient is already added', function(value) {
+    return !this.parent.ingredients.includes(value);
+  });
 
 export const validationProduct = yup.object({
   price: validateNumeric,
   weight: validateNumeric,
+  title: validateTitle,
   description: validateDescription,
-  ingredients: validateIngredients,
+  ingredients: validateArray,
+  categories: validateArray,
+  categoryOnAdd: validateCategoryOnAdd,
+  allergenOnAdd: validateAllergenOnAdd,
+  ingredientOnAdd: validateIngredientOnAdd,
+  image: validateImage,
+});
+
+export const validationMenu = yup.object({
+  price: validateNumeric,
+  title: validateTitle,
+  description: validateDescription,
+  ingredients: validateArray,
+  image: validateImage,
 });

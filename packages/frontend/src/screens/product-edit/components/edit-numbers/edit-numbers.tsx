@@ -1,18 +1,20 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, memo } from 'react';
 import { EditSingleValue } from '../../components';
 import './edit-numbers.scss';
 
 interface IProps {
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  isDish: boolean,
   price: string,
   weight: string,
   errorsPrice: string | undefined,
   errorsWeight: string | undefined,
 }
 
-export const EditNumbers = (props: IProps) => {
+export const EditNumbers = memo((props: IProps) => {
   const {
     handleChange,
+    isDish,
     price,
     weight,
     errorsPrice,
@@ -21,12 +23,14 @@ export const EditNumbers = (props: IProps) => {
 
   return (
     <div className="numbers">
-      <EditSingleValue
-        name="weight"
-        value={weight}
-        handleChange={handleChange}
-        errorsValue={errorsWeight}
-      />
+      {isDish && (
+        <EditSingleValue
+          name="weight"
+          value={weight}
+          handleChange={handleChange}
+          errorsValue={errorsWeight}
+        />
+      )}
 
       <EditSingleValue
         name="price"
@@ -36,4 +40,6 @@ export const EditNumbers = (props: IProps) => {
       />
     </div>
   );
-};
+});
+
+EditNumbers.displayName= 'EditNumbers';

@@ -1,9 +1,6 @@
   import axios, { AxiosResponse } from 'axios';
-import {
-  API_CONSTANTS as API,
-  API_HEADERS_CONSTANTS as API_HEADERS
-} from 'constants-app';
-import { IContentType, IDish, IMenu } from 'types';
+import { API_CONSTANTS as API } from 'constants-app';
+import { IDish, IMenu } from 'types';
 import { useRequestHeader } from 'utils/hooks';
 
 export const getDish = async (id: string) => {
@@ -69,38 +66,65 @@ export const deleteMenu = async (id: string) => {
 };
 
 export const updateDish = async (id: string, data: FormData | Partial<IDish>) => {
-  let headerFormData: IContentType | null = null;
+  const { requestHeaderFormData, requestHeader } = useRequestHeader();
 
-  if (data instanceof FormData) {
-    headerFormData = { [API_HEADERS.CONTENT_TYPE]: 'multipart/form-data' };
-  }
-
-  const { requestHeader } = useRequestHeader({ headerFormData});
+  const headers = data instanceof FormData
+    ? requestHeaderFormData
+    : requestHeader;
 
   const response = await axios.patch(
     API.BASE_URL + API.DISH + '/' + id,
     data,
-    requestHeader,
+    headers,
   );
 
   return response.data;
 };
 
 export const updateMenu = async (id: string, data: FormData | Partial<IMenu>) => {
-  let headerFormData: IContentType | null = null;
+  const { requestHeaderFormData, requestHeader } = useRequestHeader();
 
-  if (data instanceof FormData) {
-    headerFormData = { [API_HEADERS.CONTENT_TYPE]: 'multipart/form-data' };
-  }
-
-  const { requestHeader } = useRequestHeader({ headerFormData});
+  const headers = data instanceof FormData
+    ? requestHeaderFormData
+    : requestHeader;
 
   const response = await axios.patch(
     API.BASE_URL + API.MENU + '/' + id,
     data,
-    requestHeader,
+    headers,
   );
 
   return response.data;
 };
 
+export const addDish = async(data: FormData | Omit<IDish, 'id'>) => {
+  const { requestHeaderFormData, requestHeader } = useRequestHeader();
+
+  const headers = data instanceof FormData
+    ? requestHeaderFormData
+    : requestHeader;
+
+  const response = await axios.post(
+    API.BASE_URL + API.DISH,
+    data,
+    headers,
+  );
+
+  return response.data;
+};
+
+export const addMenu = async(data: FormData | Omit<IMenu, 'id'>) => {
+  const { requestHeaderFormData, requestHeader } = useRequestHeader();
+
+  const headers = data instanceof FormData
+    ? requestHeaderFormData
+    : requestHeader;
+
+  const response = await axios.post(
+    API.BASE_URL + API.MENU,
+    data,
+    headers,
+  );
+
+  return response.data;
+};

@@ -13,7 +13,7 @@ import {
   Repository,
 } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DishService } from 'modules/dish';
+import { CreatedDishDto, DishService } from 'modules/dish';
 import {
   MenuEntity,
   CreatedMenuDto,
@@ -127,8 +127,13 @@ export class MenuService {
     return [...dishesByQuery, ...mappedMenus];
   }
 
-  async addMenu(createdMenuDto: CreatedMenuDto, bufferImage: Buffer) {
-    const { title, dishesId } = createdMenuDto;
+  async addMenu(createdMenuDto: UpdatedMenuDto, bufferImage: Buffer) {
+    const {
+      title,
+      userId,
+      dishesId,
+      ingredientsToAdd,
+    } = createdMenuDto;
 
     const menu = await this.menuRepository.findOneBy({ title });
 
@@ -140,22 +145,39 @@ export class MenuService {
 
     Object.assign(createdMenu, createdMenuDto);
 
-    const dishes = await Promise.all(
-      dishesId.map(async (dishId) => (
-        await this.dishService.getDish(dishId, 'id')
-      )
-    ));
+    let dishes: CreatedDishDto[];
+
+    if(dishesId) {
+      dishes = await this.dishService.getDishesByValue(dishesId, 'id');
+    }
 
     createdMenu.dishes = dishes;
 
-    createdMenu.ingredients = dishes.map(dish => dish.title);
-    createdMenu.categories = getDishesProperties(dishes, 'categories');
-    createdMenu.allergens = getDishesProperties(dishes, 'allergens');
+    if(ingredientsToAdd) {
+      const dishesNames = Array.isArray(ingredientsToAdd)
+        ? ingredientsToAdd
+        : [ingredientsToAdd];
 
-    createdMenu.weight = getTotalWeight(dishes);
+      dishes = await this.dishService.getDishesByValue(dishesNames, 'title');
+
+      createdMenu.ingredients = dishesNames;
+      createdMenu.dishesId = dishes.map(dish => dish.id);
+    } else {
+      createdMenu.ingredients = dishes.map(dish => dish.title);
+      createdMenu.dishesId = dishes.map(dish => dish.id);
+    }
+
+    if(userId) {
+      const user = await this.userService.getUser(userId, 'id');
+      createdMenu.createdBy = user;
+    }
 
     const base64Image = bufferImage.toString('base64');
+
     createdMenu.image = base64Image;
+    createdMenu.weight = getTotalWeight(dishes);
+    createdMenu.categories = getDishesProperties(dishes, 'categories');
+    createdMenu.allergens = getDishesProperties(dishes, 'allergens');
 
     await this.menuRepository.save(createdMenu);
 

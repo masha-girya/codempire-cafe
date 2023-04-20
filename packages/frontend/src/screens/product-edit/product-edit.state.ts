@@ -1,92 +1,61 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { IDish, IFormikProduct, IMenu } from 'types';
-import { validationProduct } from 'utils/helpers';
-import { useRequest } from 'utils/hooks';
-import { updateDish, updateMenu } from 'utils/api';
+import { IDish, IMenu } from 'types';
+import { validationProduct, validationMenu } from 'utils/helpers';
 import { useAppSelector } from 'store';
+import { useProduct } from 'utils/hooks/product.hook';
 
 interface IProps {
   product: IDish | IMenu,
 }
 
 export const useProductEdit = ({ product }: IProps) => {
-  const { sendUniqueRequest } = useRequest();
+  const { pathname } = useLocation();
+  const { editProduct, addProduct, createFormData } = useProduct();
   const { id: userId } = useAppSelector(state => state.user);
-  const {
-    id,
-    description,
-    ingredients,
-    allergens,
-    weight,
-    price,
-    image,
-  } = product;
+
+  const { id, image } = product;
   const [ newImage, setNewImage ] = useState<File | null>(null);
+  const [ isSuccess, setIsSuccess ] = useState(false);
+
+  const isOnAdd = pathname.includes('home/add');
+  const isMenu = pathname.includes('menu');
 
   const formik = useFormik({
     initialValues: {
-      description,
-      ingredients,
+      ...product,
+      categoryOnAdd: '',
       ingredientOnAdd: '',
-      allergens,
       allergenOnAdd: '',
-      weight,
-      price,
       image: `data:image/png;base64,${image}`,
     },
-    validationSchema: validationProduct,
+    validationSchema: isMenu ? validationMenu : validationProduct,
     onSubmit: async (values) => {
-      if(!values.ingredients.length) {
+      if(values.image.length === 0) {
         return;
       }
 
-      const success = await editProduct(values);
+      const formData = createFormData(values, newImage, userId);
 
-      if(success) {
-        window.location.reload();
+      let response;
+
+      if(isOnAdd) {
+        response = await addProduct(formData, isMenu);
+      } else {
+        response = await editProduct(formData, isMenu, id);
+      }
+
+      if(response) {
+        setIsSuccess(true);
+        window.scrollTo({ top: document.body.scrollHeight });
+      }
+
+      if(isOnAdd && response) {
+        formik.resetForm();
       }
     }
   });
-
-  const editProduct = async(values: IFormikProduct) => {
-    const {
-      description,
-      ingredients,
-      allergens,
-      weight,
-      price,
-    } = values;
-
-    const formData = new FormData();
-
-    if (newImage) {
-      formData.append(
-        'image',
-        new Blob([newImage], { type: 'image/jpeg' }),
-        newImage.name
-      );
-    }
-
-    formData.append('description', description.trim());
-
-    ingredients.forEach(ingredient => formData.append('ingredientsToAdd', ingredient));
-    allergens.forEach(allergen => formData.append('allergensToAdd', allergen));
-    formData.append('weight', weight.toString());
-    formData.append('price', price.toString());
-    formData.append('userId', userId);
-
-    let response = null;
-    
-    if ('dishesId' in product) {
-      response = await sendUniqueRequest(() => updateMenu(id, formData));
-    } else {
-      response = await sendUniqueRequest(() => updateDish(id, formData));
-
-    }
-
-    return response;
-  };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -97,15 +66,25 @@ export const useProductEdit = ({ product }: IProps) => {
     }
   };
 
+  const handleSuccessClose = useCallback(() => {
+    setIsSuccess(false);
+  }, []);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
     }
   };
 
+  useEffect(() => {
+    setIsSuccess(false);
+  }, [formik.values]);
+
   return {
     formik,
+    isSuccess,
     handleKeyDown,
     handleImageUpload,
+    handleSuccessClose,
   };
 };

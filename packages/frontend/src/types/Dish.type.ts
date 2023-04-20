@@ -1,4 +1,4 @@
-import { IUser } from './User.type';
+import { SORT } from './Sort.type';
 
 export interface IDish {
   id: string,
@@ -8,9 +8,7 @@ export interface IDish {
   price: number,
   ingredients: string[],
   allergens: string[],
-  sort: 'food' | 'drink',
+  sort: SORT,
   categories: string[],
   image: string,
-  createdBy: IUser,
-  editedBy: IUser,
 }

@@ -3,7 +3,8 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { IDish, IMenu } from 'types';
+import { useLocation } from 'react-router-dom';
+import { IDish, IMenu, SORT } from 'types';
 import { useReload, useRequest } from 'utils/hooks';
 import {
   getDish,
@@ -14,11 +15,12 @@ import {
 
 interface IProps {
   id: string | undefined,
-  location: string,
 }
 
-export const useProductPage = (props: IProps) => {
-  const { id, location } = props;
+export const useProductPage = ({ id }: IProps) => {
+  const { pathname } = useLocation();
+  const isMenuOnAdd = pathname.includes('home/add-menu');
+  const isOnAdd = pathname.includes('home/add');
 
   const [ product, setProduct ] = useState<IDish | IMenu | null>(null);
   const [ recommended, setRecommended ] = useState<IDish[] | IMenu[] | []>([]);
@@ -56,12 +58,32 @@ export const useProductPage = (props: IProps) => {
     setRecommended(recommended || []);
   }, [id]);
 
+  let productToAdd: IDish | IMenu = {
+    title: '',
+    description: '',
+    sort: SORT.food,
+    categories: [],
+    ingredients: [],
+    allergens: [],
+    id: '',
+    weight: 0,
+    price: 0,
+    image: '',
+  };
+
+  if(isMenuOnAdd) {
+    productToAdd = {
+      ...productToAdd,
+      dishesId: [],
+    };
+  }
+
   useEffect(() => {
-    if(location.includes('dish')) {
+    if(pathname.includes('dishes')) {
       loadDish();
     }
 
-    if(location.includes('menu')) {
+    if(pathname.includes('menus')) {
       loadMenu();
     }
 
@@ -74,5 +96,8 @@ export const useProductPage = (props: IProps) => {
     isError,
     isLoading,
     handleReload,
+    isOnAdd,
+    productToAdd,
+    pathname,
   };
 };

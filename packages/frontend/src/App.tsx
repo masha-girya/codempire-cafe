@@ -64,6 +64,8 @@ const App: React.FC = () => {
 
       <Route path={`${ROUTE.DISH_EDIT}/:id`} element={<ProductPage />} />
       <Route path={`${ROUTE.MENU_EDIT}/:id`} element={<ProductPage />} />
+      <Route path={ROUTE.DISH_ADD} element={<ProductPage />} />
+      <Route path={ROUTE.MENU_ADD} element={<ProductPage />} />
 
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>

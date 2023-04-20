@@ -1,6 +1,7 @@
-import { CreatedMenuDto } from '.';
+import { CreatedMenuDto } from './created-menu.dto';
 
 export class UpdatedMenuDto extends CreatedMenuDto {
-  allergensToAdd: string;
-  ingredientsToAdd: string;
+  userId: string;
+  allergensToAdd: string | string[];
+  ingredientsToAdd: string | string[];
 }

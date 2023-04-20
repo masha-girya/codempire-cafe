@@ -16,9 +16,9 @@
 
   &__block {
     max-height: 70vh;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-top: 20px;
-
 
     @include mixins.modalSize();
     padding: 24px;

@@ -4,15 +4,16 @@ import { useOrderAccepting } from './order-accepting.state';
 
 interface IProps {
   isCreated: boolean,
+  handleReload: () => void,
 }
 
-export const OrderAccepting = ({ isCreated }: IProps) => {
+export const OrderAccepting = ({ isCreated, handleReload }: IProps) => {
   const {
     handleAccept,
     handleClose,
     isError,
     isLoading,
-  } = useOrderAccepting();
+  } = useOrderAccepting({ handleReload });
 
   return (
     <>

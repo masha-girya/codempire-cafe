@@ -1,10 +1,9 @@
 import React from 'react';
 import { MainButton } from 'components/button';
-import { Status } from '../../components';
+import { Status, MarkBox } from '../../components';
 import { useBottomInfo } from './bottom-info.state';
 import { STATUS } from 'types';
 import './bottom-info.scss';
-import { MarkBox } from '../mark-box';
 
 interface IProps {
   mark: number| null,

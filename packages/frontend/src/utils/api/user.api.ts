@@ -14,6 +14,22 @@ export const getUser = async (id: string) => {
   return response.data;
 };
 
+export async function updateUser(id: string, data: Partial<IUser> | FormData) {
+  const { requestHeaderFormData, requestHeader } = useRequestHeader();
+
+  const headers = data instanceof FormData
+    ? requestHeaderFormData
+    : requestHeader;
+
+  const user = await axios.patch(
+    API.BASE_URL + API.USER_EDIT + '/' + id,
+    data,
+    headers,
+  );
+
+  return user.data;
+}
+
 export const deleteUser = async (id: string) => {
   const { requestHeader } = useRequestHeader();
 

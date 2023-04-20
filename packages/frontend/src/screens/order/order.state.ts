@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { IOrderInfo, ROLE } from 'types';
-import { useRequest } from 'utils/hooks';
+import { useReload, useRequest } from 'utils/hooks';
 import { getOrderByNumber } from 'utils/api';
 import { useAppSelector } from 'store';
 
@@ -12,6 +12,7 @@ export const useOrder = () => {
   const { pathname } = useLocation();
   const { sendUniqueRequest, isLoading } = useRequest();
   const [ order, setOrder ] = useState<IOrderInfo | null>(null);
+  const { isReload, handleReload } = useReload();
 
   const isManager = role === ROLE.manager;
 
@@ -33,8 +34,7 @@ export const useOrder = () => {
 
   useEffect(() => {
     loadOrder();
-  }, []);
+  }, [isReload]);
 
-
-  return { order, isLoading, isManager, handleClose };
+  return { order, isLoading, isManager, handleClose, handleReload };
 };

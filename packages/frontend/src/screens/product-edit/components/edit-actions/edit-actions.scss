@@ -3,6 +3,5 @@
 .edit-actions {
   @include mixins.centerItems(space-between, flex-end);
 
-  margin-top: 70px;
-  margin-bottom: 150px;
+  margin-top: 30px;
 }

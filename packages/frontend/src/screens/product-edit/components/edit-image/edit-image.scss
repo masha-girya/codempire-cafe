@@ -3,6 +3,10 @@
 
 .edit-image {
   &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     @include mixins.square(var.$width-main);
 
     object-fit: cover;

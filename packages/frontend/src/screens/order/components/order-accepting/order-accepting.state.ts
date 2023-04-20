@@ -4,30 +4,39 @@ import { STATUS } from 'types';
 import { changeOrder } from 'utils/api';
 import { useRequest } from 'utils/hooks';
 
-export const useOrderAccepting = () => {
+interface IProps {
+  handleReload: () => void,
+}
+
+export const useOrderAccepting = ({ handleReload }: IProps) => {
   const { number } = useParams();
   const { sendUniqueRequest, isError, isLoading } = useRequest();
 
   const handleAccept = useCallback(async() => {
     const data = { status: STATUS.onWay };
-    let response;
+    let request;
 
     if(number) {
-      response = await sendUniqueRequest(() => changeOrder(number, data));
+      request = await sendUniqueRequest(() => changeOrder(number, data));
     }
 
-    if(response) {
-      window.location.reload();
+    if(request) {
+      handleReload();
     }
-  }, []);
+  }, [isLoading]);
 
   const handleClose = useCallback(async() => {
     const data = { status: STATUS.delivered };
+    let request;
 
     if(number) {
-      await sendUniqueRequest(() => changeOrder(number, data));
+      request = await sendUniqueRequest(() => changeOrder(number, data));
     }
-  }, []);
+
+    if(request) {
+      handleReload();
+    }
+  }, [isLoading]);
 
   return { handleAccept, handleClose, isError, isLoading };
 };

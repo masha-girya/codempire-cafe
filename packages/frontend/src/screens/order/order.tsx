@@ -19,6 +19,7 @@ export const Order = ({ setSuccess }: IProps) => {
     isLoading,
     isManager,
     handleClose,
+    handleReload,
   } = useOrder();
 
   return (
@@ -35,7 +36,12 @@ export const Order = ({ setSuccess }: IProps) => {
           />
 
           {isManager
-            ? <BottomManager orderStatus={order.status} orderMark={order.mark} />
+            ? (
+              <BottomManager
+                orderStatus={order.status}
+                orderMark={order.mark}
+                handleReload={handleReload}
+              />)
             : (
               <BottomInfo
                 setSuccess={setSuccess}
