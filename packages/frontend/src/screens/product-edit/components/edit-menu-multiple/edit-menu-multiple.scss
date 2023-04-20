@@ -1,0 +1,25 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.edit-menu-multiple {
+  width: 306px;
+
+  &__dishes {
+    display: block;
+    margin-bottom: 19px;
+    @include mixins.fontSubtitle1();
+    font-weight: var.$font-weight-medium;
+  }
+
+  &__label {
+    @include mixins.productEditLabel();
+  }
+
+  &__field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 9px;
+  }
+}

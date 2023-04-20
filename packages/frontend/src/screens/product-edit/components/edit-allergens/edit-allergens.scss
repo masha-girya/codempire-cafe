@@ -1,0 +1,16 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.edit-allergens {
+  &__label {
+    @include mixins.productEditLabel();
+  }
+
+  &__field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 9px;
+  }
+}

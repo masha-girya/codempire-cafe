@@ -6,10 +6,16 @@
     position: relative;
   }
 
+  &__multiple-button {
+    @include mixins.inputButtonPosition();
+
+    &:hover path {
+      fill: var.$color-text-button;
+    }
+  }
+
   &__password-eye-button {
-    position: absolute;
-    top: 18px;
-    left: 268px;
+    @include mixins.inputButtonPosition();
 
     height: 19px;
 

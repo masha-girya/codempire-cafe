@@ -1,9 +1,7 @@
 import React, {
   Dispatch,
   SetStateAction,
-  useCallback,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
 import { useEditUserModal } from './edit-user-modal.state';
@@ -15,14 +13,14 @@ interface IProps {
 
 export const EditUserModal = (props: IProps) => {
   const { setSuccess } = props;
-  const navigate = useNavigate();
 
   const {
     formik,
     avatar,
     isError,
     avatarOnEdit,
-    setAvatarOnEdit,
+    handleClose,
+    handleImageUpload,
   } = useEditUserModal({ setSuccess });
 
   const {
@@ -32,18 +30,6 @@ export const EditUserModal = (props: IProps) => {
     handleChange,
     handleSubmit,
   } = formik;
-
-  const handleClose = useCallback(() => {
-    navigate('/profile');
-  }, []);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-
-    if (files && files.length > 0) {
-      setAvatarOnEdit(files[0]);
-    }
-  };
 
   return (
     <div className="edit-user">
@@ -80,8 +66,6 @@ export const EditUserModal = (props: IProps) => {
                 id="name"
                 name="name"
                 type="text"
-                placeholder=""
-                isPass={false}
                 value={values.name}
                 onChange={handleChange}
                 error={touched.name && Boolean(errors.name)}
@@ -95,8 +79,6 @@ export const EditUserModal = (props: IProps) => {
                 id="email"
                 name="email"
                 type="email"
-                placeholder=""
-                isPass={false}
                 value={values.email}
                 onChange={handleChange}
                 error={touched.email && Boolean(errors.email)}
@@ -110,8 +92,6 @@ export const EditUserModal = (props: IProps) => {
                 id="phone"
                 name="phone"
                 type="phone"
-                placeholder=""
-                isPass={false}
                 value={values.phone}
                 onChange={handleChange}
                 error={touched.phone && Boolean(errors.phone)}

@@ -8,7 +8,9 @@ import {
   DishController,
 } from '../dish';
 import { OrderDishModule } from 'modules/order-dish';
+import { MenuModule } from 'modules/menu';
 import { OrderModule } from 'modules/order';
+import { UserModule } from 'modules/user';
 import { AUTH_CONSTANTS as AUTH } from '@constants';
 
 @Module({
@@ -21,6 +23,8 @@ import { AUTH_CONSTANTS as AUTH } from '@constants';
     }),
     forwardRef(() => OrderDishModule),
     forwardRef(() => OrderModule),
+    forwardRef(() => MenuModule),
+    forwardRef(() => UserModule),
   ],
   providers: [
     DishService,

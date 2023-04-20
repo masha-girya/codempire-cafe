@@ -42,7 +42,6 @@ export const EditAddressModal = (props: IProps) => {
             type="text"
             isFullWidth={true}
             placeholder="Address"
-            isPass={false}
             value={values.enteredAddress}
             onChange={handleChange}
             helperText={error}

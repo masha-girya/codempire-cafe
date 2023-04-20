@@ -1,19 +1,23 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
+import { Icon } from 'components/icon';
 import { useInput } from '../input';
 import './input.scss';
 
 interface IProps {
   type: string,
-  placeholder: string,
+  placeholder?: string,
   value: string,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  isPass: boolean,
+  isPass?: boolean,
   helperText?: string | boolean,
   id?: string,
   name?: string,
   error?: boolean,
   isFullWidth?: boolean,
+  isMultiple?: boolean,
+  handleMultiple?: (value: string) => void,
+  isNumeric?: boolean,
 }
 
 export const Input = (props: IProps) => {
@@ -28,16 +32,17 @@ export const Input = (props: IProps) => {
     helperText,
     placeholder,
     isFullWidth,
+    isMultiple,
+    handleMultiple,
+    isNumeric,
   } = props;
 
-  const { passType, setPassType } = useInput();
-
-  const handlePassTypeChange = () => {
-    setPassType((prevType) => prevType === 'password' 
-      ? 'text' 
-      : 'password'
-    );
-  };
+  const {
+    passType,
+    handleKeyDown,
+    handlePassTypeChange,
+    handleMultipleChange,
+  } = useInput({ value, handleMultiple });
 
   return (
     <div className= {isFullWidth
@@ -56,6 +61,8 @@ export const Input = (props: IProps) => {
         id={id}
         name={name}
         error={error}
+        onKeyDown={handleKeyDown}
+        inputProps={{ inputMode: isNumeric ? 'numeric' : 'text'}}
       />
 
       {isPass && (
@@ -67,6 +74,16 @@ export const Input = (props: IProps) => {
           }
           onClick={handlePassTypeChange}
         />
+      )}
+
+      {isMultiple && (
+        <button
+          type="button"
+          onClick={handleMultipleChange}
+          className="Input__multiple-button"
+        >
+          <Icon type="plus" />
+        </button>
       )}
     </div>
   );

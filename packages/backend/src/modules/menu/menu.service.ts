@@ -17,11 +17,13 @@ import { DishService } from 'modules/dish';
 import {
   MenuEntity,
   CreatedMenuDto,
+  UpdatedMenuDto,
   getDishesProperties,
   getTotalWeight,
 } from '../menu';
 import { OrderMenuService } from 'modules/order-menu';
 import { OrderService } from 'modules/order';
+import { UserService } from 'modules/user';
 import { ERROR_CONSTANTS as ERROR } from '@constants';
 
 @Injectable()
@@ -35,9 +37,11 @@ export class MenuService {
     private orderMenuService: OrderMenuService,
     @Inject(forwardRef(() => OrderService))
     private orderService: OrderService,
+    @Inject(forwardRef(() => UserService))
+    private userService: UserService,
   ) {}
 
-  async getMenus(categories: string[] | string = [], sortBy: string) {
+  async getMenus(categories: string[] | string = [], sortBy?: string) {
     let menus;
 
     if(categories.length === 0) {
@@ -138,7 +142,7 @@ export class MenuService {
 
     const dishes = await Promise.all(
       dishesId.map(async (dishId) => (
-        await this.dishService.getDishById(dishId)
+        await this.dishService.getDish(dishId, 'id')
       )
     ));
 
@@ -158,7 +162,12 @@ export class MenuService {
     return createdMenu;
   }
 
-  async updateMenu(id: string, updatedMenuDto: CreatedMenuDto, bufferImage: Buffer) {
+  async updateMenu(
+    id: string,
+    updatedMenuDto: UpdatedMenuDto,
+    bufferImage: Buffer,
+  ) {
+    const { allergensToAdd, ingredientsToAdd, userId } = updatedMenuDto;
     const menu = await this.getMenuById(id);
 
     Object.assign(menu, updatedMenuDto);
@@ -166,6 +175,31 @@ export class MenuService {
     if(bufferImage) {
       const base64Image = bufferImage.toString('base64');
       menu.image = base64Image;
+    }
+
+    if(allergensToAdd) {
+      menu.allergens = Array.isArray(allergensToAdd)
+        ? allergensToAdd
+        : [allergensToAdd];
+    }
+
+    if(userId) {
+      const user = await this.userService.getUser(userId, 'id');
+      menu.editedBy = user;
+    }
+
+    if(typeof ingredientsToAdd === 'string') {
+      menu.ingredients = [ingredientsToAdd];
+      const dish = await this.dishService.getDish(ingredientsToAdd, 'title');
+      menu.dishesId = [dish.id];
+      menu.dishes = [dish];
+      menu.categories = getDishesProperties([dish], 'categories');
+    } else {
+      menu.ingredients = ingredientsToAdd;
+      const dishes = await this.dishService.getDishesByValue(ingredientsToAdd, 'title');
+      menu.dishesId = dishes.map(dish => dish.id);
+      menu.dishes = await this.dishService.getDishesByValue(menu.dishesId, 'id');
+      menu.categories = getDishesProperties(dishes, 'categories');
     }
 
     await this.menuRepository.save(menu);
@@ -205,5 +239,27 @@ export class MenuService {
     }
 
     await this.orderService.removeOrderProduct(menu.id, 'menuId');
+  }
+
+  async removeDishFormMenu(dishId: string) {
+    const menus = await this.menuRepository.find({
+      where: {
+        dishesId: ArrayContains([dishId]),
+      },
+      relations: ['dishes'],
+    });
+
+    if(!menus) {
+      return;
+    }
+
+    const dish = await this.dishService.getDish(dishId, 'id');
+
+    for(const menu of menus) {
+      menu.dishesId = menu.dishesId.filter(idDish => idDish !== dishId);
+      menu.dishes = menu.dishes.filter(dish => dish.id !== dishId);
+      menu.ingredients = menu.ingredients.filter(ingredient => dish.title !== ingredient);
+      await this.menuRepository.save(menu);
+    }
   }
 }

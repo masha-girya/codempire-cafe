@@ -1,0 +1,24 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.product-edit {
+  &__form {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+
+    margin-top: 26px;
+  }
+
+  &__multiple {
+    @include mixins.centerItems(space-between, flex-end);
+
+    margin-top: 25px;
+  }
+
+  &__actions {
+    @include mixins.centerItems(space-between, flex-end);
+
+    margin-top: 70px;
+    margin-bottom: 150px;
+  }
+}

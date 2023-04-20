@@ -35,7 +35,6 @@ export const AuthForm = (props: IProps) => {
           name="email"
           type="email"
           placeholder="Email"
-          isPass={false}
           value={values.email}
           onChange={handleChange}
           error={touched.email && Boolean(errors.email)}

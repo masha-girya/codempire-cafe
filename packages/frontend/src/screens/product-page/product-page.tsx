@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { Header } from '../../screens/header';
 import { BottomBar } from 'components/bottom-bar';
-import { Product, Recommended } from './components';
+import { Product, ProductWrapper, Recommended } from './components';
 import { useProductPage } from '../product-page';
 import './product-page.scss';
 
@@ -36,8 +36,12 @@ export const ProductPage = () => {
 
       {product && (
         <div className="product-page">
-          <Product product={product} />
-          <Recommended handleReload={handleReload} recommended={recommended} />
+          <ProductWrapper
+            product={product}
+            pathname={location.pathname}
+            recommended={recommended}
+            handleReload={handleReload}
+          />
         </div>
       )}
 

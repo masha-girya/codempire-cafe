@@ -1,0 +1,7 @@
+@use 'styles/mixins';
+
+.numbers {
+  @include mixins.centerItems(space-between, flex-start);
+
+  margin-top: 25px;
+}

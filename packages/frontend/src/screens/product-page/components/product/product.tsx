@@ -1,31 +1,17 @@
 import React, { memo } from 'react';
-import { Icon } from 'components/icon';
+import { BackButton } from 'components/back-button';
 import { ProductActions, ProductInfo } from '../../components';
 import { IDish, IMenu } from 'types';
 import './product.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   product: IDish | IMenu,
 }
 
 export const Product = memo(({ product } : IProps) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(-1);
-  };
-
   return (
     <div className="product-page">
-      <button
-        type="button"
-        className="product__back-link"
-        onClick={handleClick}
-      >
-        <Icon type="back" />
-        Back
-      </button>
+      <BackButton />
 
       <div className="product__info-block">
         <div className="product__image">

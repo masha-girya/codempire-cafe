@@ -22,4 +22,5 @@ export const ROUTE_CONSTANTS = {
   QUERY: 'query',
   ID: ':id',
   NUMBER: ':number',
+  NAMES: 'names',
 } as const;

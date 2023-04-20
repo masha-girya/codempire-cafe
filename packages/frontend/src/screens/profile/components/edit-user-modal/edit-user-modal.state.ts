@@ -1,9 +1,16 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useRequest } from 'utils/hooks';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useRequest } from 'utils/hooks';
 import { useAppDispatch, useAppSelector } from 'store';
-import { updateUser } from 'utils/api';
 import { userActions } from 'store/features';
+import { updateUser } from 'utils/api';
 import { setLocalItem, validationUser } from 'utils/helpers';
 import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
 import { IUser } from 'types';
@@ -13,6 +20,7 @@ interface IProps {
 }
 
 export const useEditUserModal = (props: IProps) => {
+  const navigate = useNavigate();
   const { setSuccess } = props;
   const dispatch = useAppDispatch();
   const { sendUniqueRequest, isError, setIsError } = useRequest();
@@ -70,6 +78,18 @@ export const useEditUserModal = (props: IProps) => {
     return true;
   };
 
+  const handleClose = useCallback(() => {
+    navigate('/profile');
+  }, []);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      setAvatarOnEdit(files[0]);
+    }
+  };
+
   useEffect(() => {
     setIsError(false);
   }, [formik.values]);
@@ -80,6 +100,7 @@ export const useEditUserModal = (props: IProps) => {
     isError,
     avatarOnEdit,
     setIsError,
-    setAvatarOnEdit,
+    handleClose,
+    handleImageUpload,
   };
 };
