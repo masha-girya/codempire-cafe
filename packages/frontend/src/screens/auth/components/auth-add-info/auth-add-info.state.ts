@@ -34,7 +34,7 @@ export const useAuthAddInfo = () => {
         });
 
         if (user) {
-          navigate(ROUTE.MAIN_PAGE_DISH);
+          navigate(ROUTE.MAIN_PAGE_DISHES);
           return;
         }
 

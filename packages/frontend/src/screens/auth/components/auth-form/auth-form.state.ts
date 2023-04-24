@@ -44,7 +44,7 @@ export const useAuthForm = (props: IProps) => {
           await sendAuthRequest(async () => {
             const res = await login(email, password);
             if (res) {
-              navigate(ROUTE.MAIN_PAGE_DISH);
+              navigate(ROUTE.MAIN_PAGE_DISHES);
             }
           });
           break;

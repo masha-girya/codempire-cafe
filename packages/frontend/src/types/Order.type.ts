@@ -6,6 +6,8 @@ export interface IOrder {
   status: STATUS,
   comment: string,
   number: number,
+  totalPrice: number,
+  paymentHash: string | null,
   mark: number | null,
   watchedManager: TWatchStatus,
   watchedUser: TWatchStatus,

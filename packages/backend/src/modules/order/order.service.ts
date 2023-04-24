@@ -81,22 +81,21 @@ export class OrderService {
         return await this.orderRepository.findOneBy({ id: key });
 
       case 'number': {
-        const order = await this.orderRepository.findOneBy({ number: Number(key) });
+        const order = await this.orderRepository.findOne({
+          where: {
+            number: Number(key),
+          },
+        });
         const user: CreateUserDto = await this.userService.getUser(order.userId, 'id');
 
         const { name, surname, phone } = user;
-        const { id, address, date, status, mark } = order;
 
         return {
+          ...order,
           number: key,
-          id,
           name,
           surname,
-          address,
           phone,
-          date,
-          status,
-          mark,
         };
       }
     }
@@ -163,7 +162,7 @@ export class OrderService {
 
     await this.orderRepository.save(createdOrder);
 
-    return createdOrder.id;
+    return createdOrder.number;
   }
 
   async updateOrder(

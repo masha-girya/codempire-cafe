@@ -16,6 +16,8 @@ interface IProps {
   isSuperSmall?: boolean,
   isMiddleSize?: boolean,
   isDanger?: boolean,
+  isContentWidth?: boolean,
+  isPayment?: boolean,
 }
 
 export const MainButton = (props: IProps) => {
@@ -31,7 +33,9 @@ export const MainButton = (props: IProps) => {
     isActive,
     isSuperSmall,
     isMiddleSize,
+    isContentWidth,
     isDanger,
+    isPayment,
   } = props;
 
   return (
@@ -46,6 +50,8 @@ export const MainButton = (props: IProps) => {
           'button--active': isActive,
           'button--middle': isMiddleSize,
           'button--danger': isDanger,
+          'button--content-width': isContentWidth,
+          'button--payment': isPayment,
         })}
       >
         {iconStart}

@@ -1,0 +1,42 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.transaction-status {
+  &__status {
+    margin-bottom: 15px;
+
+    @include mixins.fontH2();
+  }
+
+  &__result {
+    @include mixins.fontSubtitle1();
+    font-weight: var.$font-weight-regular;
+    letter-spacing: 0.5px;
+    color: var.$color-text-button;
+  }
+
+  &__hash {
+    @include mixins.centerItems(center, center);
+    column-gap: 5px;
+    margin-bottom: 15px;
+  }
+
+  &__copy {
+    position: relative;
+
+    height: min-content;
+    width: 18px;
+
+    & path {
+      stroke: var.$color-text-main;
+    }
+
+    &:after {
+      @include mixins.copy('Copy to clipboard');
+    }
+
+    &:hover:after {
+      opacity: 1;
+    }
+  }
+}

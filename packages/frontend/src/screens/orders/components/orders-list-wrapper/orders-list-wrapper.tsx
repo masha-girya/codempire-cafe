@@ -4,15 +4,16 @@ import { useOrdersListWrapper } from './orders-list-wrapper.state';
 
 interface IProps {
   sortBy: string,
+  ordersOnLoad: string,
 }
 
-export const OrdersListWrapper = ({ sortBy }: IProps) => {
+export const OrdersListWrapper = ({ sortBy, ordersOnLoad }: IProps) => {
   const {
     orders,
     isNoORders,
     ordersDate,
     isLoading,
-  } = useOrdersListWrapper({ sortBy });
+  } = useOrdersListWrapper({ sortBy, ordersOnLoad });
 
   return (
     <>

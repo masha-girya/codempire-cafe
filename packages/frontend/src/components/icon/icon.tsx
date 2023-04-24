@@ -19,6 +19,7 @@ import { ReactComponent as Minus } from 'assets/icons/minus.svg';
 import { ReactComponent as DatePicker } from 'assets/icons/date-picker.svg';
 import { ReactComponent as CheckMark } from 'assets/icons/check-mark.svg';
 import { ReactComponent as Chip } from 'assets/icons/chip.svg';
+import { ReactComponent as Copy } from 'assets/icons/copy.svg';
 
 export const ICONS = {
   eye: Eye,
@@ -28,6 +29,7 @@ export const ICONS = {
   back: Back,
   plus: Plus,
   chip: Chip,
+  copy: Copy,
   minus: Minus,
   close: Close,
   search: Search,

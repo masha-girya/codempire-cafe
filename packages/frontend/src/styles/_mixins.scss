@@ -245,3 +245,28 @@
   @include fontSubtitle1();
   font-weight: var.$font-weight-medium;
 }
+
+@mixin copy($content) {
+  content: $content;
+
+  position: absolute;
+  top: -25px;
+  left: -45px;
+
+  @include centerItems(center, center);
+
+  width: 120px;
+  height: 22px;
+
+  @include fontCaption();
+  color: var.$color-text-contrast;
+
+  background-color: var.$color-text-button;
+  border-radius: 20px;
+
+  opacity: 0;
+
+  transition: all 0.3s;
+
+  cursor: auto;
+}

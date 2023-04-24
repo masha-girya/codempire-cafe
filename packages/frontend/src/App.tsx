@@ -38,12 +38,16 @@ const App: React.FC = () => {
       <Route path={ROUTE.MAIN_PAGE_DISHES} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
       <Route path={ROUTE.MAIN_PAGE_MENUS} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
@@ -54,6 +58,8 @@ const App: React.FC = () => {
       >
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
@@ -63,6 +69,8 @@ const App: React.FC = () => {
       >
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
@@ -85,15 +93,12 @@ const App: React.FC = () => {
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>
         <Route path={ROUTE.CART} element={<Modal />} />
-
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
 
         <Route path={ROUTE.PROFILE_EDIT_USER} element={<Modal />} />
-
         <Route path={ROUTE.PROFILE_CHANGE_PASS} element={<Modal />} />
-
         <Route path={ROUTE.PROFILE_CHANGE_ADDRESS} element={<Modal />} />
-
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
@@ -105,6 +110,8 @@ const App: React.FC = () => {
       <Route path={ROUTE.ORDERS_COMPLETED} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
         <Route path={ROUTE.NUMBER} element={<Modal />} />
       </Route>
@@ -112,6 +119,8 @@ const App: React.FC = () => {
       <Route path={ROUTE.ORDERS_WAITING} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
         <Route path={ROUTE.NUMBER} element={<Modal />} />
       </Route>

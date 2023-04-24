@@ -14,4 +14,5 @@ export const PATHNAME_CONSTANTS = {
   ADD_DISH: 'home/add',
   ADD_MENU: 'home/add-menu',
   EDIT: 'edit',
+  PAYMENT: 'payment',
 } as const;

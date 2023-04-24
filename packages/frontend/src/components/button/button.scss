@@ -35,6 +35,14 @@
     }
   }
 
+  &:disabled {
+    background-color: var.$color-secondary;
+    border-color: transparent;
+    color: var.$color-text-contrast;
+
+    cursor: not-allowed;
+  }
+
   &--secondary {
     background-color: transparent;
     border: 1px solid transparent;
@@ -81,12 +89,17 @@
     background-color: transparent;
     color: var.$color-primary;
   }
-  
-  &:disabled {
-    background-color: var.$color-secondary;
-    border-color: transparent;
-    color: var.$color-text-contrast;
 
-    cursor: not-allowed;
+  &--content-width {
+    width: max-content;
+  }
+
+  &--payment {
+    border-color: var.$color-text-button;
+    background-color: var.$color-text-button;
+
+    &:disabled {
+      cursor: auto;
+    }
   }
 }

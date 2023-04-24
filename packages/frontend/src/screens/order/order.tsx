@@ -18,13 +18,12 @@ export const Order = ({ setSuccess }: IProps) => {
     order,
     isLoading,
     isManager,
-    handleClose,
     handleReload,
   } = useOrder();
 
   return (
     <div className="order">
-      {(isLoading) && <p className="order__loading">Loading...</p>}
+      {(isLoading && !order) && <p className="order__loading">Loading...</p>}
 
       {(!isLoading && order) && (
         <>
@@ -33,6 +32,7 @@ export const Order = ({ setSuccess }: IProps) => {
             phone={order.phone}
             address={order.address}
             date={dayjs(order.date).utc().format(TIME.DATE)}
+            paymentStatus={order.paymentHash}
           />
 
           {isManager
@@ -45,10 +45,8 @@ export const Order = ({ setSuccess }: IProps) => {
             : (
               <BottomInfo
                 setSuccess={setSuccess}
-                handleClose={handleClose}
-                status={order.status}
+                order={order}
                 date={dayjs(order.date).utc().format(TIME.TIME)}
-                mark={order.mark}
               />
             )
           }
