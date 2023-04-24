@@ -19,7 +19,7 @@ export const useProductCard = (props: IProps) => {
   const { role } = useAppSelector((state) => state.user);
   const { id, card } = props;
 
-  const link = 'dishesId' in card ? ROUTE.MAIN_PAGE_MENU : ROUTE.MAIN_PAGE_DISH;
+  const link = 'dishesId' in card ? ROUTE.MAIN_PAGE_MENUS : ROUTE.MAIN_PAGE_DISHES;
 
   const isLoggedIn = useMemo(() => {
     const token = getLocalItem(STORAGE.ACCESS_TOKEN);

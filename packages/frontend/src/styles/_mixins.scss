@@ -56,6 +56,12 @@
   font-weight: var.$font-weight-regular;
 }
 
+@mixin fontNotifications {
+  font-family: var.$font-family-main;
+  font-size: var.$font-size-xxxs;
+  font-weight: var.$font-weight-medium;
+}
+
 @mixin eyeButton {
   width: 22px;
   background-image: url(../assets/icons/eye.svg);
@@ -73,6 +79,9 @@
 }
 
 @mixin line {
+  position: relative;
+  z-index: var.$index-line;
+
   border-top: 0.2px var.$color-icons-inactive;
   opacity: 0.2;
 }

@@ -1,3 +1,4 @@
+import { IWatched, ROLE } from 'types';
 import { API_CONSTANTS as API } from 'constants-app';
 
 export const detectURL = (filter: string[], sortBy: string) => {
@@ -16,11 +17,22 @@ export const detectURL = (filter: string[], sortBy: string) => {
   }
 };
 
-export const detectOrderURL = (status: string[], sortBy: string) => {
-  let URL = '?' + API.STATUS + status.join(`&${API.STATUS}`);
+export const detectOrderURL = (
+  status: string[],
+  sortBy: string,
+  watched?: IWatched,
+) => {
+  let URL = '?'
+    + API.STATUS
+    + status.join(`&${API.STATUS}`)
+    + `&${API.SORT}${sortBy}`;
 
-  if(sortBy) {
-    URL += `&${API.SORT}${sortBy}`;
+  if(watched) {
+    const watchQuery = watched.role === ROLE.user
+      ? API.WATCHED_USER
+      : API.WATCHED_MANAGER;
+
+    URL += `&${watchQuery}${watched.status}`;
   }
 
   return URL;

@@ -29,7 +29,7 @@ export const OrderAccepting = ({ isCreated, handleReload }: IProps) => {
       {!isCreated && (
         <MainButton
           type="button"
-          text="Close"
+          text="Close order"
           onHandleClick={handleClose}
         />
       )}

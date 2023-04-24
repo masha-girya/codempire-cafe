@@ -2,12 +2,29 @@
 @use 'styles/mixins';
 
 .field {
+  position: relative;
+
   padding-left: 32px;
   padding-right: 28px;
 
   @include mixins.profileField();
 
   @include mixins.fontBody();
+
+  &--fresh {
+    &::before {
+      content: '';
+
+      position: absolute;
+      left: 6px;
+
+      margin-right: 16px;
+  
+      @include mixins.square(8px);
+      border-radius: 50%;
+      background-color: var.$color-text-button;
+    }
+  }
 
   &__link {
     @include mixins.centerItems(space-between, center);

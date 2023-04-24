@@ -5,3 +5,5 @@ export * from './sort.type';
 export * from './status.type';
 export * from './password.type';
 export * from './order-key.type';
+export * from './watch-status.type';
+export * from './order-query.type';

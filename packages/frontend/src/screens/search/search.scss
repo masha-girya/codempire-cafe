@@ -45,6 +45,7 @@
   &__menu {
     position: absolute;
     top: 105%;
+    z-index: 2;
   
     width: var.$width-main - 17 * 2;
     min-height: 50px;
@@ -67,12 +68,15 @@
     padding: 0;
   
     &--column {
-      display: flex;
-      justify-content: center;
       padding: 10px 10px 0;
     }
   
     &--link {
+      display: block;
+
+      max-width: 252px;
+      overflow: hidden;
+
       color: var.$color-primary;
 
       &:hover {

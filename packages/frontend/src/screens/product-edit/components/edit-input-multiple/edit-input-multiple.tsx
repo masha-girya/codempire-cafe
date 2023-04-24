@@ -40,7 +40,7 @@ export const EditInputMultiple = memo((props: IProps) => {
   return (
     <div className="edit-input-multiple">
       <label htmlFor={name} className="edit-input-multiple__label">
-        {`${name[0].toUpperCase()}${name.slice(1)}:`}
+        {`${chipName[0].toUpperCase()}${chipName.slice(1)}:`}
       </label>
 
       <div className={chipValue.length > 0

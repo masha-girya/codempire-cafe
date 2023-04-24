@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { STATUS } from 'types';
+import { STATUS, TWatchStatus } from 'types';
 import { UserEntity } from 'modules/user';
 import { OrderDishEntity } from 'modules/order-dish';
 import { OrderMenuEntity } from 'modules/order-menu';
@@ -39,10 +39,14 @@ export class OrderEntity {
   @Generated()
   number: number;
 
-  @Column('int', {
-    nullable: true,
-  })
+  @Column('int', { nullable: true })
   mark: number;
+
+  @Column('character varying', { default: 'unwatched' })
+  watchedManager: TWatchStatus;
+
+  @Column('character varying', { default: 'watched' })
+  watchedUser: TWatchStatus;
 
   @Column('character varying')
   address: string;

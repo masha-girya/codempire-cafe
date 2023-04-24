@@ -1,4 +1,4 @@
-import { IUser, IDish, IMenu, STATUS } from '../types';
+import { IUser, IDish, IMenu, STATUS, TWatchStatus } from '../types';
 
 export interface IOrder {
   id: string,
@@ -7,6 +7,8 @@ export interface IOrder {
   comment: string,
   number: number,
   mark: number | null,
+  watchedManager: TWatchStatus,
+  watchedUser: TWatchStatus,
   address: string,
   user: IUser,
   dishes: IDish[],

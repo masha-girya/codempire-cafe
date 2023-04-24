@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { EditMenuMultiple, EditInputMultiple } from '../../components';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 import { IChangeProductFunctions } from 'types';
 import './edit-multiple-values.scss';
 
@@ -18,7 +19,7 @@ interface IProps {
 
 export const EditMultipleValues = memo((props: IProps) => {
   const { pathname } = useLocation();
-  const isMenu = pathname.includes('menu');
+  const isMenu = pathname.includes(PATHNAME.MENU);
   const {
     changeFunctions,
     errorsIngredients,

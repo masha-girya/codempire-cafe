@@ -12,6 +12,7 @@ import {
   getRecommendedDishes,
   getRecommendedMenus,
 } from 'utils/api';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 
 interface IProps {
   id: string | undefined,
@@ -19,8 +20,8 @@ interface IProps {
 
 export const useProductPage = ({ id }: IProps) => {
   const { pathname } = useLocation();
-  const isMenuOnAdd = pathname.includes('home/add-menu');
-  const isOnAdd = pathname.includes('home/add');
+  const isMenuOnAdd = pathname.includes(PATHNAME.ADD_MENU);
+  const isOnAdd = pathname.includes(PATHNAME.ADD_DISH);
 
   const [ product, setProduct ] = useState<IDish | IMenu | null>(null);
   const [ recommended, setRecommended ] = useState<IDish[] | IMenu[] | []>([]);
@@ -49,7 +50,7 @@ export const useProductPage = ({ id }: IProps) => {
     const requestMenu = () => getMenu(id || '');
     const requestRecommended = () => getRecommendedMenus(id || '');
 
-  const [menu, recommended] = await Promise.all([
+    const [menu, recommended] = await Promise.all([
       await sendUniqueRequest(requestMenu),
       await sendUniqueRequest(requestRecommended),
     ]);
@@ -79,11 +80,11 @@ export const useProductPage = ({ id }: IProps) => {
   }
 
   useEffect(() => {
-    if(pathname.includes('dishes')) {
+    if(pathname.includes(PATHNAME.DISHES)) {
       loadDish();
     }
 
-    if(pathname.includes('menus')) {
+    if(pathname.includes(PATHNAME.MENUS)) {
       loadMenu();
     }
 

@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ROLE, STATUS } from 'types';
-import { useRequest } from 'utils/hooks';
-import { changeOrder } from 'utils/api';
+import { useOrdersRequest } from 'utils/hooks';
 import { useAppSelector } from 'store';
 
 interface IProps {
@@ -18,7 +17,7 @@ export const useBottomInfo = (props: IProps) => {
   const [ rate, setRate ] = useState(mark || 0);
   const [ hover, setHover ] = useState(0);
   const [ isError, setIsError ] = useState(false);
-  const { sendUniqueRequest, isLoading } = useRequest();
+  const { updateOrder, isLoading } = useOrdersRequest({});
 
   const handleRate = (num: number) => {
     setRate(num);
@@ -34,9 +33,7 @@ export const useBottomInfo = (props: IProps) => {
 
   const handleCreate = useCallback(async() => {
     if(rate !== mark && number) {
-      const success = await sendUniqueRequest(() => (
-        changeOrder(number, { mark: rate })
-      ));
+      const success = await updateOrder(number, { mark: rate });
 
       if(success) {
         setSuccess(true);

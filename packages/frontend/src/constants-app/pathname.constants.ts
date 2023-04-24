@@ -1,0 +1,17 @@
+export const PATHNAME_CONSTANTS = {
+  MENUS: 'menus',
+  MENU: 'menu',
+  DISHES: 'dishes',
+  DISH: 'dish',
+  USER: 'user',
+  PASSWORD: 'pass',
+  ADDRESS: 'address',
+  CART: 'cart',
+  ORDER: 'order-creation',
+  NOTIFICATIONS: 'notifications',
+  ORDER_WAITING: 'waiting',
+  ORDER_COMPLETED: 'completed',
+  ADD_DISH: 'home/add',
+  ADD_MENU: 'home/add-menu',
+  EDIT: 'edit',
+} as const;

@@ -18,5 +18,7 @@ export const API_CONSTANTS = {
   ORDER_EDIT: '/order/edit',
   STATUS: 'status=',
   USER_ID_QUERY: 'userId=',
+  WATCHED_MANAGER: 'watchedManager=',
+  WATCHED_USER: 'watchedUser=',
   NAMES: '/names',
 } as const;

@@ -69,10 +69,10 @@ const validateDescription = yup
   .required('Description is required');
 
 const validateNumeric = yup
-  .number()
-  .positive()
-  .integer()
-  .required('Must be a positive integer');
+  .number().typeError('Must be a number')
+  .positive('Must be a positive integer')
+  .integer('Must be an integer')
+  .required('This field is required');
 
 const validateArray = yup
   .array()
