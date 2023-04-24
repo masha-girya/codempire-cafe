@@ -11,6 +11,7 @@ import {
   EditAddressModal,
 } from '../../screens/profile';
 import { Order } from 'screens/orders';
+import { Payment } from 'screens/payment';
 import { useModal } from './modal.state';
 import './modal.scss';
 
@@ -23,6 +24,7 @@ export const Modal = () => {
     isAddress,
     isCart,
     isOrder,
+    isPayment,
     isEditOnSuccess,
     isOrderNumber,
     isNotifications,
@@ -46,6 +48,7 @@ export const Modal = () => {
                 {isOrder && 'Order'}
                 {isOrderNumber && `Order ${params.number}`}
                 {isNotifications && 'Notifications'}
+                {isPayment && 'Payment'}
               </h1>
 
               <button
@@ -69,6 +72,8 @@ export const Modal = () => {
             {isOrderNumber && <Order setSuccess={setIsEditOnSuccess} />}
 
             {isNotifications && <NotificationsManager />}
+
+            {isPayment && <Payment />}
           </div>)
       }
     </div>

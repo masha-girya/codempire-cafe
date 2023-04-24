@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IOrder, IWatched } from 'types';
+import { IOrder, IWatched, IOrderInfo } from 'types';
 import { API_CONSTANTS as API } from 'constants-app';
 import { detectOrderURL } from 'utils/helpers';
 import { useRequestHeader } from 'utils/hooks';
@@ -7,7 +7,7 @@ import { useRequestHeader } from 'utils/hooks';
 export const createOrder = async(data: Partial<IOrder>) => {
   const { requestHeader } = useRequestHeader();
 
-  const response: AxiosResponse<IOrder> = await axios.post(
+  const response: AxiosResponse<number> = await axios.post(
     API.BASE_URL + API.ORDER,
     data,
     requestHeader,
@@ -36,7 +36,7 @@ export const getOrders = async(
   const { requestHeader } = useRequestHeader();
   const URL = detectOrderURL(status, sortBy, watched);
 
-  const response: AxiosResponse<IOrder> = await axios.get(
+  const response: AxiosResponse<IOrderInfo> = await axios.get(
     API.BASE_URL + API.ORDER + URL,
     requestHeader,
   );
@@ -47,7 +47,7 @@ export const getOrders = async(
 export const getOrderByNumber = async(number: string) => {
   const { requestHeader } = useRequestHeader();
 
-  const response: AxiosResponse<IOrder> = await axios.get(
+  const response: AxiosResponse<IOrderInfo> = await axios.get(
     API.BASE_URL + API.ORDER + '/' + number,
     requestHeader,
   );

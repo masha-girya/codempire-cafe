@@ -13,6 +13,8 @@ export const Orders = () => {
   const {
     isUser,
     sortBy,
+    locationWaiting,
+    locationCompleted,
     handleSortChange,
   } = useOrders();
 
@@ -30,7 +32,8 @@ export const Orders = () => {
             />
 
             <div className="orders__list">
-              <OrdersListWrapper sortBy={sortBy} />
+              {locationWaiting && <OrdersListWrapper sortBy={sortBy} ordersOnLoad="waiting" />}
+              {locationCompleted && <OrdersListWrapper sortBy={sortBy} ordersOnLoad="completed" />}
             </div>
           </div>
 

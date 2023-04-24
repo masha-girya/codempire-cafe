@@ -1,0 +1,10 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.transaction {
+  @include mixins.centerItems(center, center);
+  flex-direction: column;
+  row-gap: 20px;
+
+  margin-bottom: 30px;
+}

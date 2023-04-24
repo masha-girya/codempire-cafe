@@ -39,6 +39,12 @@ export class OrderEntity {
   @Generated()
   number: number;
 
+  @Column('int')
+  totalPrice: number;
+
+  @Column('character varying', { nullable: true })
+  paymentHash: string;
+
   @Column('int', { nullable: true })
   mark: number;
 

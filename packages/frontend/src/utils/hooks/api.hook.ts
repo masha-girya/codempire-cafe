@@ -58,5 +58,6 @@ export const useRequest = () => {
     isError,
     setIsError,
     isLoading,
+    setIsLoading,
   };
 };

@@ -24,7 +24,7 @@ export const AuthForm = (props: IProps) => {
   }, [isSignUp]);
 
   const handleSkipClick = () => {
-    navigate(ROUTE.MAIN_PAGE_DISH);
+    navigate(ROUTE.MAIN_PAGE_DISHES);
   };
 
   return (

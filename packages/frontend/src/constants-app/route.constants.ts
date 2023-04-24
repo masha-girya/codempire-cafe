@@ -25,5 +25,6 @@ export const ROUTE_CONSTANTS = {
   ORDERS: '/orders',
   ORDERS_WAITING: '/orders/waiting',
   ORDERS_COMPLETED: '/orders/completed',
-  NUMBER: ':number'
+  NUMBER: ':number',
+  PAYMENT: 'payment'
 } as const;

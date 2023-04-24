@@ -8,6 +8,7 @@ interface IProps {
   date: string,
   time?: string,
   comment?: string,
+  paymentStatus?: string | null,
 }
 
 export const DeliveryInfo = (props: IProps) => {
@@ -18,6 +19,7 @@ export const DeliveryInfo = (props: IProps) => {
     date,
     comment,
     time,
+    paymentStatus,
   } = props;
 
   return (
@@ -49,6 +51,11 @@ export const DeliveryInfo = (props: IProps) => {
         <div>
           <h4 className="delivery-info__subtitle">Date</h4>
           <p className="delivery-info__info">{date}</p>
+        </div>
+
+        <div>
+          <h4 className="delivery-info__subtitle">Payment hash</h4>
+          <p className="delivery-info__info">{paymentStatus || 'Not payed yed'}</p>
         </div>
 
         {time && (

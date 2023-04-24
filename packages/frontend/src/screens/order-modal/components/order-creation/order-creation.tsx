@@ -88,7 +88,7 @@ export const OrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
 
         <MainButton
           type="submit"
-          text="Create"
+          text={isOrderOnConfirm ? 'Pay' : 'Create'}
           onHandleClick={isOrderOnConfirm ? handleSubmit : handleConfirmOrder}
           isDisabled={isButtonDisabled}
         />

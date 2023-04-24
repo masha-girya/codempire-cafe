@@ -4,3 +4,4 @@ export * from './product.api';
 export * from './categories.api';
 export * from './user.api';
 export * from './order.api';
+export * from './currency.api';

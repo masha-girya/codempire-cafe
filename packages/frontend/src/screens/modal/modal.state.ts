@@ -17,6 +17,7 @@ export const useModal = ({ pathname, params }: IProps) => {
   const isOrder = pathname.includes(PATHNAME.ORDER);
   const isCart = pathname.includes(PATHNAME.CART);
   const isNotifications = pathname.includes(PATHNAME.NOTIFICATIONS);
+  const isPayment = pathname.includes(PATHNAME.PAYMENT);
   const isOrderNumber = params.number;
 
   const navigateBack = () => {
@@ -42,6 +43,7 @@ export const useModal = ({ pathname, params }: IProps) => {
     isAddress,
     isCart,
     isOrder,
+    isPayment,
     isEditOnSuccess,
     isOrderNumber,
     isNotifications,

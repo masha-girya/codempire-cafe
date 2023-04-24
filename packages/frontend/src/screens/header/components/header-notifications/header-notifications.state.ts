@@ -8,14 +8,18 @@ export const useNotifications = () => {
   const { loadOrdersNotifications, orders } = useOrdersRequest({ sortBy: 'newest' });
   const query = { role, status: 'unwatched' as TWatchStatus};
 
-  useEffect(() => {
+  const loadOrders = async() => {
     if(role === ROLE.user) {
-      loadOrdersNotifications(STATUS.ready, query);
+      return await loadOrdersNotifications(STATUS.ready, query);
     }
 
     if(role === ROLE.manager) {
-      loadOrdersNotifications(STATUS.created, query);
+      return await loadOrdersNotifications(STATUS.created, query);
     }
+  };
+
+  useEffect(() => {
+    loadOrders();
   }, [role]);
 
   return { orders };

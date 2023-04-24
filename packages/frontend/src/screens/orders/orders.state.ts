@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SelectChangeEvent } from '@mui/material';
 import { useRequest, useUser } from 'utils/hooks';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 
 export const useOrders = () => {
   const location = useLocation();
@@ -10,6 +11,9 @@ export const useOrders = () => {
 
   const [ isUser, setIsUser ] = useState(true);
   const [ sortBy, setSortBy ] = useState('');
+
+  const locationWaiting = location.pathname.includes(PATHNAME.ORDER_WAITING);
+  const locationCompleted = location.pathname.includes(PATHNAME.ORDER_COMPLETED);
 
   const loadUser = useCallback(async () => {
     const user = await sendUniqueRequest(checkUser);
@@ -34,6 +38,8 @@ export const useOrders = () => {
   return {
     isUser,
     sortBy,
+    locationWaiting,
+    locationCompleted,
     handleSortChange,
   };
 };

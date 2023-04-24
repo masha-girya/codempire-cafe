@@ -1,0 +1,23 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.transaction-actions {
+  &__status {
+    margin-bottom: 15px;
+
+    @include mixins.fontH2();
+  }
+
+  &__error {
+    margin-bottom: 15px;
+
+    @include mixins.fontBody();
+    color: var.$color-error;
+  }
+
+  &__load {
+    margin-bottom: 15px;
+
+    @include mixins.fontSubtitle1();
+  }
+}

@@ -2,25 +2,18 @@ import React from 'react';
 import { MainButton } from 'components/button';
 import { Status, MarkBox } from '../../components';
 import { useBottomInfo } from './bottom-info.state';
-import { STATUS } from 'types';
+import { IOrder, STATUS } from 'types';
 import './bottom-info.scss';
 
 interface IProps {
-  mark: number| null,
+  order: IOrder,
   date: string,
-  status: STATUS,
-  handleClose: () => void,
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export const BottomInfo = (props: IProps) => {
-  const {
-    mark,
-    date,
-    status,
-    handleClose,
-    setSuccess,
-  } = props;
+  const { order, date, setSuccess } = props;
+  const { status, mark, paymentHash} = order;
 
   const {
     rate,
@@ -30,11 +23,11 @@ export const BottomInfo = (props: IProps) => {
     rateArray,
     buttonText,
     isLoading,
-    handleCreate,
+    handleClick,
     handleRate,
     handleHoverOn,
     handleHoverOut,
-  } = useBottomInfo({ status, mark, setSuccess });
+  } = useBottomInfo({ status, mark, paymentHash, setSuccess });
 
   return (
     <div className="bottom-info">
@@ -75,7 +68,7 @@ export const BottomInfo = (props: IProps) => {
         <MainButton
           text={buttonText}
           type="button"
-          onHandleClick={buttonText === 'create' ? handleCreate : handleClose}
+          onHandleClick={handleClick}
           isDisabled={isLoading}
         />
       </div>

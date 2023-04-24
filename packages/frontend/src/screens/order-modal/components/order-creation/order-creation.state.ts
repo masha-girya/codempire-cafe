@@ -6,10 +6,11 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'store';
 import { cartActions } from 'store/features';
-import { useRequest } from 'utils/hooks';
+import { useNavigateBack, useRequest } from 'utils/hooks';
 import { createOrder } from 'utils/api';
-import { removeLocalItems } from 'utils/helpers';
+import { removeLocalItems, setLocalItem } from 'utils/helpers';
 import {
+  ROUTE_CONSTANTS as ROUTE,
   STORAGE_CONSTANTS as STORAGE,
   TIME_CONSTANTS as TIME,
 } from 'constants-app';
@@ -24,10 +25,11 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { link } = useNavigateBack();
   const { sendUniqueRequest, isLoading, isError } = useRequest();
 
   const { address, id } = useAppSelector(state => state.user);
-  const { products } = useAppSelector(state => state.cart);
+  const { products, totalPrice } = useAppSelector(state => state.cart);
 
   const [ deliveryDate, setDeliveryDate ] = useState(dayjs());
   const [ deliveryTime, setDeliveryTime ] = useState(dayjs());
@@ -64,7 +66,7 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
       const fullDate = `${dateString}T${timeString}Z`;
       const date = new Date(fullDate);
 
-      const response = await sendUniqueRequest(() => (
+      const response: number = await sendUniqueRequest(() => (
         createOrder({
           userId: id,
           address: currentAddress,
@@ -72,16 +74,18 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
           menuId,
           comment,
           date,
+          totalPrice,
         })
       ));
 
       if(response) {
-        setIsOrderOnSuccess(true);
         removeLocalItems([
           STORAGE.CART_PRODUCTS,
           STORAGE.CART_PRICE,
         ]);
+        setLocalItem(STORAGE.ORDER_NUMBER, response.toString());
         dispatch(cartActions.clearCart());
+        navigate(`${link}/${ROUTE.PAYMENT}`);
       }
     },
   });
@@ -97,7 +101,8 @@ export const useOrderCreation = ({ setIsOrderOnSuccess }: IProps) => {
   const isButtonDisabled = useMemo(() => {
     return formik.isSubmitting
       || (error ? true : false)
-      || addressError.length > 0;
+      || addressError.length > 0
+      || products.length === 0;
   }, [error, addressError, formik.isSubmitting]);
 
   useEffect(() => {
