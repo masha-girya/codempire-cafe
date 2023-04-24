@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { SuccessModal } from './components';
 import { Icon } from 'components/icon';
 import { CartModal } from 'screens/cart-modal';
+import { NotificationsManager } from 'screens/notifications-manager';
 import { OrderModal } from 'screens/order-modal';
 import {
   EditUserModal,
@@ -24,6 +25,7 @@ export const Modal = () => {
     isOrder,
     isEditOnSuccess,
     isOrderNumber,
+    isNotifications,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,
@@ -43,6 +45,7 @@ export const Modal = () => {
                 {isCart && 'Cart'}
                 {isOrder && 'Order'}
                 {isOrderNumber && `Order ${params.number}`}
+                {isNotifications && 'Notifications'}
               </h1>
 
               <button
@@ -64,6 +67,8 @@ export const Modal = () => {
             {isOrder && <OrderModal />}
 
             {isOrderNumber && <Order setSuccess={setIsEditOnSuccess} />}
+
+            {isNotifications && <NotificationsManager />}
           </div>)
       }
     </div>

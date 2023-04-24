@@ -4,6 +4,7 @@ import { SelectChangeEvent } from '@mui/material';
 import { Selection } from 'components/selection';
 import { MainButton } from 'components/button';
 import {
+  PATHNAME_CONSTANTS as PATHNAME,
   ROUTE_CONSTANTS as ROUTE,
   SORT_CONSTANTS as SORT,
 } from 'constants-app';
@@ -21,8 +22,8 @@ export const TopSwitcher = (props: IProps) => {
     sortBy,
   } = props;
 
-  const isWaiting = location.pathname.includes('waiting');
-  const isCompleted = location.pathname.includes('completed');
+  const isWaiting = location.pathname.includes(PATHNAME.ORDER_WAITING);
+  const isCompleted = location.pathname.includes(PATHNAME.ORDER_COMPLETED);
 
   return (
     <div className="top-switcher">

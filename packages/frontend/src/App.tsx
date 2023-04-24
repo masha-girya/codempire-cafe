@@ -31,41 +31,56 @@ const App: React.FC = () => {
 
       {/* MAIN */}
       <Route path={ROUTE.MAIN_PAGE} element={
-          <Navigate to={ROUTE.MAIN_PAGE_DISH} replace />
+          <Navigate to={ROUTE.MAIN_PAGE_DISHES} replace />
         }
       />
 
-      <Route path={ROUTE.MAIN_PAGE_DISH} element={<Main />}>
+      <Route path={ROUTE.MAIN_PAGE_DISHES} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
-      <Route path={ROUTE.MAIN_PAGE_MENU} element={<Main />}>
+      <Route path={ROUTE.MAIN_PAGE_MENUS} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
       {/* PRODUCT PAGE */}
-      <Route path={`${ROUTE.MAIN_PAGE_MENU}/:id`} element={
+      <Route path={ROUTE.MAIN_PAGE_MENU} element={
           <ProductPage />
         }
       >
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
-      <Route path={`${ROUTE.MAIN_PAGE_DISH}/:id`} element={
+      <Route path={ROUTE.MAIN_PAGE_DISH} element={
           <ProductPage />
         }
       >
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
-      <Route path={`${ROUTE.DISH_EDIT}/:id`} element={<ProductPage />} />
-      <Route path={`${ROUTE.MENU_EDIT}/:id`} element={<ProductPage />} />
-      <Route path={ROUTE.DISH_ADD} element={<ProductPage />} />
-      <Route path={ROUTE.MENU_ADD} element={<ProductPage />} />
+      <Route path={ROUTE.DISH_EDIT_ID} element={<ProductPage />}>
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+      </Route>
+
+      <Route path={ROUTE.MENU_EDIT_ID} element={<ProductPage />}>
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+      </Route>
+
+      <Route path={ROUTE.DISH_ADD} element={<ProductPage />}>
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+      </Route>
+
+      <Route path={ROUTE.MENU_ADD} element={<ProductPage />}>
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+      </Route>
 
       {/* PROFILE */}
       <Route path={ROUTE.PROFILE} element={<Profile />}>
@@ -78,6 +93,8 @@ const App: React.FC = () => {
         <Route path={ROUTE.PROFILE_CHANGE_PASS} element={<Modal />} />
 
         <Route path={ROUTE.PROFILE_CHANGE_ADDRESS} element={<Modal />} />
+
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
       {/* ORDERS */}
@@ -88,13 +105,15 @@ const App: React.FC = () => {
       <Route path={ROUTE.ORDERS_COMPLETED} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
-        <Route path=":number" element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+        <Route path={ROUTE.NUMBER} element={<Modal />} />
       </Route>
 
       <Route path={ROUTE.ORDERS_WAITING} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
-        <Route path=":number" element={<Modal />} />
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+        <Route path={ROUTE.NUMBER} element={<Modal />} />
       </Route>
 
       {/* LOGOUT */}

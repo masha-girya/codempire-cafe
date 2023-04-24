@@ -31,10 +31,10 @@ export const useCartItem = (props: IProps) => {
 
   const link = useMemo(() => {
     if('dishesId' in product) {
-      return ROUTE.MAIN_PAGE_MENU;
+      return ROUTE.MAIN_PAGE_MENUS;
     }
 
-    return ROUTE.MAIN_PAGE_DISH;
+    return ROUTE.MAIN_PAGE_DISHES;
   }, [product]);
 
   const numPrice = Number(product.price);

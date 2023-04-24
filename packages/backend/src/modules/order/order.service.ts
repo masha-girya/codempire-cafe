@@ -11,7 +11,7 @@ import { DishService } from 'modules/dish';
 import { MenuService } from 'modules/menu';
 import { OrderDishService } from 'modules/order-dish';
 import { OrderMenuService } from 'modules/order-menu';
-import { ROLE, STATUS, TOrderKey } from 'types';
+import { IOrderQuery, ROLE, TOrderKey } from 'types';
 
 @Injectable()
 export class OrderService {
@@ -30,14 +30,29 @@ export class OrderService {
     private orderMenuService: OrderMenuService,
   ) {}
 
-  async getOrders(status: STATUS[], sortBy: string, user: CreateUserDto) {
-    const isUser = user.role === ROLE.manager 
+  async getOrders(query: IOrderQuery, user: CreateUserDto) {
+    const {
+      status,
+      sortBy,
+      watchedManager,
+      watchedUser,
+    } = query;
+
+    const ordersQuery = user.role === ROLE.manager
       ? { status: In(status) }
       : { status: In(status), userId: user.id };
+    
+    if(watchedManager) {
+      Object.assign(ordersQuery, { watchedManager });
+    }
+
+    if(watchedUser) {
+      Object.assign(ordersQuery, { watchedUser });
+    }
 
     const orders = await this.orderRepository.find({
       where: {
-        ...isUser,
+        ...ordersQuery,
       },
       order: {
         date: sortBy === 'oldest' ? 'ASC' : 'DESC',

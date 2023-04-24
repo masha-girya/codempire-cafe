@@ -12,3 +12,4 @@ export * from './Status.type';
 export * from './Role.type';
 export * from './FormikProduct.type';
 export * from './ChangeProductFunctions.type';
+export * from './WatchStatus.type';

@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { IDish, IMenu } from 'types';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 import './product-info.scss';
 
 interface IProps {
@@ -22,7 +23,7 @@ export const ProductInfo = memo(({ product }: IProps) => {
       </h3>
 
       <h4 className="info__subtitle">
-        {location.pathname.includes('dish')
+        {location.pathname.includes(PATHNAME.DISH)
           ? 'Ingredients:'
           : 'Contains:'}
       </h4>
@@ -34,7 +35,7 @@ export const ProductInfo = memo(({ product }: IProps) => {
       <h4 className="info__subtitle">Allergens:</h4>
 
       <p className="info__text">
-        {allergens ? allergens : 'None'}
+        {allergens.length > 0 ? allergens : 'None'}
       </p>
     </div>
   );

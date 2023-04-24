@@ -7,6 +7,8 @@
   margin-right: 40px;
 
   &__icon {
+    position: relative;
+
     @include mixins.centerItems(center, center);
 
     width: 35px;
@@ -27,5 +29,21 @@
     &:hover path {
       fill: var.$color-text-contrast;
     }
+  }
+
+  &__amount {
+    position: absolute;
+    top: -5px;
+    left: 17px;
+
+    @include mixins.square(18px);
+    border-radius: 50%;
+
+    background-color: var.$color-text-button;
+
+    color: var.$color-text-contrast;
+    text-align: center;
+    line-height: 19px;
+    @include mixins.fontNotifications();
   }
 }

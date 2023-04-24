@@ -5,6 +5,7 @@ import { IDish, IMenu } from 'types';
 import { validationProduct, validationMenu } from 'utils/helpers';
 import { useAppSelector } from 'store';
 import { useProduct } from 'utils/hooks/product.hook';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 
 interface IProps {
   product: IDish | IMenu,
@@ -19,8 +20,8 @@ export const useProductEdit = ({ product }: IProps) => {
   const [ newImage, setNewImage ] = useState<File | null>(null);
   const [ isSuccess, setIsSuccess ] = useState(false);
 
-  const isOnAdd = pathname.includes('home/add');
-  const isMenu = pathname.includes('menu');
+  const isOnAdd = pathname.includes(PATHNAME.ADD_DISH);
+  const isMenu = pathname.includes(PATHNAME.MENU);
 
   const formik = useFormik({
     initialValues: {

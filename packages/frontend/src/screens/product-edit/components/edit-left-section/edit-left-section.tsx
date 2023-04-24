@@ -10,6 +10,7 @@ import {
   EditSort,
 } from '../../components';
 import { useEditLeftSection } from './edit-left-section.state';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 import { IFormikProduct } from 'types';
 import './edit-left-section.scss';
 
@@ -26,7 +27,7 @@ export const EditLeftSection = memo((props: IProps) => {
   const { functionProps, errors, values, isSubmitting } = useEditLeftSection({
     formik,
   });
-  const isDish = pathname.includes('dish');
+  const isDish = pathname.includes(PATHNAME.DISH);
 
   return (
     <div className="edit-left-section">
@@ -80,13 +81,13 @@ export const EditLeftSection = memo((props: IProps) => {
         errorsWeight={errors.weight}
       />
 
+      {isSuccess && <h2 className="edit-left-section__success">Sent successfully!</h2>}
+
       <EditActions
         isSubmitting={isSubmitting}
         errors={errors}
         changeFunctions={functionProps}
       />
-
-      {isSuccess && <h2 className="edit-left-section__success">Sent successfully!</h2>}
     </div>
   );
 });

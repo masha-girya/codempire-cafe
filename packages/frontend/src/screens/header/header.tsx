@@ -17,7 +17,7 @@ export const Header = () => {
         <div className="header__container-menus">
           <div className="header__menu">
             <div className="header__logo">
-              <Link to={ROUTE.MAIN_PAGE_DISH}>
+              <Link to={ROUTE.MAIN_PAGE_DISHES}>
                 <Icon type="logoWhite" />
               </Link>
             </div>

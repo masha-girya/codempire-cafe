@@ -9,10 +9,11 @@ import './orders-list.scss';
 interface IProps {
   orders: IOrder[],
   orderDate: string,
+  isNotifications?: boolean,
 }
 
 export const OrdersList = (props: IProps) => {
-  const { orders, orderDate } = props;
+  const { orders, orderDate, isNotifications } = props;
 
   const ordersToMap = orders.filter(order => (
     dayjs(order.date).format(TIME.DATE) === orderDate
@@ -25,7 +26,7 @@ export const OrdersList = (props: IProps) => {
           {getFormattedDate(orderDate)}
         </li>
         {ordersToMap.map(order => (
-          <OrdersField order={order} key={order.id} />)
+          <OrdersField order={order} key={order.id} isNotifications={isNotifications} />)
         )}
       </ul>
     </div>

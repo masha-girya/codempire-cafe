@@ -1,30 +1,18 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { IOrderInfo, ROLE } from 'types';
-import { useReload, useRequest } from 'utils/hooks';
-import { getOrderByNumber } from 'utils/api';
+import { useOrdersRequest, useReload } from 'utils/hooks';
 import { useAppSelector } from 'store';
+import { ROLE, STATUS } from 'types';
 
 export const useOrder = () => {
   const navigate = useNavigate();
   const { role } = useAppSelector(state=> state.user);
   const { number } = useParams();
   const { pathname } = useLocation();
-  const { sendUniqueRequest, isLoading } = useRequest();
-  const [ order, setOrder ] = useState<IOrderInfo | null>(null);
+  const { loadOrder, order, isLoading, updateOrder } = useOrdersRequest({});
   const { isReload, handleReload } = useReload();
 
   const isManager = role === ROLE.manager;
-
-  const loadOrder = useCallback(async() => {
-    const response: IOrderInfo = await sendUniqueRequest(() => (
-      getOrderByNumber(number || '')
-    ));
-
-    if(response) {
-      setOrder(response);
-    }
-  }, []);
 
   const handleClose = useCallback(() => {
     const index = pathname.lastIndexOf('/');
@@ -33,8 +21,18 @@ export const useOrder = () => {
   }, [pathname]);
 
   useEffect(() => {
-    loadOrder();
+    loadOrder(number);
   }, [isReload]);
+
+  useEffect(() => {
+    if(role === ROLE.manager && order?.status === STATUS.created) {
+      updateOrder(number, { watchedManager: 'watched' });
+    }
+
+    if(role === ROLE.user && order?.status === STATUS.ready) {
+      updateOrder(number, { watchedUser: 'watched' });
+    }
+  }, [order]);
 
   return { order, isLoading, isManager, handleClose, handleReload };
 };

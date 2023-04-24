@@ -25,7 +25,7 @@ export const Auth = (props: IProps) => {
       <HeaderAuth text={headerText} />
 
       {isUser ? (
-        <Navigate to={ROUTE.MAIN_PAGE_DISH} />
+        <Navigate to={ROUTE.MAIN_PAGE_DISHES} />
       ) : (
         <div className="auth">
           {isStart ? (

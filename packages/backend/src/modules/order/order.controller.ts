@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { AuthenticatedRequest, ROLE, STATUS } from 'types';
+import { AuthenticatedRequest, ROLE, STATUS, TWatchStatus } from 'types';
 import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 import { CreatedOrderDto, OrderService } from '../order';
 
@@ -25,10 +25,17 @@ export class OrderController {
     @Request() req: AuthenticatedRequest,
     @Query('status') status: STATUS[],
     @Query('sortBy') sortBy: string,
+    @Query('watchedManager') watchedManager?: TWatchStatus,
+    @Query('watchedUser') watchedUser?: TWatchStatus,
   ) {
-    const arrayStatus = Array.isArray(status) ? status : [status];
+    const query = {
+      status: Array.isArray(status) ? status : [status],
+      sortBy,
+      watchedManager,
+      watchedUser,
+    };
 
-    return this.orderService.getOrders(arrayStatus, sortBy, req.user);
+    return this.orderService.getOrders(query, req.user);
   }
 
   @UseGuards(JwtAuthGuard)

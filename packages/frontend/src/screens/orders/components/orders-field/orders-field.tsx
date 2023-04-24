@@ -5,26 +5,34 @@ import utc from 'dayjs/plugin/utc';
 import { Icon } from 'components/icon';
 import { IOrder } from 'types';
 import { TIME_CONSTANTS as TIME } from 'constants-app';
-import { cutText } from 'utils/helpers';
+import { useOrdersField } from './orders-field.state';
 import './orders-field.scss';
 
 interface IProps {
   order: IOrder,
+  isNotifications?: boolean,
 }
 
-export const OrdersField = ({ order }: IProps) => {
+export const OrdersField = ({ order, isNotifications }: IProps) => {
   dayjs.extend(utc);
 
-  const { date, number, dishId, menuId } = order;
-
-  const orderItems = [...dishId, ...menuId].join(', ');
+  const { date, number} = order;
+  const {
+    link,
+    orderItemsText,
+    notificationText,
+    isFreshNotification,
+  } = useOrdersField({ order, isNotifications });
 
   return (
-    <li className="field">
-      <Link to={`${number}`} className="field__link">
-        <div className="right">
+    <li className={isFreshNotification
+      ? 'field field--fresh'
+      : 'field'
+    }>
+      <Link to={link} className="field__link">
+        <div>
           <h5 className="field__right--number">
-            {number}
+            {isNotifications ? notificationText : number}
           </h5>
 
           <p className="field__right--time">
@@ -32,9 +40,7 @@ export const OrdersField = ({ order }: IProps) => {
           </p>
         </div>
 
-        <p className="field__center">
-          {cutText(orderItems)}
-        </p>
+        {!isNotifications && <p className="field__center">{orderItemsText}</p>}
 
         <Icon type="rightArrow" />
       </Link>

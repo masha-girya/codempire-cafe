@@ -8,13 +8,14 @@ import {
   TopMenu,
 } from './components';
 import { FilterContextProvider } from '../main';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 import './main.scss';
 
 export const Main = () => {
   const location = useLocation();
 
-  const locationMenu = location.pathname.includes('menus');
-  const locationDish = location.pathname.includes('dishes');
+  const locationMenu = location.pathname.includes(PATHNAME.MENUS);
+  const locationDish = location.pathname.includes(PATHNAME.DISHES);
 
   return (
     <div className="main">

@@ -30,7 +30,7 @@ export const TopMenu = (props: IProps) => {
   return (
     <div className="top-menu">
       <div className="top-menu__buttons">
-        <Link to={ROUTE.MAIN_PAGE_DISH}>
+        <Link to={ROUTE.MAIN_PAGE_DISHES}>
           <MainButton
             type="button"
             text="dish"
@@ -39,7 +39,7 @@ export const TopMenu = (props: IProps) => {
           />
         </Link>
 
-        <Link to={ROUTE.MAIN_PAGE_MENU}>
+        <Link to={ROUTE.MAIN_PAGE_MENUS}>
           <MainButton
             type="button"
             text="menu"

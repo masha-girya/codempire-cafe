@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { STATUS } from 'types';
-import { changeOrder } from 'utils/api';
-import { useRequest } from 'utils/hooks';
+import { IOrder, STATUS } from 'types';
+import { useOrdersRequest } from 'utils/hooks';
 
 interface IProps {
   handleReload: () => void,
@@ -10,14 +9,14 @@ interface IProps {
 
 export const useOrderAccepting = ({ handleReload }: IProps) => {
   const { number } = useParams();
-  const { sendUniqueRequest, isError, isLoading } = useRequest();
+  const { updateOrder, isError, isLoading } = useOrdersRequest({});
 
   const handleAccept = useCallback(async() => {
-    const data = { status: STATUS.onWay };
+    const data: Partial<IOrder> = { status: STATUS.ready, watchedUser: 'unwatched' };
     let request;
 
     if(number) {
-      request = await sendUniqueRequest(() => changeOrder(number, data));
+      request = await updateOrder(number, data);
     }
 
     if(request) {
@@ -30,7 +29,7 @@ export const useOrderAccepting = ({ handleReload }: IProps) => {
     let request;
 
     if(number) {
-      request = await sendUniqueRequest(() => changeOrder(number, data));
+      request = await updateOrder(number, data);
     }
 
     if(request) {

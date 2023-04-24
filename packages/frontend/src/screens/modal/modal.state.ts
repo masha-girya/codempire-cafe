@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Params, useNavigate } from 'react-router-dom';
+import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 
 interface IProps {
   pathname: string,
@@ -10,11 +11,12 @@ export const useModal = ({ pathname, params }: IProps) => {
   const navigate = useNavigate();
   const [ isEditOnSuccess, setIsEditOnSuccess ] = useState(false);
 
-  const isUser = pathname.includes('user');
-  const isPass = pathname.includes('pass');
-  const isAddress = pathname.includes('address');
-  const isOrder = pathname.includes('order-creation');
-  const isCart = pathname.includes('cart');
+  const isUser = pathname.includes(PATHNAME.USER);
+  const isPass = pathname.includes(PATHNAME.PASSWORD);
+  const isAddress = pathname.includes(PATHNAME.ADDRESS);
+  const isOrder = pathname.includes(PATHNAME.ORDER);
+  const isCart = pathname.includes(PATHNAME.CART);
+  const isNotifications = pathname.includes(PATHNAME.NOTIFICATIONS);
   const isOrderNumber = params.number;
 
   const navigateBack = () => {
@@ -42,6 +44,7 @@ export const useModal = ({ pathname, params }: IProps) => {
     isOrder,
     isEditOnSuccess,
     isOrderNumber,
+    isNotifications,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,
