@@ -6,4 +6,4 @@ export * from './headers.constants';
 export * from './sorting.constants';
 export * from './time.constants';
 export * from './pathname.constants';
-export * from './meta.constants';
+export * from './error.constants';

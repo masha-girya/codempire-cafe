@@ -17,6 +17,7 @@
   line-height: 14px;
   letter-spacing: 1.25px;
   color: var.$color-text-contrast;
+  transform: scale(1);
 
   transition: all var.$transition-main;
 
@@ -35,12 +36,17 @@
     }
   }
 
+  &:active {
+    background-color: var.$color-secondary;
+    transform: scale(0.95);
+  }
+
   &:disabled {
     background-color: var.$color-secondary;
     border-color: transparent;
     color: var.$color-text-contrast;
 
-    cursor: not-allowed;
+    cursor: auto;
   }
 
   &--secondary {

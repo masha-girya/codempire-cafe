@@ -63,6 +63,7 @@ export const OrderAddress = (props: IProps) => {
         handleChange={handleSortChange}
         sortingProps={SORT.ADDRESSES}
         isSmall={true}
+        label="Sorting by"
       />
     </div>
   );

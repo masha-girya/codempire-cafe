@@ -5,7 +5,10 @@ import { useRequest } from 'utils/hooks';
 import { updateUser } from 'utils/api';
 import { useAppDispatch, useAppSelector } from 'store';
 import { userActions } from 'store/features';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
+import {
+  ERROR_CONSTANTS as ERROR,
+  ROUTE_CONSTANTS as ROUTE,
+} from 'constants-app';
 
 interface IProps {
   setSuccess: Dispatch<SetStateAction<boolean>>;
@@ -35,12 +38,12 @@ export const useEditAddress = (props: IProps) => {
       const { enteredAddress } = values;
 
       if (totalAddresses.includes(enteredAddress)) {
-        setError('This address is already on the list');
+        setError(ERROR.ADDRESS_EXISTS);
         return;
       }
 
       if (enteredAddress.trim().length === 0) {
-        setError('Address can`t be empty');
+        setError(ERROR.ADDRESS_REQUIRED);
         return;
       }
 

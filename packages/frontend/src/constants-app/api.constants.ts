@@ -1,5 +1,6 @@
 export const API_CONSTANTS = {
   BASE_URL: 'http://localhost:3333',
+  API_CURRENCY_URL: 'https://min-api.cryptocompare.com/data/price',
   REGISTRATION_URL: '/user/register',
   LOGIN_URL: '/auth/login',
   VALIDATE_TOKEN_URL: '/auth/profile',

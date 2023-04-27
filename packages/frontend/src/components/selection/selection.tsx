@@ -9,7 +9,9 @@ interface IProps {
   sortBy: string,
   handleChange: (event: SelectChangeEvent<string>, child: ReactNode) => void,
   sortingProps: readonly string[],
+  label: string,
   isSmall?: boolean,
+  isNoEmptyValue?: boolean,
 }
 
 export const Selection = (props: IProps) => {
@@ -18,6 +20,8 @@ export const Selection = (props: IProps) => {
     sortingProps,
     handleChange,
     isSmall,
+    label,
+    isNoEmptyValue,
   } = props;
 
   return (
@@ -27,7 +31,7 @@ export const Selection = (props: IProps) => {
     >
       <FormControl variant="standard" className="selection__form">
         <InputLabel id="sort-label" className="selection__label">
-          Sorting by
+          {label}
         </InputLabel>
 
         <Select
@@ -36,11 +40,13 @@ export const Selection = (props: IProps) => {
           id="demo-simple-select-standard"
           value={sortBy}
           onChange={handleChange}
-          label="Sorting by"
+          label={label}
         >
-          <MenuItem value="">
-            <em>none</em>
-          </MenuItem>
+          {!isNoEmptyValue && (
+            <MenuItem value="">
+              <em>none</em>
+            </MenuItem>)
+          }
 
           {sortingProps.map(item => (
             <MenuItem key={item} value={item}>

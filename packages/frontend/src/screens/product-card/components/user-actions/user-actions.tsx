@@ -1,21 +1,23 @@
 import React from 'react';
 import { MainButton } from 'components/button';
-import { IProduct } from 'types';
+import { IMenu, IDish } from 'types';
+import { useUserActions } from './user-actions.state';
 
 interface IProps {
-  handleRemove: () => void,
-  handleAdd: () => void,
-  isItemInCart: IProduct | undefined,
-  isLoggedIn: boolean,
+  card: IMenu | IDish,
+  id: string,
 }
 
 export const UserActions = (props: IProps) => {
-  const { 
+  const { id, card } = props;
+
+   const {
     handleAdd,
     handleRemove,
     isItemInCart,
     isLoggedIn,
-   } = props;
+    isOnAction,
+  } = useUserActions({ card, id });
 
   return (
     <>
@@ -23,18 +25,19 @@ export const UserActions = (props: IProps) => {
         ? (
           <MainButton
             type="button"
-            text="Remove"
+            text={isOnAction ? 'Added!' : 'Remove'}
             isSmall={true}
             onHandleClick={handleRemove}
             isActive={true}
+            isDisabled={isOnAction}
           />)
         : (
           <MainButton
             type="button"
-            text="To cart"
+            text={isOnAction ? 'Removed!' : 'To cart'}
             isSmall={true}
             onHandleClick={handleAdd}
-            isDisabled={isLoggedIn}
+            isDisabled={isLoggedIn || isOnAction}
           />)
       }
     </>

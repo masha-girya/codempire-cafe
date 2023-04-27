@@ -1,5 +1,0 @@
-export const META_CONSTANTS = {
-  ADDRESS_TO: '0xF5122578C1a3d3c494D0A7326B255a8c3ADbcF5C',
-  API_CURRENCY_URL: 'https://min-api.cryptocompare.com/data/price',
-  API_CURRENCY_KEY: 'bb81d949cd3943270517aa822abf2ea7303448e1643347e5ff91338799782e42',
-} as const;

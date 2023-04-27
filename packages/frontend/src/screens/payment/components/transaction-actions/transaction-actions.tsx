@@ -1,18 +1,21 @@
 import React from 'react';
+import { ConnectionInfo } from '../../components';
+import { Selection } from 'components/selection';
 import { MainButton } from 'components/button';
-import { IOrder } from 'types';
+import { IOrder, ETHER } from 'types';
 import { useTransactionActions } from './transaction-actions.state';
-import './transaction-actions.scss';
 
 interface IProps {
-  order: IOrder;
-  setMetaResponse: React.Dispatch<React.SetStateAction<Error | string | null>>;
+  order: IOrder,
+  setMetaResponse: React.Dispatch<React.SetStateAction<Error | string | null>>,
 }
 
 export const TransactionActions = (props: IProps) => {
   const { order, setMetaResponse } = props;
   const {
     ethCost,
+    currency,
+    etherValues,
     isAddress,
     addressFrom,
     isConnected,
@@ -21,25 +24,25 @@ export const TransactionActions = (props: IProps) => {
     isPayDisabled,
     handlePay,
     handleLoadAddress,
+    handleSelectEther,
   } = useTransactionActions({ order, setMetaResponse });
 
   return (
     <>
-      <h2 className="transaction-actions__status">
-        {isAddress && isConnected && 'Successfully connected!'}
-        {!isAddress &&
-          isConnected &&
-          'Your MetaMask wallet is not connected yet'}
-        {!isAddress && !isConnected && 'You can pay only with MetaMask'}
-      </h2>
+      <ConnectionInfo
+        isLoading={isLoading}
+        isAddress={isAddress}
+        isConnected={isConnected}
+        metaError={metaError}
+      />
 
-      <h2 className="transaction-actions__error">{metaError}</h2>
-
-      {isLoading && (
-        <h2 className="transaction-actions__load">
-          On connection, do not close the window...
-        </h2>
-      )}
+      <Selection
+        sortBy={currency}
+        sortingProps={etherValues}
+        handleChange={handleSelectEther}
+        label="Choose currency"
+        isNoEmptyValue={true}
+      />
 
       <MainButton
         type="button"
@@ -52,7 +55,7 @@ export const TransactionActions = (props: IProps) => {
 
       <MainButton
         type="button"
-        text={`Pay ${ethCost} ETH`}
+        text={`Pay ${ethCost} ${ETHER[currency as keyof typeof ETHER]}`}
         onHandleClick={handlePay}
         isDisabled={isPayDisabled}
       />

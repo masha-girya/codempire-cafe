@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { META_CONSTANTS as META } from 'constants-app';
+import { ETHER } from 'types';
+import { API_CONSTANTS as API } from 'constants-app';
 
-export const getCurrencyRate = (async() => {
+export const getCurrencyRate = (async(currency: ETHER) => {
   const rateUAH = await axios.get(
-    `${META.API_CURRENCY_URL}?fsym=UAH&tsyms=ETH&api_key={${META.API_CURRENCY_KEY}}`
+    `${API.API_CURRENCY_URL}?fsym=UAH&tsyms=${currency}&api_key={${process.env.API_CURRENCY_KEY}}`
   );
 
   return rateUAH.data;

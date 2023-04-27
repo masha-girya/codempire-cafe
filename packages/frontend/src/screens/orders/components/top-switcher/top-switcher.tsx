@@ -16,14 +16,14 @@ interface IProps {
 }
 
 export const TopSwitcher = (props: IProps) => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const {
     handleSortChange,
     sortBy,
   } = props;
 
-  const isWaiting = location.pathname.includes(PATHNAME.ORDER_WAITING);
-  const isCompleted = location.pathname.includes(PATHNAME.ORDER_COMPLETED);
+  const isCompleted = pathname.includes(PATHNAME.ORDER_COMPLETED);
+  const isWaiting = pathname.includes(PATHNAME.ORDER_WAITING) || !isCompleted;
 
   return (
     <div className="top-switcher">
@@ -52,6 +52,7 @@ export const TopSwitcher = (props: IProps) => {
           handleChange={handleSortChange}
           sortBy={sortBy}
           sortingProps={SORT.ORDERS}
+          label="Sorting by"
         />
       </div>
     </div>
