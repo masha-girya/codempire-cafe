@@ -23,7 +23,9 @@ export const TransactionStatus = (props: IProps) => {
               <button
                 type="button"
                 onClick={handleCopy}
-                className='transaction-status__copy'
+                className={isCopied
+                  ? 'transaction-status__copy transaction-status__copy--copied'
+                  : 'transaction-status__copy'}
               >
                 {isCopied
                   ? <Icon type="checkMark" />

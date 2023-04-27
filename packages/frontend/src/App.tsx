@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Auth } from 'screens/auth';
 import { Error } from 'components/error';
 import { Main } from 'screens/main';
@@ -30,10 +30,13 @@ const App: React.FC = () => {
       />
 
       {/* MAIN */}
-      <Route path={ROUTE.MAIN_PAGE} element={
-          <Navigate to={ROUTE.MAIN_PAGE_DISHES} replace />
-        }
-      />
+      <Route path={ROUTE.MAIN_PAGE}  element={<Main />}>
+        <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+      </Route>
 
       <Route path={ROUTE.MAIN_PAGE_DISHES} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
@@ -103,9 +106,14 @@ const App: React.FC = () => {
       </Route>
 
       {/* ORDERS */}
-      <Route path={ROUTE.ORDERS} element={
-        <Navigate to={ROUTE.ORDERS_WAITING} replace/>}
-      />
+      <Route path={ROUTE.ORDERS} element={<Orders />}>
+        <Route path={ROUTE.CART} element={<Modal />} />
+        <Route path={ROUTE.ORDER} element={<Modal />} />
+        <Route path={ROUTE.PAYMENT} element={<Modal />} />
+
+        <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
+        <Route path={ROUTE.NUMBER} element={<Modal />} />
+      </Route>
 
       <Route path={ROUTE.ORDERS_COMPLETED} element={<Orders />}>
         <Route path={ROUTE.CART} element={<Modal />} />

@@ -9,7 +9,7 @@
   }
 
   &__result {
-    @include mixins.fontSubtitle1();
+    @include mixins.fontBody();
     font-weight: var.$font-weight-regular;
     letter-spacing: 0.5px;
     color: var.$color-text-button;
@@ -37,6 +37,12 @@
 
     &:hover:after {
       opacity: 1;
+    }
+
+    &--copied {
+      &:after {
+        content: 'Copied!';
+      }
     }
   }
 }

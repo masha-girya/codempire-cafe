@@ -76,6 +76,7 @@ export const TopMenu = (props: IProps) => {
           handleChange={handleChange}
           sortBy={sortBy}
           sortingProps={SORT.PRODUCTS}
+          label="Sorting by"
         />
       </div>
     </div>

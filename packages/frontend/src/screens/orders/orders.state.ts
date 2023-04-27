@@ -5,15 +5,16 @@ import { useRequest, useUser } from 'utils/hooks';
 import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 
 export const useOrders = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const { sendUniqueRequest } = useRequest();
   const { checkUser } = useUser();
 
   const [ isUser, setIsUser ] = useState(true);
   const [ sortBy, setSortBy ] = useState('');
 
-  const locationWaiting = location.pathname.includes(PATHNAME.ORDER_WAITING);
-  const locationCompleted = location.pathname.includes(PATHNAME.ORDER_COMPLETED);
+  const locationCompleted = pathname.includes(PATHNAME.ORDER_COMPLETED);
+  const locationWaiting = pathname.includes(PATHNAME.ORDER_WAITING)
+    || !locationCompleted;
 
   const loadUser = useCallback(async () => {
     const user = await sendUniqueRequest(checkUser);

@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react';
+import { Unit } from 'web3-utils';
 import Web3 from 'web3';
+import { TransactionReceipt } from 'web3-core';
 import fx from 'money';
-import { META_CONSTANTS as META } from 'constants-app';
+import { ETHER } from 'types';
+import { ERROR_CONSTANTS as ERROR } from 'constants-app';
 import { useRequest } from 'utils/hooks';
 import { getCurrencyRate } from 'utils/api';
 
@@ -25,7 +28,7 @@ export const useMeta = () => {
     }
 
     setIsConnected(false);
-    setMetaError('Please, download MetaMask extension');
+    setMetaError(ERROR.META_NOT_AVAILABLE);
   }, []);
 
   const connectToAccount = useCallback(async() => {
@@ -37,18 +40,19 @@ export const useMeta = () => {
         return;
       }
 
-      setMetaError('You have to choose MetaMask account');
+      setMetaError(ERROR.META_NO_ACCOUNT);
     });
 
     return;
   }, []);
 
-  const getCurrency = useCallback(async(priceUAH: string) => {
-    const rates = await sendUniqueRequest(getCurrencyRate);
-    fx.base = 'UAH';
-    fx.rates = { 'ETH': rates.ETH };
+  const getCurrency = useCallback(async(priceUAH: string, currency = ETHER.ether) => {
+    const rates = await sendUniqueRequest(() => getCurrencyRate(currency));
 
-    const priceETH = fx(priceUAH).from('UAH').to('ETH');
+    fx.base = 'UAH';
+    fx.rates = { [currency]: rates[currency] };
+
+    const priceETH = fx(priceUAH).from('UAH').to(currency);
 
     if(priceETH) {
       setEthCost(priceETH);
@@ -58,27 +62,30 @@ export const useMeta = () => {
   const getTxRecipe = useCallback(async(hash: string) => {
     setIsLoading(true);
 
-    const checkRecipeLoop: any = sendUniqueRequest(() => (
-      web3.eth.getTransactionReceipt(hash, (err, res) => {
-
+    const checkRecipeLoop: () => Promise<TransactionReceipt> = async() => (
+      await web3.eth.getTransactionReceipt(hash, (err, res) => {
         if(res) {
-          return res.transactionHash;
+          return res;
         }
 
         return checkRecipeLoop();
       })
-    ));
+    );
 
     setIsLoading(false);
 
     return checkRecipeLoop();
   }, []);
 
-  const createTx = useCallback(async(priceETH: string, addressFrom: string) => {
-    const value = web3.utils.toWei(priceETH.toString());
+  const createTx = useCallback(async(
+    priceETH: string,
+    addressFrom: string,
+    currency?: Partial<Unit>,
+  ) => {
+    const value = web3.utils.toWei(priceETH.toString(), currency);
 
     const txObject = {
-      to: META.ADDRESS_TO,
+      to: process.env.REACT_APP_ADDRESS_TO,
       from: addressFrom,
       value,
     };
@@ -92,7 +99,9 @@ export const useMeta = () => {
       })
     ));
 
-    const recipe = await getTxRecipe(response.transactionHash);
+    const recipe = await sendUniqueRequest(() => (
+      getTxRecipe(response.transactionHash)
+    ));
 
     return recipe.transactionHash;
   }, []);

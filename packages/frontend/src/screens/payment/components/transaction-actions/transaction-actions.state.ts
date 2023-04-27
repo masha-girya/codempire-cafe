@@ -1,6 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Unit } from 'web3-utils';
+import { SelectChangeEvent } from '@mui/material';
 import { useMeta, useOrdersRequest } from 'utils/hooks';
-import { IOrder } from 'types';
+import { IOrder, ETHER } from 'types';
 
 interface IProps {
   order: IOrder;
@@ -25,15 +27,22 @@ export const useTransactionActions = (props: IProps) => {
   const { totalPrice, number } = order;
 
   const isAddress = addressFrom.length > 0;
-
   const isPayDisabled = !isAddress || metaError.length > 0 || isLoading;
+  const etherValues: Partial<Unit>[] = Object.keys(ETHER) as Partial<Unit>[];
+
+  const [ currency, setCurrency ] = useState(etherValues[0]);
+
+  const handleSelectEther = (event: SelectChangeEvent<string>) => {
+    const value = event.target.value as keyof typeof ETHER;
+    setCurrency(value);
+  };
 
   const handleLoadAddress = useCallback(async () => {
     await connectToAccount();
   }, []);
 
   const handlePay = useCallback(async () => {
-    const recipe = await createTx(ethCost.toString(), addressFrom);
+    const recipe = await createTx(ethCost.toString(), addressFrom, currency);
 
     if (recipe) {
       setMetaResponse(recipe);
@@ -42,22 +51,28 @@ export const useTransactionActions = (props: IProps) => {
     if (typeof recipe === 'string') {
       updateOrder(number.toString(), { paymentHash: recipe });
     }
-  }, [addressFrom]);
+  }, [addressFrom, currency]);
 
   useEffect(() => {
     checkMetaMaskConnection();
-    getCurrency(totalPrice.toString());
   }, []);
+
+  useEffect(() => {
+    getCurrency(totalPrice.toString(), ETHER[currency as keyof typeof ETHER]);
+  }, [currency]);
 
   return {
     ethCost,
+    currency,
     isAddress,
     addressFrom,
+    etherValues,
     metaError,
     isLoading,
     isConnected,
     isPayDisabled,
     handlePay,
     handleLoadAddress,
+    handleSelectEther,
   };
 };

@@ -23,14 +23,7 @@ export const ProductCard = (props: IProps) => {
     image,
    } = card;
 
-   const {
-    link,
-    role,
-    isItemInCart,
-    handleAdd,
-    handleRemove,
-    isLoggedIn,
-  } = useProductCard({ id, card });
+   const { link, role } = useProductCard({ id, card });
 
   return (
     <div className="card">
@@ -58,13 +51,7 @@ export const ProductCard = (props: IProps) => {
         </Link>
 
           {role === ROLE.user
-            ? (
-              <UserActions
-                handleRemove={handleRemove}
-                handleAdd={handleAdd}
-                isItemInCart={isItemInCart}
-                isLoggedIn={isLoggedIn}
-              />)
+            ? <UserActions card={card} id={id} />
             : (
               <ManagerActions
                 id={id}

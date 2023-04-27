@@ -13,3 +13,4 @@ export * from './Role.type';
 export * from './FormikProduct.type';
 export * from './ChangeProductFunctions.type';
 export * from './WatchStatus.type';
+export * from './Ether.type';

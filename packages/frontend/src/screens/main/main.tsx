@@ -12,10 +12,10 @@ import { PATHNAME_CONSTANTS as PATHNAME } from 'constants-app';
 import './main.scss';
 
 export const Main = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const locationMenu = location.pathname.includes(PATHNAME.MENUS);
-  const locationDish = location.pathname.includes(PATHNAME.DISHES);
+  const locationMenu = pathname.includes(PATHNAME.MENUS);
+  const locationDish = pathname.includes(PATHNAME.DISHES) || !locationMenu;
 
   return (
     <div className="main">

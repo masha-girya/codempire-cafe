@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  ERROR_CONSTANTS as ERROR,
+  STORAGE_CONSTANTS as STORAGE
+} from 'constants-app';
 import { useNavigateBack, useOrdersRequest } from 'utils/hooks';
-import { STORAGE_CONSTANTS as STORAGE } from 'constants-app';
 import { getLocalItem } from 'utils/helpers';
 
 interface IProps {
@@ -30,7 +33,7 @@ export const usePayment = (props: IProps) => {
     if(number) {
       await getOrder(number);
     } else {
-      setError('Can not find order`s number');
+      setError(ERROR.ORDER_NOT_FOUND);
     }
   }, [number]);
 
