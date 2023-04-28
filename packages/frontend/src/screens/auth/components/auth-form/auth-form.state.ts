@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const useAuthForm = (props: IProps) => {
-  const { sendAuthRequest, isError, setIsError } = useRequest();
+  const { sendAuthRequest, isError, setIsError, isLoading } = useRequest();
   const { isSignUp } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -57,6 +57,10 @@ export const useAuthForm = (props: IProps) => {
 
   const { values } = formik;
 
+  const handleSkipClick = () => {
+    navigate(ROUTE.MAIN_PAGE_DISHES);
+  };
+
   useEffect(() => {
     if (values.email.length && values.password.length) {
       setIsButtonDisabled(false);
@@ -71,8 +75,9 @@ export const useAuthForm = (props: IProps) => {
 
   return {
     formik,
-    navigate,
+    handleSkipClick,
     isError,
+    isLoading,
     isButtonDisabled,
   };
 };

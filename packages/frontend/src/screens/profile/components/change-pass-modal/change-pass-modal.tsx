@@ -76,6 +76,7 @@ export const ChangePassModal = (props: IProps) => {
             type="submit"
             text="Create"
             isDisabled={formik.isSubmitting}
+            isLoading={formik.isSubmitting}
           />
         </div>
       </form>

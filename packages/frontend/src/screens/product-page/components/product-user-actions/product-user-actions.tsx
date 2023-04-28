@@ -35,13 +35,6 @@ export const ProductUserActions = (props: IProps) => {
             isDisabled={isLoggedIn}
           />)
       }
-
-      <MainButton
-        type="button"
-        text="Skip"
-        isSecondary={true}
-        onHandleClick={handleRemove}
-      />
     </>
   );
 };

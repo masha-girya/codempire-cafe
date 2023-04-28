@@ -9,7 +9,7 @@ export const Error = () => {
       <HeaderAuth text="error" />
 
       <div className="error">
-        <h1 className="error__message">Error occurred</h1>
+        <h1 className="error__message">Page not found</h1>
         <Link to='/' className="error__link">Go Home</Link>
       </div>
     </>

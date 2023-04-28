@@ -2,14 +2,20 @@
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(3, 226px);
-  gap: 21px;
-  align-content: start;
-
-  margin-bottom: var.$height-bottom-menu + var.$padding-bottom-menu + 21px;
+  grid-template-columns: 1fr 3fr;
 
   &__container {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: repeat(3, 226px);
+    gap: 21px;
+    align-content: start;
+
+    margin-bottom: var.$height-bottom-menu + var.$padding-bottom-menu + 21px;
+  }
+
+  &__loader {
+    position: absolute;
+    left: 770px;
+    top: 255px;
   }
 }

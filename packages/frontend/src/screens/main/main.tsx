@@ -32,7 +32,6 @@ export const Main = () => {
             <Sidebar />
 
             {locationMenu && <ProductList productOnLoad="menus" />}
-
             {locationDish && <ProductList productOnLoad="dishes" />}
 
             <Outlet />

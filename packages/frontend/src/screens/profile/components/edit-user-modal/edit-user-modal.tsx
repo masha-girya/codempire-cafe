@@ -29,6 +29,7 @@ export const EditUserModal = (props: IProps) => {
     values,
     handleChange,
     handleSubmit,
+    isSubmitting,
   } = formik;
 
   return (
@@ -115,6 +116,8 @@ export const EditUserModal = (props: IProps) => {
           <MainButton
             type="submit"
             text="Create"
+            isLoading={isSubmitting}
+            isDisabled={isSubmitting}
           />
         </div>
       </form>

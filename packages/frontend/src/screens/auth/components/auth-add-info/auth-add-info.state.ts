@@ -8,7 +8,7 @@ import { useAppSelector } from 'store';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 
 export const useAuthAddInfo = () => {
-  const { sendAuthRequest } = useRequest();
+  const { sendAuthRequest, isLoading } = useRequest();
   const navigate = useNavigate();
 
   const { id, email } = useAppSelector((state) => state.user);
@@ -56,5 +56,6 @@ export const useAuthAddInfo = () => {
   return {
     formik,
     isButtonDisabled,
+    isLoading,
   };
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Loader } from 'components/loader';
 import { OrdersList } from 'screens/orders/components';
 import { useNotificationsManager } from './notifications-manager.state';
 
@@ -8,7 +9,7 @@ export const NotificationsManager = () => {
   return (
     <>
       {isLoading
-        ? <p>Loading...</p>
+        ? <Loader isDark={true} />
         : (
           ordersDate.map(date => (
             <OrdersList

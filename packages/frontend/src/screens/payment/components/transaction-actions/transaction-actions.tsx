@@ -4,6 +4,7 @@ import { Selection } from 'components/selection';
 import { MainButton } from 'components/button';
 import { IOrder, ETHER } from 'types';
 import { useTransactionActions } from './transaction-actions.state';
+import './transaction-actions.scss';
 
 interface IProps {
   order: IOrder,
@@ -29,13 +30,6 @@ export const TransactionActions = (props: IProps) => {
 
   return (
     <>
-      <ConnectionInfo
-        isLoading={isLoading}
-        isAddress={isAddress}
-        isConnected={isConnected}
-        metaError={metaError}
-      />
-
       <Selection
         sortBy={currency}
         sortingProps={etherValues}
@@ -44,20 +38,33 @@ export const TransactionActions = (props: IProps) => {
         isNoEmptyValue={true}
       />
 
-      <MainButton
-        type="button"
-        text={isAddress ? addressFrom : 'Connect to MetaMask'}
-        isContentWidth={isAddress}
-        onHandleClick={handleLoadAddress}
-        isPayment={true}
-        isDisabled={isAddress || !isConnected}
+      <ConnectionInfo
+        isLoading={isLoading}
+        isAddress={isAddress}
+        isConnected={isConnected}
+        metaError={metaError}
       />
+
+      {isAddress
+        ? <h4 className="transaction-actions__address">{addressFrom}</h4>
+        : (
+          <MainButton
+            type="button"
+            text="Connect to MetaMask"
+            onHandleClick={handleLoadAddress}
+            isPayment={true}
+            isDisabled={!isConnected || isLoading}
+            isLoading={isLoading}
+          />
+        )
+      }
 
       <MainButton
         type="button"
         text={`Pay ${ethCost} ${ETHER[currency as keyof typeof ETHER]}`}
         onHandleClick={handlePay}
         isDisabled={isPayDisabled}
+        isLoading={isLoading}
       />
     </>
   );

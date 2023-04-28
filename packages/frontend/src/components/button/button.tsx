@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Loader } from 'components/loader';
 import { TButton } from '../button';
 import './button.scss';
 
@@ -18,6 +19,7 @@ interface IProps {
   isDanger?: boolean,
   isContentWidth?: boolean,
   isPayment?: boolean,
+  isLoading?: boolean,
 }
 
 export const MainButton = (props: IProps) => {
@@ -36,6 +38,7 @@ export const MainButton = (props: IProps) => {
     isContentWidth,
     isDanger,
     isPayment,
+    isLoading,
   } = props;
 
   return (
@@ -55,7 +58,7 @@ export const MainButton = (props: IProps) => {
         })}
       >
         {iconStart}
-        {text}
+        {isLoading ? <Loader /> : text}
         {iconEnd}
       </button>
   );

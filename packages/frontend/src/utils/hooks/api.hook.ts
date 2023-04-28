@@ -40,6 +40,7 @@ export const useRequest = () => {
 
   const sendProductsRequest = useCallback(async (callback: () => Promise<IDish[] | IMenu[]>) => {
     try{
+      setIsLoading(true);
       setIsError(false);
       return await callback();
     } catch (error) {

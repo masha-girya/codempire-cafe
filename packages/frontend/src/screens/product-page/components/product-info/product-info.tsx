@@ -35,7 +35,7 @@ export const ProductInfo = memo(({ product }: IProps) => {
       <h4 className="info__subtitle">Allergens:</h4>
 
       <p className="info__text">
-        {allergens.length > 0 ? allergens : 'None'}
+        {allergens.length > 0 ? allergens.join(', ') : 'None'}
       </p>
     </div>
   );

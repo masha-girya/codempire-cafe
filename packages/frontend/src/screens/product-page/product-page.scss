@@ -4,4 +4,10 @@
 .product-page {
   max-width: 960px;
   margin: 0 auto;
+
+  &--util {
+    display: grid;
+    place-items: center;
+    margin-top: 140px;
+  }
 }

@@ -53,7 +53,7 @@ export const useProductEdit = ({ product }: IProps) => {
       }
 
       if(isOnAdd && response) {
-        formik.resetForm();
+        setTimeout(() => formik.resetForm(), 2000);
       }
     }
   });
