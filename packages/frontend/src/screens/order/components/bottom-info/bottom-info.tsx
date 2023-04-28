@@ -70,6 +70,7 @@ export const BottomInfo = (props: IProps) => {
           type="button"
           onHandleClick={handleClick}
           isDisabled={isLoading}
+          isLoading={isLoading}
         />
       </div>
     </div>

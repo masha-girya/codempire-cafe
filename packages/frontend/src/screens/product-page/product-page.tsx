@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { Header } from '../../screens/header';
+import { Loader } from 'components/loader';
 import { BottomBar } from 'components/bottom-bar';
 import { ProductWrapper } from './components';
 import { ProductEdit } from 'screens/product-edit';
@@ -28,29 +29,27 @@ export const ProductPage = () => {
 
       <Outlet />
 
-      {isLoading && <p>Loading...</p>}
-
-      {isError && <p>Something went wrong</p>}
-
-      {isOnAdd && (
-        <div className="product-page">
-          <ProductEdit
-            product={productToAdd}
-            isOnAdd={isOnAdd}
-          />
-        </div>)
-      }
-
-      {product && (
-        <div className="product-page">
+      <div className="product-page">
+        {isLoading && (
+          <div className="product-page--util">
+            <Loader isDark={true} />
+          </div>)
+        }
+        {isError && (
+          <div className="product-page--util">
+            <p>Something went wrong</p>
+          </div>)
+        }
+        {isOnAdd && <ProductEdit product={productToAdd} isOnAdd={isOnAdd} />}
+        {product && (
           <ProductWrapper
             product={product}
             pathname={pathname}
             recommended={recommended}
             handleReload={handleReload}
-          />
-        </div>
-      )}
+          />)
+        }
+      </div>
 
       <BottomBar />
     </div>

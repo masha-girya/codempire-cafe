@@ -53,7 +53,7 @@ export const useBottomInfo = (props: IProps) => {
 
   const buttonText = useMemo(() => {
     if(role === ROLE.user && status === STATUS.delivered) {
-      return 'create';
+      return 'set mark';
     } else if(role === ROLE.user && !paymentHash) {
       return 'pay';
     }
@@ -63,7 +63,7 @@ export const useBottomInfo = (props: IProps) => {
 
   const handleClick = () => {
     switch(buttonText) {
-      case 'create':
+      case 'set mark':
         return handleCreate();
 
       case 'pay':

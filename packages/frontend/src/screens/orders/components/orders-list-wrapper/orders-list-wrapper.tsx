@@ -1,4 +1,5 @@
 import React from 'react';
+import { Loader } from 'components/loader';
 import { OrdersList } from '../../components';
 import { useOrdersListWrapper } from './orders-list-wrapper.state';
 
@@ -18,7 +19,7 @@ export const OrdersListWrapper = ({ sortBy, ordersOnLoad }: IProps) => {
   return (
     <>
       {isLoading
-        ? <p>Loading...</p>
+        ? <Loader isDark={true} />
         : ordersDate.map(date => (
           <OrdersList
             orderDate={date}

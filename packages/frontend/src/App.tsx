@@ -13,6 +13,8 @@ import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 const App: React.FC = () => {
   return (
     <Routes>
+      <Route path="*" element={<Error />} />
+
       {/* AUTH */}
       <Route path={ROUTE.HOME} element={
           <Auth isSignUp={false}isStart={true} />

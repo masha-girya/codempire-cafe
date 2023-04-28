@@ -1,0 +1,9 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.transaction-actions {
+  &__address {
+    @include mixins.fontSubtitle1Bold();
+    color: var.$color-text-button;
+  }
+}

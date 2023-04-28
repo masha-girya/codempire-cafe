@@ -22,6 +22,7 @@ export const OrderAccepting = ({ isCreated, handleReload }: IProps) => {
         text="Accept"
         isDisabled={!isCreated || isLoading}
         onHandleClick={handleAccept}
+        isLoading={isLoading}
       />
 
       {isError && <p>You cant accept this order now</p>}
@@ -31,6 +32,7 @@ export const OrderAccepting = ({ isCreated, handleReload }: IProps) => {
           type="button"
           text="Close order"
           onHandleClick={handleClose}
+          isLoading={isLoading}
         />
       )}
     </>

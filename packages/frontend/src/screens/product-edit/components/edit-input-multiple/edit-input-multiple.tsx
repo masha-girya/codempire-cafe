@@ -5,7 +5,7 @@ import { IChangeProductFunctions } from 'types';
 import './edit-input-multiple.scss';
 
 interface IProps {
-  name: string,
+  inputName: string,
   chipName: string,
   chipValue: string[],
   inputValue: string,
@@ -16,7 +16,7 @@ interface IProps {
 
 export const EditInputMultiple = memo((props: IProps) => {
   const {
-    name,
+    inputName,
     chipName,
     chipValue,
     inputValue,
@@ -30,16 +30,16 @@ export const EditInputMultiple = memo((props: IProps) => {
     handleChipRemove,
   } = changeFunctions;
 
-  const handleIngredientsAdd = () => handleChipAdd(
+  const handleAdd = () => handleChipAdd(
     inputValue,
     chipValue,
-    name,
     chipName,
+    inputName,
   );
 
   return (
     <div className="edit-input-multiple">
-      <label htmlFor={name} className="edit-input-multiple__label">
+      <label htmlFor={inputName} className="edit-input-multiple__label">
         {`${chipName[0].toUpperCase()}${chipName.slice(1)}:`}
       </label>
 
@@ -56,10 +56,10 @@ export const EditInputMultiple = memo((props: IProps) => {
 
       <Input
         type="text"
-        name={name}
-        id={name}
+        name={inputName}
+        id={inputName}
         isMultiple={true}
-        handleMultiple={handleIngredientsAdd}
+        handleMultiple={handleAdd}
         placeholder={`Add ${chipName}`}
         value={inputValue}
         onChange={handleChange}

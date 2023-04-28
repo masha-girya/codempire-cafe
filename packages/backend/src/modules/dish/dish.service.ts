@@ -113,11 +113,10 @@ export class DishService {
     const { categories, ingredients } = dish;
 
     const recommended = await this.dishRepository.find({
-      where: {
-        id: Not(id),
-        categories: ArrayOverlap(categories),
-        ingredients: ArrayOverlap(ingredients),
-      }
+      where: [
+        { categories: ArrayOverlap(categories), id: Not(id) },
+        { ingredients: ArrayOverlap(ingredients), id: Not(id) },
+      ],
     });
 
     const updatedDishes: CreatedDishDto[] = recommended.map(dish => {

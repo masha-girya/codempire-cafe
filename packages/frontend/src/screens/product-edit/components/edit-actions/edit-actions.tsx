@@ -32,6 +32,7 @@ export const EditActions = (props: IProps) => {
         type="submit"
         onHandleClick={handleSubmit}
         isDisabled={isSubmitting || Object.keys(errors).length > 0}
+        isLoading={isSubmitting}
       />
     </div>
   );

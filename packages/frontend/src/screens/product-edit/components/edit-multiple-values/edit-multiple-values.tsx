@@ -43,7 +43,7 @@ export const EditMultipleValues = memo((props: IProps) => {
       ) : (
         <>
           <EditInputMultiple
-            name="ingredientsOnAdd"
+            inputName="ingredientOnAdd"
             chipName="ingredients"
             errorsValue={errorsIngredients}
             errorsChip={errorsIngredientOnAdd}
@@ -53,7 +53,7 @@ export const EditMultipleValues = memo((props: IProps) => {
           />
 
           <EditInputMultiple
-            name="allergenOnAdd"
+            inputName="allergenOnAdd"
             chipName="allergens"
             chipValue={allergens}
             inputValue={allergenOnAdd}

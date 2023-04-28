@@ -5,7 +5,7 @@ import { useAuthAddInfo } from './auth-add-info.state';
 import './auth-add-info.scss';
 
 export const AuthAddInfo = () => {
-  const { formik, isButtonDisabled } = useAuthAddInfo();
+  const { formik, isButtonDisabled, isLoading } = useAuthAddInfo();
 
   const {
     touched,
@@ -63,6 +63,7 @@ export const AuthAddInfo = () => {
             text="Next"
             type="submit"
             isDisabled={isButtonDisabled}
+            isLoading={isLoading}
           />
         </div>
       </form>

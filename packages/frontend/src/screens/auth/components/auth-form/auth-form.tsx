@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Input } from 'components/input';
 import { MainButton } from 'components/button';
 import { AuthLinks } from '../../components';
-import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
 import { useAuthForm } from './auth-form.state';
 import './auth-form.scss';
 
@@ -13,19 +12,23 @@ interface IProps {
 export const AuthForm = (props: IProps) => {
   const { isSignUp } = props;
 
-  const { formik, isError, isButtonDisabled, navigate } = useAuthForm({
+  const {
+    formik,
+    isError,
+    isButtonDisabled,
+    handleSkipClick,
+    isLoading,
+  } = useAuthForm({
     isSignUp,
   });
 
-  const { touched, errors, values, handleChange, handleSubmit } = formik;
-
-  const buttonText = useMemo(() => {
-    return isSignUp ? 'Create' : 'Log in';
-  }, [isSignUp]);
-
-  const handleSkipClick = () => {
-    navigate(ROUTE.MAIN_PAGE_DISHES);
-  };
+  const {
+    touched,
+    errors,
+    values,
+    handleChange,
+    handleSubmit,
+  } = formik;
 
   return (
     <form className="auth-form__form-field" onSubmit={handleSubmit}>
@@ -74,9 +77,10 @@ export const AuthForm = (props: IProps) => {
 
       <div className="auth-form__button">
         <MainButton
-          text={buttonText}
+          text={isSignUp ? 'Create' : 'Log in'}
           type="submit"
           isDisabled={isButtonDisabled}
+          isLoading={isLoading}
         />
       </div>
 
