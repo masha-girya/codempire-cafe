@@ -39,7 +39,7 @@ export class OrderEntity {
   @Generated()
   number: number;
 
-  @Column('int')
+  @Column('int', { nullable: true })
   totalPrice: number;
 
   @Column('character varying', { nullable: true })
