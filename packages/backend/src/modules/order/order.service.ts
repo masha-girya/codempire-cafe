@@ -171,7 +171,9 @@ export class OrderService {
   ) {
     const order = await this.orderRepository.findOneBy({ number: Number(number) });
 
-    Object.assign(order, createdOrderDto);
+    if(createdOrderDto && order) {
+      Object.assign(order, createdOrderDto);
+    }
 
     await this.orderRepository.save(order);
 

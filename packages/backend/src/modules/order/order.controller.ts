@@ -9,9 +9,8 @@ import {
   Patch,
   Query,
 } from '@nestjs/common';
-import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
-import { AuthenticatedRequest, ROLE, STATUS, TWatchStatus } from 'types';
+import { AuthenticatedRequest, STATUS, TWatchStatus } from 'types';
 import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 import { CreatedOrderDto, OrderService } from '../order';
 

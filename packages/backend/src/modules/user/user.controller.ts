@@ -10,10 +10,9 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
-import { Role, RolesGuard } from 'auth/roles-strategy';
 import { JwtAuthGuard } from 'auth/jwt-strategy';
 import { UserService, CreateUserDto } from '../user';
-import { IPassword, ROLE } from 'types';
+import { IPassword } from 'types';
 import { ROUTE_CONSTANTS as ROUTE } from '@constants';
 import { FileInterceptor } from '@nestjs/platform-express';
 

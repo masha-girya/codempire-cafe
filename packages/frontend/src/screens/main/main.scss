@@ -13,3 +13,15 @@
     margin-top: 42px;
   }
 }
+
+.test-button {
+  padding: 10px;
+  border: 1px solid blue;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: blue;
+    color: white;
+  }
+}

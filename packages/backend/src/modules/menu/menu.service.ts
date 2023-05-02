@@ -187,7 +187,7 @@ export class MenuService {
   async updateMenu(
     id: string,
     updatedMenuDto: UpdatedMenuDto,
-    bufferImage: Buffer,
+    bufferImage: Buffer | null,
   ) {
     const { allergensToAdd, ingredientsToAdd, userId } = updatedMenuDto;
     const menu = await this.getMenuById(id);
