@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/codempire-cafe/static/css/main.904d2a1c.css",
+    "main.js": "/codempire-cafe/static/js/main.586adc2a.js",
+    "static/media/Roboto-Medium.ttf": "/codempire-cafe/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
+    "static/media/Roboto-Regular.ttf": "/codempire-cafe/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/cafe-logo-white.svg": "/codempire-cafe/static/media/cafe-logo-white.317e63d71940e5aecad13cb409089479.svg",
+    "static/media/cafe-logo.svg": "/codempire-cafe/static/media/cafe-logo.51d458199716e56777b4f07f054f0f51.svg",
+    "static/media/cart.svg": "/codempire-cafe/static/media/cart.4e98f4b7f50e6be0f2f71c10d3239d17.svg",
+    "static/media/profile.svg": "/codempire-cafe/static/media/profile.f24cb1aae74a33603cac75dcc1d3fbb7.svg",
+    "static/media/search.svg": "/codempire-cafe/static/media/search.cddeca2113a6c05a4d013cc3c76742d1.svg",
+    "static/media/orders.svg": "/codempire-cafe/static/media/orders.d90414c14c4153b75fb61ebb4459e0a0.svg",
+    "static/media/home.svg": "/codempire-cafe/static/media/home.43659c2e6ec774b4040ac9453ce63cd9.svg",
+    "static/media/eye-cross.svg": "/codempire-cafe/static/media/eye-cross.68f76905a0b14ed503b4f9158b832791.svg",
+    "index.html": "/codempire-cafe/index.html",
+    "static/media/notifications.svg": "/codempire-cafe/static/media/notifications.2136963744e5e02dd22824b32c71327a.svg",
+    "static/media/eye.svg": "/codempire-cafe/static/media/eye.c8a3d1a020099fc3a4fa9b581ee3aab1.svg",
+    "static/media/chip.svg": "/codempire-cafe/static/media/chip.e520b85cb7476f412e5694b566992e48.svg",
+    "static/media/copy.svg": "/codempire-cafe/static/media/copy.b265f26bb92030b52b924cc981d9f3d1.svg",
+    "static/media/star-empty.svg": "/codempire-cafe/static/media/star-empty.00bbb70c82351cd28576.svg",
+    "static/media/start-half.svg": "/codempire-cafe/static/media/start-half.61c520558769d7f1ffc8.svg",
+    "static/media/close.svg": "/codempire-cafe/static/media/close.9cf86486e9cf65a872ce26d216ed7884.svg",
+    "static/media/star.svg": "/codempire-cafe/static/media/star.576e2a106888f98f2e1b.svg",
+    "static/media/check-mark.svg": "/codempire-cafe/static/media/check-mark.3ae4731f1f92ad5586bb9a235cb8d432.svg",
+    "static/media/right-arrow.svg": "/codempire-cafe/static/media/right-arrow.0d20529a6248b57f44419898f829dcac.svg",
+    "static/media/minus.svg": "/codempire-cafe/static/media/minus.a565115297ad0858cc21d66a6ae8258e.svg",
+    "static/media/filter.svg": "/codempire-cafe/static/media/filter.69172ba5230084db936f6c5118d3f4da.svg",
+    "static/media/back.svg": "/codempire-cafe/static/media/back.1ce995825752cd82b7b2652f591e93b4.svg",
+    "static/media/plus.svg": "/codempire-cafe/static/media/plus.1710b2afac6a2569b6e8d98da45b1269.svg",
+    "static/media/date-picker.svg": "/codempire-cafe/static/media/date-picker.2703cbafb631d0962c4dad0ae7b27a9b.svg",
+    "static/media/select-icon.svg": "/codempire-cafe/static/media/select-icon.e83841670dc71f0b7df2c6b86c5fc85c.svg"
+  },
+  "entrypoints": [
+    "static/css/main.904d2a1c.css",
+    "static/js/main.586adc2a.js"
+  ]
+}
