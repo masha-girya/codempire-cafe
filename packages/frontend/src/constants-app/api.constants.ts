@@ -1,5 +1,6 @@
 export const API_CONSTANTS = {
-  BASE_URL: 'https://codempire-cafe.herokuapp.com',
+  // BASE_URL: 'https://localhost:3333',
+  BASE_URL: 'https://codempire-cafe.onrender.com',
   API_CURRENCY_URL: 'https://min-api.cryptocompare.com/data/price',
   REGISTRATION_URL: '/user/register',
   LOGIN_URL: '/auth/login',

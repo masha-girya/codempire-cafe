@@ -20,6 +20,8 @@ export const NotificationsManager = () => {
             />))
         )
       }
+
+      {!isLoading && ordersDate.length === 0 && <h4>No notifications yet</h4>}
     </>
   );
 };

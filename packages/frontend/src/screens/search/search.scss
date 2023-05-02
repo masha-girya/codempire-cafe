@@ -45,7 +45,7 @@
   &__menu {
     position: absolute;
     top: 105%;
-    z-index: 2;
+    z-index: var.$index-bottom-bar;
   
     width: var.$width-main - 17 * 2;
     min-height: 50px;

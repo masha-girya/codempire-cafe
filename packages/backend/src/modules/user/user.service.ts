@@ -97,6 +97,10 @@ export class UserService {
 
   async changePassword(id: string, passwords: IPassword) {
     const user = await this.usersRepository.findOneBy({ id });
+
+    if(!user) {
+      return new NotFoundException();
+    }
     const { oldPass, newPass} = passwords;
 
     const isOldPassValid = await this.hashService.comparePassword(oldPass, user.password);
@@ -109,7 +113,7 @@ export class UserService {
 
     await this.usersRepository.save(user);
 
-    const token = await this.authService.login(user);
+    const token = await this.authService.login(user as CreateUserDto);
 
     return { token };
   }

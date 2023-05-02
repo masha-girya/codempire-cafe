@@ -20,8 +20,8 @@ export const ProductList = (props: IProps) => {
 
   return (
     <div className="product-list">
-      {isLoading && (
-        <div  className="product-list__loader">
+      {isLoading && !products.length && (
+        <div className="product-list__loader">
           <Loader isDark={true} />
         </div>)
       }

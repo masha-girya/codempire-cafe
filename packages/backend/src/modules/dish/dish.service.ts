@@ -202,7 +202,7 @@ export class DishService {
   async updateDish(
     id: string,
     updatedDishDto: UpdatedDishDto,
-    bufferImage: Buffer,
+    bufferImage: Buffer | null,
   ) {
     const {
       allergensToAdd,
@@ -255,7 +255,7 @@ export class DishService {
       relations: ['orderDishes'],
     });
 
-    if(dish.orderDishes.length > 0) {
+    if(dish && dish.orderDishes.length > 0) {
       await this.removeDishOrder(dish);
     }
 

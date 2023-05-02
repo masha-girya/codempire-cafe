@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "tsc",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
     "linter": "eslint . --ignore-path .gitignore",
     "precommit": "lint-staged",
