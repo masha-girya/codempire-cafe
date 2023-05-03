@@ -1,0 +1,18 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.profile-settings {
+  margin-top: 0;
+
+  @include mixins.profileSettings();
+
+  &__title {
+    padding: 16px;
+
+    @include mixins.fontSubtitle2Bold();
+  }
+
+  &__link {
+    @include mixins.profileField();
+  }
+}

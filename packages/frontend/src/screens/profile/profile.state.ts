@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRequest, useUser } from 'utils/hooks';
 import { removeLocalItems } from 'utils/helpers';
-import { deleteUser, validateToken } from 'utils/api';
 import { useAppSelector, useAppDispatch } from 'store';
 import { cartActions } from 'store/features';
 import {
@@ -13,9 +12,7 @@ import {
 export const useProfile = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { id, name, phone, role, avatar, surname } = useAppSelector(
-    (state) => state.user
-  );
+  const user = useAppSelector(state => state.user);
   const [isUser, setIsUser] = useState(true);
   const { sendUniqueRequest } = useRequest();
   const { checkUser, removeUser } = useUser();
@@ -23,7 +20,7 @@ export const useProfile = () => {
   const loadUser = useCallback(async () => {
     const user = await sendUniqueRequest(checkUser);
 
-    if (!user) {
+    if(!user) {
       setIsUser(false);
     }
   }, [isUser]);
@@ -48,35 +45,14 @@ export const useProfile = () => {
     removeUser();
   }, []);
 
-  const handleDeleteAccount = async () => {
-    await validateToken();
-
-    await sendUniqueRequest(async () => {
-      deleteUser(id);
-    });
-
-    removeLocalItems([
-      STORAGE.ACCESS_TOKEN,
-      STORAGE.CART_PRICE,
-      STORAGE.CART_PRODUCTS,
-    ]);
-
-    navigate(ROUTE.PROFILE_LOGOUT);
-  };
-
   const handleOpenAddress = useCallback(() => {
     navigate(ROUTE.PROFILE_CHANGE_ADDRESS);
   }, []);
 
   return {
-    name,
-    phone,
-    role,
-    avatar,
-    surname,
+    user,
     isUser,
     handleOpenAddress,
-    handleDeleteAccount,
     handleLogOut,
     handleModalOpen,
   };

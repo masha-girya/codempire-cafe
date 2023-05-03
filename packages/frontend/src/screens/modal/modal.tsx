@@ -9,6 +9,7 @@ import {
   EditUserModal,
   ChangePassModal,
   EditAddressModal,
+  DeleteAccount,
 } from '../../screens/profile';
 import { Order } from 'screens/orders';
 import { Payment } from 'screens/payment';
@@ -28,6 +29,7 @@ export const Modal = () => {
     isEditOnSuccess,
     isOrderNumber,
     isNotifications,
+    isDeleteAccount,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,
@@ -49,6 +51,7 @@ export const Modal = () => {
                 {isOrderNumber && `Order ${params.number}`}
                 {isNotifications && 'Notifications'}
                 {isPayment && 'Payment'}
+                {isDeleteAccount && 'Delete account'}
               </h1>
 
               <button
@@ -74,6 +77,8 @@ export const Modal = () => {
             {isNotifications && <NotificationsManager />}
 
             {isPayment && <Payment />}
+
+            {isDeleteAccount && <DeleteAccount />}
           </div>)
       }
     </div>

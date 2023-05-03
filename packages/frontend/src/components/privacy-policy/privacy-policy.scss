@@ -1,0 +1,49 @@
+@use 'styles/mixins';
+@use 'styles/variables' as var;
+
+.privacy-policy {
+  max-width: 900px;
+  margin: 0 auto 100px;
+
+  &__title {
+    margin-top: 40px;
+    
+    @include mixins.fontH1();
+  }
+
+  &__link {
+    display: inline-block;
+
+    color: var.$color-text-button;
+
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__subtitle {
+    margin-top: 20px;
+
+    @include mixins.fontH3();
+    font-weight: var.$font-weight-regular;
+  }
+
+  &__list-box {
+    margin-top: 30px;
+  }
+
+  &__list-title {
+    @include mixins.fontSubtitle1Bold();
+  }
+
+  &__list {
+    margin: 10px 0 25px;
+
+    & li {
+      @include mixins.fontSubtitle1();
+      letter-spacing: 0.5px;
+    }
+  }
+}

@@ -12,22 +12,20 @@ import { OrderMenuEntity, OrderMenuModule } from 'modules/order-menu';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'postgres',
-        username: DB.USERNAME,
-        password: DB.PASSWORD,
-        database: DB.NAME,
-        entities: [
-          UserEntity,
-          OrderEntity,
-          DishEntity,
-          MenuEntity,
-          OrderDishEntity,
-          OrderMenuEntity,
-        ],
-        synchronize: true,
-      }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      username: DB.USERNAME,
+      password: DB.PASSWORD,
+      database: DB.NAME,
+      entities: [
+        UserEntity,
+        OrderEntity,
+        DishEntity,
+        MenuEntity,
+        OrderDishEntity,
+        OrderMenuEntity,
+      ],
+      synchronize: true,
     }),
     HashModule,
     AuthModule,

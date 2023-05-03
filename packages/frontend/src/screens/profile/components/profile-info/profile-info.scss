@@ -1,0 +1,40 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.profile-info {
+  @include mixins.centerItems(flex-start, center);
+  flex-direction: column;
+
+  &__photo {
+    @include mixins.userPhoto(222px);
+  }
+
+  &__info {
+    width: max-content;
+    text-align: center;
+  }
+
+  &__username {
+    margin-top: 16px;
+
+    @include mixins.fontH1();
+    color: var.$color-text-main;
+    letter-spacing: 0.15px;
+  }
+
+  &__status {
+    margin-top: 8px;
+
+    @include mixins.fontCaption();
+    color: var.$color-text-main;
+    letter-spacing: 0.4px;
+  }
+
+  &__phone {
+    margin-top: 4px;
+
+    @include mixins.fontSubtitle2Bold();
+    color: var.$color-text-main;
+    letter-spacing: 0.15px;
+  }
+}

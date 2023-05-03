@@ -1,0 +1,21 @@
+@use 'styles/variables' as var;
+@use 'styles/mixins';
+
+.delete-account {
+  @include mixins.centerItems(center, center);
+  flex-direction: column;
+  row-gap: 20px;
+
+  &__title {
+    @include mixins.fontH2();
+  }
+
+  &__text {
+    @include mixins.fontSubtitle1();
+    color: var.$color-error;
+  }
+
+  &__actions {
+  @include mixins.centerItems(space-between, center);
+  }
+}

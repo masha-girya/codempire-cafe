@@ -3,7 +3,7 @@
 
 .header {
   position: sticky;
-  z-index: var.$index-modal;
+  z-index: var.$index-header;
 
   @include mixins.centerItems(center, center);
 

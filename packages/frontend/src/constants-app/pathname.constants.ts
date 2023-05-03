@@ -6,6 +6,7 @@ export const PATHNAME_CONSTANTS = {
   USER: 'user',
   PASSWORD: 'pass',
   ADDRESS: 'address',
+  DELETE: 'delete',
   CART: 'cart',
   ORDER: 'order-creation',
   NOTIFICATIONS: 'notifications',
