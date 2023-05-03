@@ -18,9 +18,7 @@ export const AuthForm = (props: IProps) => {
     isButtonDisabled,
     handleSkipClick,
     isLoading,
-  } = useAuthForm({
-    isSignUp,
-  });
+  } = useAuthForm({ isSignUp });
 
   const {
     touched,
@@ -79,7 +77,7 @@ export const AuthForm = (props: IProps) => {
         <MainButton
           text={isSignUp ? 'Create' : 'Log in'}
           type="submit"
-          isDisabled={isButtonDisabled}
+          isDisabled={isButtonDisabled || isLoading}
           isLoading={isLoading}
         />
       </div>

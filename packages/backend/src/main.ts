@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
-  const PORT = DEV.PORT_DEV || '3333';
+  const PORT = DEV.PORT|| '5000';
   await app.listen(PORT);
 
   // eslint-disable-next-line no-console

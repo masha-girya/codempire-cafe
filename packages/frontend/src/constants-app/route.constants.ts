@@ -19,6 +19,7 @@ export const ROUTE_CONSTANTS = {
   PROFILE_EDIT_USER: '/profile/edit-user',
   PROFILE_CHANGE_PASS: '/profile/change-password',
   PROFILE_CHANGE_ADDRESS: '/profile/change-address',
+  PROFILE_DELETE_ACCOUNT: '/profile/delete-account',
   CART: 'cart',
   NOTIFICATIONS: 'notifications',
   ORDER: 'order-creation',
@@ -26,5 +27,6 @@ export const ROUTE_CONSTANTS = {
   ORDERS_WAITING: '/orders/waiting',
   ORDERS_COMPLETED: '/orders/completed',
   NUMBER: ':number',
-  PAYMENT: 'payment'
+  PAYMENT: 'payment',
+  PRIVACY_POLICY: '/privacy-policy',
 } as const;

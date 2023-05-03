@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from 'components/icon';
 import { MainButton } from 'components/button';
+import { API_CONSTANTS as API } from 'constants-app';
 import { useTransactionStatus } from './transaction-status.state';
 import './transaction-status.scss';
 
@@ -19,7 +21,14 @@ export const TransactionStatus = (props: IProps) => {
         <>
           <h2 className="transaction-status__status">Payment succeed! Transaction hash:</h2>
             <div className="transaction-status__hash">
-              <h5 className="transaction-status__result">{metaResponse}</h5>
+              <Link
+                target="_blank"
+                to={`${API.API_TX_URL}${metaResponse}`}
+                className="transaction-status__result"
+              >
+                {metaResponse}
+              </Link>
+
               <button
                 type="button"
                 onClick={handleCopy}

@@ -18,9 +18,9 @@ export const AuthLinks = (props: IProps) => {
         </Link>
       ) : (
         <>
-          <Link to={ROUTE.HOME} className="link">
+          {/* <Link to={ROUTE.HOME} className="link">
             Forgot password?
-          </Link>
+          </Link> */}
 
           <Link to={ROUTE.REGISTRATION} className="link">
             Sign up

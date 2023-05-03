@@ -24,12 +24,12 @@ export const EditAddressModal = (props: IProps) => {
     handleClose,
     handleCheckChange,
     handleSubmitAddress,
+    handleAddressAdd,
   } = useEditAddress({ setSuccess });
 
   const {
     values,
     handleSubmit,
-    handleChange,
   } = formik;
 
   return (
@@ -43,7 +43,7 @@ export const EditAddressModal = (props: IProps) => {
             isFullWidth={true}
             placeholder="Address"
             value={values.enteredAddress}
-            onChange={handleChange}
+            onChange={handleAddressAdd}
             helperText={error}
           />
         </form>

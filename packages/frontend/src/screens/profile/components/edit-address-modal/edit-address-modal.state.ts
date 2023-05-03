@@ -93,6 +93,12 @@ export const useEditAddress = (props: IProps) => {
     }
   };
 
+  const handleAddressAdd = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    formik.handleChange(event);
+    setCheckedAddresses((prev: string[]) => [...prev, value]);
+  };
+
   useEffect(() => {
     setError('');
   }, [formik.values]);
@@ -105,5 +111,6 @@ export const useEditAddress = (props: IProps) => {
     handleClose,
     handleCheckChange,
     handleSubmitAddress,
+    handleAddressAdd,
   };
 };

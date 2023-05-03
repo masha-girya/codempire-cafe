@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MainButton } from 'components/button';
 import { Input } from 'components/input';
 import { useChangePass } from './change-pass-modal.state';
@@ -37,10 +37,6 @@ export const ChangePassModal = (props: IProps) => {
               helperText={touched.oldPass && errors.oldPass}
             />
           </label>
-
-          <Link to="/" className="change-pass__forgot-pass">
-            Forgot password?
-          </Link>
 
           <label className="change-pass__form-label">
             Make up a new password

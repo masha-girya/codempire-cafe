@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Auth } from 'screens/auth';
 import { Error } from 'components/error';
+import { PrivacyPolicy } from 'components/privacy-policy';
 import { Main } from 'screens/main';
 import { ProductPage } from 'screens/product-page';
 import { Profile } from 'screens/profile';
@@ -32,7 +33,7 @@ const App: React.FC = () => {
       />
 
       {/* MAIN */}
-      <Route path={ROUTE.MAIN_PAGE}  element={<Main />}>
+      <Route path={ROUTE.MAIN_PAGE} element={<Main />}>
         <Route path={ROUTE.CART} element={<Modal />} />
         <Route path={ROUTE.ORDER} element={<Modal />} />
         <Route path={ROUTE.PAYMENT} element={<Modal />} />
@@ -104,6 +105,7 @@ const App: React.FC = () => {
         <Route path={ROUTE.PROFILE_EDIT_USER} element={<Modal />} />
         <Route path={ROUTE.PROFILE_CHANGE_PASS} element={<Modal />} />
         <Route path={ROUTE.PROFILE_CHANGE_ADDRESS} element={<Modal />} />
+        <Route path={ROUTE.PROFILE_DELETE_ACCOUNT} element={<Modal />} />
         <Route path={ROUTE.NOTIFICATIONS} element={<Modal />} />
       </Route>
 
@@ -140,6 +142,9 @@ const App: React.FC = () => {
 
       {/* ERROR */}
       <Route path={ROUTE.ERROR} element={<Error />} />
+
+      {/* PRIVACY POLICY */}
+      <Route path={ROUTE.PRIVACY_POLICY} element={<PrivacyPolicy />} />
     </Routes>
   );
 };

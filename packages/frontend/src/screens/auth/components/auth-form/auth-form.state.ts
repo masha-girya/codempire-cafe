@@ -62,7 +62,7 @@ export const useAuthForm = (props: IProps) => {
   };
 
   useEffect(() => {
-    if (values.email.length && values.password.length) {
+    if(values.email.length && values.password.length) {
       setIsButtonDisabled(false);
     } else {
       setIsButtonDisabled(true);

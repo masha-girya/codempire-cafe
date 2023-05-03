@@ -1,7 +1,9 @@
 export const API_CONSTANTS = {
-  // BASE_URL: 'https://localhost:3333',
+  // BASE_URL: 'http://localhost:3333',
   BASE_URL: 'https://codempire-cafe.onrender.com',
   API_CURRENCY_URL: 'https://min-api.cryptocompare.com/data/price',
+  API_TX_URL: 'https://goerli.etherscan.io/tx/',
+  API_LINKEDIN: 'https://www.linkedin.com/in/maria-girya/',
   REGISTRATION_URL: '/user/register',
   LOGIN_URL: '/auth/login',
   VALIDATE_TOKEN_URL: '/auth/profile',

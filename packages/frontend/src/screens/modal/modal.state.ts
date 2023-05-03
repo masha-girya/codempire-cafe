@@ -14,6 +14,7 @@ export const useModal = ({ pathname, params }: IProps) => {
   const isUser = pathname.includes(PATHNAME.USER);
   const isPass = pathname.includes(PATHNAME.PASSWORD);
   const isAddress = pathname.includes(PATHNAME.ADDRESS);
+  const isDeleteAccount = pathname.includes(PATHNAME.DELETE);
   const isOrder = pathname.includes(PATHNAME.ORDER);
   const isCart = pathname.includes(PATHNAME.CART);
   const isNotifications = pathname.includes(PATHNAME.NOTIFICATIONS);
@@ -47,6 +48,7 @@ export const useModal = ({ pathname, params }: IProps) => {
     isEditOnSuccess,
     isOrderNumber,
     isNotifications,
+    isDeleteAccount,
     setIsEditOnSuccess,
     handleModalClose,
     handleClose,

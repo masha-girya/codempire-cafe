@@ -30,13 +30,15 @@ export const Header = () => {
           {isUser
             ? <HeaderUser />
             : (
-              <Link to={ROUTE.HOME} className="header__menu">
-                <MainButton
-                  type="button"
-                  text="log in"
-                  isSmall={true}
-                />
-              </Link>)
+              <div className="header__menu">
+                <Link to={ROUTE.HOME}>
+                  <MainButton
+                    type="button"
+                    text="log in"
+                    isSmall={true}
+                  />
+                </Link>
+              </div>)
           }
         </div>
       </div>
