@@ -1,6 +1,6 @@
-Deployed on https://masha-girya.github.io/codempire-cafe/#/home/dishes
+# Deployed on https://masha-girya.github.io/codempire-cafe/#/home/dishes
 
-# Server and data base are hosted on a free trial of hosting with low speed, so you have to wait 1 minute for the first data fetching
+### Server and data base are hosted on a free trial with low speed, so you have to wait 1 minute for the first data fetching
 
 
 Everything else is simple:
