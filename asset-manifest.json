@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/codempire-cafe/static/css/main.904d2a1c.css",
-    "main.js": "/codempire-cafe/static/js/main.586adc2a.js",
+    "main.css": "/codempire-cafe/static/css/main.095badfc.css",
+    "main.js": "/codempire-cafe/static/js/main.d71adbbb.js",
     "static/media/Roboto-Medium.ttf": "/codempire-cafe/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
     "static/media/Roboto-Regular.ttf": "/codempire-cafe/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/cafe-logo-white.svg": "/codempire-cafe/static/media/cafe-logo-white.317e63d71940e5aecad13cb409089479.svg",
@@ -31,7 +31,7 @@
     "static/media/select-icon.svg": "/codempire-cafe/static/media/select-icon.e83841670dc71f0b7df2c6b86c5fc85c.svg"
   },
   "entrypoints": [
-    "static/css/main.904d2a1c.css",
-    "static/js/main.586adc2a.js"
+    "static/css/main.095badfc.css",
+    "static/js/main.d71adbbb.js"
   ]
 }
