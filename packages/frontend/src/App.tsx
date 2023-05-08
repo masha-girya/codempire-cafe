@@ -10,6 +10,7 @@ import { Modal } from 'screens/modal';
 import { Logout } from 'screens/logout';
 import { Orders } from 'screens/orders';
 import { ROUTE_CONSTANTS as ROUTE } from 'constants-app';
+import { withModalAutoClose } from 'screens/connecting-modal';
 
 const App: React.FC = () => {
   return (
@@ -149,4 +150,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default withModalAutoClose(App);
