@@ -10,17 +10,13 @@ The project is using yarn, so just type this command to install all packages (ya
 If there is some issues with network timeout, than run:
 `yarn install --network-timeout 1000000000`
 
-### `cd packages/backend/ && yarn start:dev`
-
-To start the server
-
+To start the frontend:
 ### `cd packages/frontend/ && yarn start`
 
-To start the frontend
-By default frontend uses hosted server as Base link. To change it to local server just go to the:
+To connect to the backend. By default frontend uses hosted server as Base link. To change it to local server just go to the:
 1. packages/frontend/constants-app/api-constants.ts
-2. comment `BASE_URL: 'https://codempire-cafe.onrender.com'`
-3. uncomment `BASE_URL: 'http://localhost:3333'`
+2. comment `BASE_URL: 'http://localhost:3333'`
+3. uncomment `BASE_URL: 'https://codempire-cafe.onrender.com'`
 
 Cool! It's ready now!🚀
 

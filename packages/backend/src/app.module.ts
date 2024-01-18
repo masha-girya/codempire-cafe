@@ -17,6 +17,7 @@ import { OrderMenuEntity, OrderMenuModule } from 'modules/order-menu';
       username: DB.USERNAME,
       password: DB.PASSWORD,
       database: DB.NAME,
+      host: DB.HOST,
       entities: [
         UserEntity,
         OrderEntity,
