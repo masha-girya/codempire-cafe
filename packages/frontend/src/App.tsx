@@ -19,7 +19,7 @@ const App: React.FC = () => {
 
       {/* AUTH */}
       <Route path={ROUTE.HOME} element={
-          <Auth isSignUp={false}isStart={true} />
+          <Auth isSignUp={false} isStart={true} />
         }
       />
 

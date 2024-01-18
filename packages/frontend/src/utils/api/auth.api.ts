@@ -21,6 +21,7 @@ export async function login(email: string, password: string) {
     email,
     password,
   });
+  console.log(response);
 
   setLocalItem(STORAGE.ACCESS_TOKEN, response.data.access_token);
 

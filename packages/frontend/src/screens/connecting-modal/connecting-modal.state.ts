@@ -3,7 +3,7 @@ import { getCategories } from 'utils/api';
 import { useRequest } from 'utils/hooks';
 
 export const useConnecting = () => {
-  const [ showModal, setShowModal ] = useState(true);
+  const [ showModal, setShowModal ] = useState(false);
   const firstConnection = sessionStorage.getItem('connected');
   const { sendUniqueRequest } = useRequest();
 
@@ -26,7 +26,7 @@ export const useConnecting = () => {
     return () => {
       sessionStorage.clear();
     };
-  }, []);
+  }, [firstConnection]);
 
   return { showModal };
 };
