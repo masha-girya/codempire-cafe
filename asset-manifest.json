@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/codempire-cafe/static/css/main.ebc6314d.css",
-    "main.js": "/codempire-cafe/static/js/main.2b3e8f8e.js",
+    "main.css": "/codempire-cafe/static/css/main.7cf50ec5.css",
+    "main.js": "/codempire-cafe/static/js/main.5fa39d9e.js",
     "static/media/Roboto-Medium.ttf": "/codempire-cafe/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
     "static/media/Roboto-Regular.ttf": "/codempire-cafe/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
     "static/media/cafe-logo-white.svg": "/codempire-cafe/static/media/cafe-logo-white.317e63d71940e5aecad13cb409089479.svg",
@@ -28,10 +28,12 @@
     "static/media/back.svg": "/codempire-cafe/static/media/back.1ce995825752cd82b7b2652f591e93b4.svg",
     "static/media/plus.svg": "/codempire-cafe/static/media/plus.1710b2afac6a2569b6e8d98da45b1269.svg",
     "static/media/date-picker.svg": "/codempire-cafe/static/media/date-picker.2703cbafb631d0962c4dad0ae7b27a9b.svg",
-    "static/media/select-icon.svg": "/codempire-cafe/static/media/select-icon.e83841670dc71f0b7df2c6b86c5fc85c.svg"
+    "static/media/select-icon.svg": "/codempire-cafe/static/media/select-icon.e83841670dc71f0b7df2c6b86c5fc85c.svg",
+    "main.7cf50ec5.css.map": "/codempire-cafe/static/css/main.7cf50ec5.css.map",
+    "main.5fa39d9e.js.map": "/codempire-cafe/static/js/main.5fa39d9e.js.map"
   },
   "entrypoints": [
-    "static/css/main.ebc6314d.css",
-    "static/js/main.2b3e8f8e.js"
+    "static/css/main.7cf50ec5.css",
+    "static/js/main.5fa39d9e.js"
   ]
 }
